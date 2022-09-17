@@ -13,7 +13,7 @@ class UserController {
 
             if (userExists) {
                 return response.status(422).json({ 
-                    error: "Oops",
+                    error: "Oops",  
                     message: "User already exists"
                 })
             }

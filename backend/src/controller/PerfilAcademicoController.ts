@@ -54,7 +54,7 @@ class PerfilAcademicoController {
             if (!userId) {
                 return response.status(404).json({ 
                     error: "Oops",
-                    message: "Something wrong happened, try again"
+                    message: "Id not exists"
                 })
             }            
             

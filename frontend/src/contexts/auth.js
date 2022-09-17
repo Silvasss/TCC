@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 
 export const AuthContext = createContext({});
@@ -8,20 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const [logado, setLogado] = useState();
-
-  useEffect(() => {
-    const userToken = localStorage.getItem("user_token");
-
-    const usersStorage = localStorage.getItem("users_bd");
-
-    if (userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.filter(
-        (user) => user.email === JSON.parse(userToken).email
-      );
-
-      if (hasUser) setUser(hasUser[0]);
-    }
-  }, []);
 
 
   const signin = (email, password) => {
@@ -35,48 +21,48 @@ export const AuthProvider = ({ children }) => {
       }
     })();
 
-    if (logado) {
-      if (logado) {
-        const token = Math.random().toString(36).substring(2);
+    if (logado) {      
+      const token = Math.random().toString(36).substring(2);
 
-        localStorage.setItem("user_token", JSON.stringify({ email, token }));
+      localStorage.setItem("user_token", JSON.stringify({ email, token }));
 
-        setUser({ email, password });
+      setUser({ email, password });
 
-        return;
-      } else {
-        return "E-mail ou senha incorretos";
-      }
+      return;
+      
     } else {
-      return "Usuário não cadastrado";
+      return "E-mail ou senha incorretos";
     }
   };
 
 
-  const signup = (email, password) => {
+  const signup = (name, email, password, cidade, pais) => {
     (async () => {
-      const result = await fetch('http://localhost:4000/user', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({email, password}) }).then(response => response.json());
+      const result = await fetch('http://localhost:4000/user', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({name, email, password, cidade, pais}) }).then(response => response.json());
       
       let resultApiRequest = result;
 
-      if (resultApiRequest['message'] === 'User acess successfully') {
+      if (resultApiRequest['message'] === 'User already exists"') {
+        setUser(false)
+      } else {
         setUser(true)
       }
     })();
 
-    const usersStorage = localStorage.getItem("users_bd");
-    const hasUser = usersStorage?.filter((user) => user.email === email);
 
-    if (hasUser?.length) {
+    const usersStorage = localStorage.getItem("users_bd");
+
+
+    if (!user) {
       return "Já tem uma conta com esse E-mail";
     }
 
     let newUser;
 
-    if (usersStorage) {
-      newUser = [...usersStorage, { email, password }];
+    if (user) {
+      newUser = [...usersStorage, { name, email, password, cidade, pais }];
     } else {
-      newUser = [{ email, password }];
+      newUser = [{ name, email, password, cidade, pais }];
     }
 
     localStorage.setItem("users_bd", JSON.stringify(newUser));

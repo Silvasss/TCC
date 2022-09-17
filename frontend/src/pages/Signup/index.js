@@ -11,7 +11,13 @@ const Signup = () => {
 
   const [emailConf, setEmailConf] = useState("");
 
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [name, setName] = useState("");
+
+  const [cidade, setCidade] = useState("");
+
+  const [pais, setPais] = useState("");
 
   const [error, setError] = useState("");
 
@@ -21,7 +27,7 @@ const Signup = () => {
 
 
   const handleSignup = () => {
-    if (!email | !emailConf | !senha) {
+    if (!email | !emailConf | !password | !name | !cidade | !pais) {
       setError("Preencha todos os campos");
 
       return;
@@ -31,7 +37,7 @@ const Signup = () => {
       return;
     }
 
-    const res = signup(email, senha);
+    const res = signup(name, email, password, cidade, pais);
 
     if (res) {
       setError(res);
@@ -47,9 +53,16 @@ const Signup = () => {
   return (
     <C.Container>
 
-      <C.Label>SISTEMA DE LOGIN</C.Label>
+      <C.Label>SISTEMA DE CADASTRO</C.Label>
 
       <C.Content>
+
+        <Input
+          type="name"
+          placeholder="Digite seu Nome"
+          value={name}
+          onChange={(e) => [setName(e.target.value), setError("")]}
+        />
 
         <Input
           type="email"
@@ -68,8 +81,22 @@ const Signup = () => {
         <Input
           type="password"
           placeholder="Digite sua Senha"
-          value={senha}
-          onChange={(e) => [setSenha(e.target.value), setError("")]}
+          value={password}
+          onChange={(e) => [setPassword(e.target.value), setError("")]}
+        />
+
+        <Input
+          type="cidade"
+          placeholder="Digite sua Cidade"
+          value={cidade}
+          onChange={(e) => [setCidade(e.target.value), setError("")]}
+        />
+
+        <Input
+          type="pais"
+          placeholder="Digite seu País"
+          value={pais}
+          onChange={(e) => [setPais(e.target.value), setError("")]}
         />
 
         <C.labelError>{error}</C.labelError>
