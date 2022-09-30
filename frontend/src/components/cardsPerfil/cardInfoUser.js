@@ -3,12 +3,17 @@ import Card from 'react-bootstrap/Card';
 
 
 function CardInfoUser() {
+  let userData = JSON.parse(localStorage.getItem('user_dados'))
+
+
   return (
     //<Card style={{ width: '38rem', marginLeft: "27%", marginTop: "-22%"}}>
     <Card style={{ width: '38rem'}}>
+
       <Card.Body style={{ width: '50rem'}}>   
         <p>Dados pessoais</p>
-        <div class="col-lg-9">
+
+        <div class="col-lg-9">          
           <div class="card mb-0">
             <div class="card-body">
 
@@ -17,7 +22,7 @@ function CardInfoUser() {
                   <p class="mb-0">Nome</p>
                 </div>
                 <div class="col-sm-7">
-                  <p class="text-muted mb-0">Johnatan Smith</p>
+                  <p class="text-muted mb-0">{userData['name']}</p>
                 </div>
               </div>
               
@@ -26,7 +31,7 @@ function CardInfoUser() {
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-7">
-                  <p class="text-muted mb-0">example@example.com</p>
+                  <p class="text-muted mb-0">{userData['email']}</p>
                 </div>
               </div>
               
@@ -44,7 +49,7 @@ function CardInfoUser() {
                   <p class="mb-0">Cidade</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Palmas</p>
+                  <p class="text-muted mb-0">{userData['cidade']}</p>
                 </div>
               </div>
               
@@ -53,7 +58,7 @@ function CardInfoUser() {
                   <p class="mb-0">País</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Brasil</p>
+                  <p class="text-muted mb-0">{userData['pais']}</p>
                 </div>
               </div>
 

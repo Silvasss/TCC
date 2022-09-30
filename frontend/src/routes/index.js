@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import Home from "../pages/Home";
 import ProfilePage from "../pages/Profile";
 import Signin from "../pages/Signin";
@@ -8,9 +7,13 @@ import Signup from "../pages/Signup";
 
 
 const Private = ({ Item }) => {
-  const { signed } = useAuth();
+  var dados = JSON.parse(localStorage.getItem('user_token'))
 
-  return signed > 0 ? <Item /> : <Signin />;
+  if (dados['token']) {
+    return 1 > 0 ? <Item /> : <Signin />;
+  } 
+
+  return 0 > 0 ? <Item /> : <Signin />;
 };
 
 
@@ -22,11 +25,15 @@ const RoutesApp = () => {
       <Fragment>        
         <Routes>
           <Route exact path="/home" element={<Private Item={Home} />} />
+
           <Route path="/" element={<Signin />} />
+
+          <Route path="/profile" element={<Private Item={ProfilePage} />} />
+
           <Route exact path="/signup" element={<Signup />} />
-          {//<Route path="*" element={<Signin />} />}
-}
-          <Route path="/profile" element={<ProfilePage />} />
+
+          <Route path="*" element={<Signin />} />
+        
         </Routes>
 
       </Fragment>

@@ -1,29 +1,31 @@
-import CardInfoAcademico from '../../components/CardInfoAcademico';
-import CardInfoProfissional from '../../components/CardInfoProfissional';
-import CardInfoUser from '../../components/cardInfoUser';
-import CardUser from '../../components/cardUser';
-import NavBar from '../../components/navBar';
-import * as C from "./styles";
+import CardInfoProfissional from "../../components/cardsPerfil/CardInfoProfissional";
+import CardInfoAcademico from "../../components/cardsPerfil/CardInfoAcademico";
+import CardInfonUser from "../../components/cardsPerfil/cardInfoUser";
+import CardUser from "../../components/cardsPerfil/cardUser";
+import NavBar from "../../components/navigation/navBar";
+import "./styles.css";
 
 
-const ProfilePage = () => {
+const ProfilePage = () => { 
+  
   return (
-    <div>
-      <div>
+    <div class="parent">
+
+      <div class="div1"> 
         <NavBar/>
       </div>
 
-      <div>
+      <div class="div2"> 
         <CardUser/>
       </div>
-      
-      <C.div>
-        <CardInfoUser/>
+
+      <div class="div3"> 
+        <CardInfonUser/>
 
         <CardInfoAcademico/>
 
         <CardInfoProfissional/>
-      </C.div>
+      </div>
 
     </div>
   );

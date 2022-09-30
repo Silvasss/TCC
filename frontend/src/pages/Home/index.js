@@ -1,23 +1,36 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import useAuth from "../../hooks/useAuth";
-import * as C from "./styles";
+import "./styles.css";
+
+import CardInfoProfissional from "../../components/cardsPerfil/CardInfoProfissional";
+import CardInfoAcademico from "../../components/cardsPerfil/CardInfoAcademico";
+import CardInfonUser from "../../components/cardsPerfil/cardInfoUser";
+import CardUser from "../../components/cardsPerfil/cardUser";
+import NavBar from "../../components/navigation/navBar";
+
 
 
 const Home = () => {
-  const { signout } = useAuth();
-
-  const navigate = useNavigate();
-
+  
   return (
-    <C.Container>
+    <div class="parent">
 
-      <C.Title>Home</C.Title>
+      <div class="div1"> 
+        <NavBar/>
+      </div>
 
-      <Button Text="Sair" onClick={() => [signout(), navigate("/")]}>Sair</Button>
+      <div class="div2"> 
+        <CardUser/>
+      </div>
 
-    </C.Container>
+      <div class="div3"> 
+        <CardInfonUser/>
+
+        <CardInfoAcademico/>
+
+        <CardInfoProfissional/>
+      </div>
+
+    </div>    
   );
 };
 

@@ -1,8 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import FindPerfilProfissonal from '../../contexts/findPerfilProfissonal';
 
 
 function CardInfoProfissional() {
+  let userData = JSON.parse(localStorage.getItem('user_dados'))
+
+  FindPerfilProfissonal(userData['idPerfil'])
+
+  let userDataAcademico = JSON.parse(localStorage.getItem('user_perfilprofissonal'))
+
+
   return (
     //<Card style={{ width: '38rem', marginLeft: "27%", marginTop: "1%"}}>
     <Card style={{ width: '38rem'}}>
@@ -18,7 +26,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">Empresa</p>
                 </div>
                 <div class="col-sm-7">
-                  <p class="text-muted mb-0">Tlab - SQUAD sob medida</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['empresa']}</p>
                 </div>
               </div>
               
@@ -27,7 +35,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">Cargo / Função</p>
                 </div>
                 <div class="col-sm-7">
-                  <p class="text-muted mb-0">Gestão da Tecnologia da Informação</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['cargo']}</p>
                 </div>
               </div>
               
@@ -36,7 +44,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">Ano de início</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">17/03/2023</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['anoInicio']}</p>
                 </div>
               </div>
               
@@ -45,7 +53,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">Ano de saída</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">01/06/2032</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['anoSaida'] ? userDataAcademico[0]['anoSaida'] : 'Em contrato'}</p>
                 </div>
               </div>
 
@@ -54,7 +62,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">Cidade</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Sinop</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['cidade']}</p>
                 </div>
               </div>
               
@@ -63,7 +71,7 @@ function CardInfoProfissional() {
                   <p class="mb-0">País</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Brasil</p>
+                  <p class="text-muted mb-0">{userDataAcademico[0]['pais']}</p>
                 </div>
               </div>
 

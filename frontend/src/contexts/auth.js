@@ -7,28 +7,30 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
-  const [logado, setLogado] = useState();
-
 
   const signin = (email, password) => {
     (async () => {
-      const result = await fetch('http://localhost:4000/auth', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({email, password}) }).then(response => response.json());
-      
-      let resultApiRequest = result;
+        // Consumindo API
+        const result = await fetch('http://localhost:4000/auth', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({email, password}) }).then(response => response.json());
+        
+        // Recebendo o resultado da API
+        // Comparando se os dados estão corretos, caso sim a variável 'user' recebe True      
+        if (result['message'] === 'User acess successfully') {
+          setUser(true)
 
-      if (resultApiRequest['message'] === 'User acess successfully') {
-        setLogado(true)
-      }
+          const result2 = await fetch('http://localhost:4000/findUser', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({"id":result['userExists']['_id']}) }).then(response => response.json());
+          
+          localStorage.setItem("user_dados", JSON.stringify( result2['user'] ));           
+        }
     })();
+    
+    if (user) {      
+      let token = Math.random().toString(36).substring(2);
 
-    if (logado) {      
-      const token = Math.random().toString(36).substring(2);
-
-      localStorage.setItem("user_token", JSON.stringify({ email, token }));
-
-      setUser({ email, password });
-
-      return;
+      localStorage.setItem("user_token", JSON.stringify({ email, token}));
+      
+      // Retorno com nada
+      return true;
       
     } else {
       return "E-mail ou senha incorretos";
@@ -38,11 +40,12 @@ export const AuthProvider = ({ children }) => {
 
   const signup = (name, email, password, cidade, pais) => {
     (async () => {
+      // Consumindo API
       const result = await fetch('http://localhost:4000/user', {method: 'POST',headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({name, email, password, cidade, pais}) }).then(response => response.json());
-      
-      let resultApiRequest = result;
-
-      if (resultApiRequest['message'] === 'User already exists"') {
+       
+      // Recebendo o resultado da API
+      // Comparando se o usuário existe, caso sim a variável 'user' recebe false      
+      if (result['message'] === 'User already exists"') {
         setUser(false)
       } else {
         setUser(true)
@@ -50,23 +53,17 @@ export const AuthProvider = ({ children }) => {
     })();
 
 
-    const usersStorage = localStorage.getItem("users_bd");
-
-
+    // Verifica se o valor da variável 'user' e falso 
     if (!user) {
       return "Já tem uma conta com esse E-mail";
     }
+    
+    let newUser = [{ name, email, password, cidade, pais }];
+    
+    // Salva os dados do perfil academico no localStorage
+    localStorage.setItem("users_bd", JSON.stringify(newUser));  
 
-    let newUser;
-
-    if (user) {
-      newUser = [...usersStorage, { name, email, password, cidade, pais }];
-    } else {
-      newUser = [{ name, email, password, cidade, pais }];
-    }
-
-    localStorage.setItem("users_bd", JSON.stringify(newUser));
-
+    // Retorno com nada
     return;
   };
 

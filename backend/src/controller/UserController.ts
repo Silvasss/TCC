@@ -55,7 +55,9 @@ class UserController {
                 })
             }            
             
-            return response.status(201).json(user)
+            return response.status(200).json({
+                "message": "User acess successfully", user
+            })
         } catch (error) {
             return response.status(500).json({
                 error: "Something wrong happened, try again",
@@ -87,7 +89,7 @@ class UserController {
             }
 
             return response.status(200).json({
-                "message": "User acess successfully"
+                "message": "User acess successfully", userExists
             })
 
         } catch (error) {

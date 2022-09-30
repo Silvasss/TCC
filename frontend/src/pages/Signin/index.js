@@ -17,6 +17,7 @@ const Signin = () => {
 
   const [error, setError] = useState("");
 
+  const [logado, setLogado] = useState("");
 
   const handleLogin = () => {
     if (!email | !senha) {
@@ -26,17 +27,23 @@ const Signin = () => {
     }
 
     const res = signin(email, senha);
+    
+    const dados = JSON.parse(localStorage.getItem('user_token'))
 
-    if (res) {
-      setError(res);
-
-      return;
+    if (dados['token']) {
+      //navigate("/home")
+      setLogado(true)
+    } else {
+      if (res) {
+        setError(res);
+  
+        return;
+      } 
     }
-
-    navigate("/home");
+    
   };
 
-  return (
+  return logado ? navigate("/home") : (    
     <C.Container>
 
       <C.Label>SISTEMA DE LOGIN</C.Label>
