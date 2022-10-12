@@ -1,18 +1,14 @@
-import React from "react";
-import RoutesApp from "./routes";
-import { AuthProvider } from "./contexts/auth";
-import GlobalStyle from "./styles/global";
+import Landing from "./pages/landing";
 
 
-const App = () => (
-  <AuthProvider>
+function App() {
+  return (
+    <div>
+      <h1>Alumni</h1>
 
-    <RoutesApp />
-    
-    <GlobalStyle />
-
-  </AuthProvider>
-);
-
+      <Landing/>
+    </div>
+  );
+}
 
 export default App;
