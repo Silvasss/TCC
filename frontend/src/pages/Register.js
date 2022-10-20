@@ -1,5 +1,6 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState }  from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { Logo, FormRow, Alert } from '../components'
 import Wrapper from '../assets/wrappers/RegisterPage'
 import { useAppContext } from '../context/appContext'
@@ -13,10 +14,13 @@ const initialState = {
   showAlert: false
 }
 
+
 function Register() {
   const [values, setValues] = useState(initialState)
 
-  const {isLoading, showAlert, displayAlert} = useAppContext()
+  const navigate = useNavigate()
+
+  const { user, isLoading, showAlert, displayAlert, registerUser, loginUser, setubUser } = useAppContext()
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
@@ -36,7 +40,23 @@ function Register() {
 
       return
     }
+
+    const currentUser = {name, email, password}
+
+    if(isMember) {
+      setubUser({currentUser, endPoint:'login', alertText:'Login sucessful! Redirecting...'})
+    } else {
+      setubUser({currentUser, endPoint:'register', alertText:'User Created! Redirecting...'})
+    }    
   }
+
+  useEffect(() => {
+    if(user) {
+      setTimeout(() => {
+        navigate('/')
+      }, 3000)
+    }
+  }, [user, navigate])
 
   return (
     <Wrapper className='full-page'>
@@ -46,20 +66,24 @@ function Register() {
 
         <h3>{values.isMember ? 'Login' : 'Register'}</h3>
 
-        {values.showAlert && <Alert/>}
+        {showAlert && <Alert />}
 
-        {!values.isMember &&
-          // name field 
-          <FormRow type='text' name='nome' value={values.name} handleChange={handleChange}/>
-        }
-
+        {!values.isMember && (
+          <FormRow
+            type='text'
+            name='name'
+            value={values.name}
+            handleChange={handleChange}
+          />
+        )}
+        
         {/* email field */}
         <FormRow type='email' name='email' value={values.email} handleChange={handleChange}/>
 
         {/* password field */}
         <FormRow type='password' name='password' value={values.password} handleChange={handleChange}/>
 
-        <button type='submit' className='btn btn-block'>Conecte-se</button>
+        <button type='submit' className='btn btn-block' disabled={isLoading}>Conecte-se</button>
 
         <p>
           {values.isMember ? 'Não tem uma conta?' : 'Já tem uma conta?'}
