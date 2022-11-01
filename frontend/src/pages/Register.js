@@ -20,7 +20,7 @@ function Register() {
 
   const navigate = useNavigate()
 
-  const { user, isLoading, showAlert, displayAlert, registerUser, loginUser, setubUser } = useAppContext()
+  const { user, isLoading, showAlert, displayAlert, setubUser } = useAppContext()
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })

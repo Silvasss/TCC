@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react'
+import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 
 import reducer from './reducer'
@@ -13,7 +13,9 @@ import {
     LOGIN_USER_ERROR,
     SETUP_USER_BEGIN,
     SETUP_USER_SUCESS,
-    SETUP_USER_ERROR
+    SETUP_USER_ERROR,
+    TOGGLE_SIDEBAR,
+    LOGOUT_USER
 } from "./actions"
 
 
@@ -30,7 +32,8 @@ export const initialState = {
     user: user ? JSON.parse(user) : null,
     token: token,
     userLocation: userLocation || '',
-    jobLocation: userLocation || ''
+    jobLocation: userLocation || '',
+    showSideBar: false
 }
 
 
@@ -137,8 +140,18 @@ const AppProvider = ({ children }) => {
         clearAlert()
     }
 
+    const toggleSideBar = () => {
+        dispatch({type: TOGGLE_SIDEBAR})
+    }
 
-    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser}}>{children}</AppContext.Provider>)
+    const logoutUser = () => {
+        dispatch({type: LOGOUT_USER})
+
+        removeUserFromLocalStorage()
+    }
+
+
+    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser, toggleSideBar, logoutUser}}>{children}</AppContext.Provider>)
 }
 
 
