@@ -15,7 +15,10 @@ import {
     SETUP_USER_SUCESS,
     SETUP_USER_ERROR,
     TOGGLE_SIDEBAR,
-    LOGOUT_USER
+    LOGOUT_USER,
+    UPDATE_USER_BEGIN,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_ERROR
 } from "./actions"
 
 
@@ -41,6 +44,37 @@ const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+
+    const authFetch = axios.create({
+        baseURL: '/api/v1',
+        headers: {
+            Authorization: `Bearer ${state.token}`
+        }
+    })
+
+    authFetch.interceptors.request.use(
+        (config) => {
+            config.headers.common['Authorization'] = `Bearer ${state.token}`
+
+            return config
+        },
+        (error) => {
+            return Promise.reject(error)
+        }
+    )
+
+    authFetch.interceptors.response.use(
+        (response) => {
+            return response
+        },
+        (error) => {
+            if (error.response.status === 401) {
+                logoutUser()
+            }
+
+            return Promise.reject(error)
+        }
+    )
 
     const displayAlert = () => {
         dispatch({type: DISPLAY_ALERT})
@@ -150,8 +184,27 @@ const AppProvider = ({ children }) => {
         removeUserFromLocalStorage()
     }
 
+    const updateUser = async (currentUser) => {
+        dispatch({ type: UPDATE_USER_BEGIN })
 
-    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser, toggleSideBar, logoutUser}}>{children}</AppContext.Provider>)
+        try {
+            const {data} = await authFetch.patch('/auth/updateUser', currentUser)
+
+            const { user, location, token } = data
+
+            dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, location, token },})
+
+            addUserToLocalStorage({ user, location, token })
+        } catch (error) {
+            console.log(error)
+            if (error.response.status !== 401) {
+                dispatch({ type: UPDATE_USER_ERROR, payload: { msg: error.response.data.msg },})
+            }       
+        }
+    }
+
+
+    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser, toggleSideBar, logoutUser, updateUser}}>{children}</AppContext.Provider>)
 }
 
 
