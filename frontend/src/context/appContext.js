@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer, useContext, useEffect } from 'react'
 import axios from 'axios'
 
 import reducer from './reducer'
@@ -18,7 +18,14 @@ import {
     LOGOUT_USER,
     UPDATE_USER_BEGIN,
     UPDATE_USER_SUCCESS,
-    UPDATE_USER_ERROR
+    UPDATE_USER_ERROR,
+    HANDLE_CHANGE,
+    CLEAR_VALUES,
+    CREATE_JOB_BEGIN,
+    CREATE_JOB_SUCCESS,
+    CREATE_JOB_ERROR,
+    GET_JOBS_BEGIN, 
+    GET_JOBS_SUCCESS
 } from "./actions"
 
 
@@ -36,7 +43,20 @@ export const initialState = {
     token: token,
     userLocation: userLocation || '',
     jobLocation: userLocation || '',
-    showSideBar: false
+    showSideBar: false,
+    isEditing: false,
+    editJobId: '',
+    position: '',
+    company: '',
+    jobLocation: userLocation || '',
+    jobTypeOptions: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
+    jobType: 'full-time',
+    statusOptions: ['Atual', 'Anterior', 'Pendente'],
+    status: 'Pendente',
+    jobs: [],
+    totalJobs: 0,
+    numOfPages: 1,
+    page: 1,
 }
 
 
@@ -203,8 +223,71 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    const handleChange = ({ name, value }) => {
+        dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
+    }
 
-    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser, toggleSideBar, logoutUser, updateUser}}>{children}</AppContext.Provider>)
+    const clearValues = () => {
+        dispatch({ type: CLEAR_VALUES })
+    }
+
+    const createJob = async () => {
+        dispatch({ type: CREATE_JOB_BEGIN })
+
+        try {
+            const { position, company, jobLocation, jobType, status } = state
+
+            await authFetch.post('/jobs', {position, company, jobLocation, jobType, status})
+
+            dispatch({ type: CREATE_JOB_SUCCESS })
+
+            dispatch({ type: CLEAR_VALUES })
+        } catch (error) {
+            if (error.response.status === 401) {
+                return dispatch({type: CREATE_JOB_ERROR, payload: { msg: error.response.data.msg },})
+            }
+        }
+
+        clearAlert()
+    }
+    
+    const getJobs = async () => {    
+        let url = `/jobs`
+
+        dispatch({ type: GET_JOBS_BEGIN })
+
+        try {
+            const { data } = await authFetch(url)
+
+            const { jobs, totalJobs, numOfPages } = data
+
+            dispatch({
+                type: GET_JOBS_SUCCESS,
+                payload: {
+                    jobs,
+                    totalJobs,
+                    numOfPages,
+                },
+            })
+        } catch (error) {
+            console.log(error.response)
+
+            // qualquer erro o usuário e desconectado
+            //logoutUser()
+        }
+
+        clearAlert()
+    }
+
+    const setEditJob = (id) => {
+        console.log(`set edit job : ${id}`)
+    }
+
+    const deleteJob = (id) => {
+        console.log(`delete job : ${id}`)        
+    }
+
+    return (<AppContext.Provider value={{...state, displayAlert, registerUser, loginUser, setubUser, toggleSideBar, logoutUser, updateUser, handleChange, clearValues, createJob, getJobs, setEditJob, deleteJob}}>{children}</AppContext.Provider>)
 }
 
 

@@ -29,7 +29,7 @@ const NaBar = () => {
             </button>
 
             <div className={showLogout ? 'dropdwon show-dropdown' : 'dropdown'}>
-              <button type='button' className='dropdown-btn' onClick={() => logoutUser}>
+              <button type='button' className='dropdown-btn' onClick={() => logoutUser()}>
                 Sair
               </button>
             </div>

@@ -22,7 +22,7 @@ const Landing = () => {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum quam ultrices, facilisis turpis vitae, efficitur libero. Sed in dui felis. Vivamus blandit felis id metus efficitur aliquam. Ut pellentesque massa vel sapien finibus tristique. Nulla congue vitae neque non scelerisque. Aenean auctor mi in leo posuere, eget lacinia odio semper. Pellentesque varius, orci vitae cursus posuere, est lacus blandit tortor, sit amet dictum sapien mi non elit. Fusce at ullamcorper augue.
                 </p>
 
-                <Link to='/register' className='btn btn-hero'>Login/Register</Link>
+                <Link to='/register' className='btn btn-hero'>Fazer login/Criar conta</Link>
 
                 <img src={main} alt='job hunter' className='img main-img'/>
             </div>
