@@ -14,13 +14,23 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
   CREATE_JOB_ERROR,
+  CREATE_GRAD_BEGIN, 
+  CREATE_GRAD_SUCCESS,
+  CREATE_GRAD_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  GET_GRADS_BEGIN,
+  GET_GRADS_SUCCESS,
   SET_EDIT_JOB,
+  SET_EDIT_GRAD,
   DELETE_JOB_BEGIN,
+  DELETE_GRAD_BEGIN,
   EDIT_JOB_BEGIN,
   EDIT_JOB_SUCCESS,
   EDIT_JOB_ERROR,
+  EDIT_GRAD_BEGIN, 
+  EDIT_GRAD_SUCCESS,
+  EDIT_GRAD_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
@@ -165,6 +175,32 @@ const reducer = (state, action) => {
     }
   }
 
+  //_____________________--______________________---
+  if (action.type === CREATE_GRAD_BEGIN) {
+    return {...state, isLoading: true}
+  }
+
+  if (action.type === CREATE_GRAD_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'New Grad Created!',
+    }
+  }
+
+  if (action.type === CREATE_GRAD_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+    }
+  }
+  //_____________________--______________________---
+
   if (action.type === GET_JOBS_BEGIN) {
     return {...state, isLoading: true, showAlert: false}
   }
@@ -178,6 +214,22 @@ const reducer = (state, action) => {
       numOfPages: action.payload.numOfPages,
     }
   }
+
+  //_____________________--______________________---
+  if (action.type === GET_GRADS_BEGIN) {
+    return {...state, isLoading: true, showAlert: false}
+  }
+
+  if (action.type === GET_GRADS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      jobs: action.payload.jobs,
+      totalJobs: action.payload.totalJobs,
+      numOfPages: action.payload.numOfPages,
+    }
+  }
+  //_____________________--______________________---
 
   if (action.type === SET_EDIT_JOB) {
     const job = state.jobs.find((job) => job._id === action.payload.id)
@@ -196,9 +248,34 @@ const reducer = (state, action) => {
     }
   }
 
+  //_____________________--______________________---
+  if (action.type === SET_EDIT_GRAD) {
+    const job = state.jobs.find((job) => job._id === action.payload.id)
+
+    const { _id, position, company, jobLocation, jobType, status } = job
+
+    return {
+      ...state,
+      isEditing: true,
+      editJobId: _id,
+      position,
+      company,
+      jobLocation,
+      jobType,
+      status,
+    }
+  }
+  //_____________________--______________________---
+
   if (action.type === DELETE_JOB_BEGIN) {
     return {...state, isLoading: true}
   }
+
+  //_____________________--______________________---
+  if (action.type === DELETE_GRAD_BEGIN) {
+    return {...state, isLoading: true}
+  }
+  //_____________________--______________________---
 
   if (action.type === EDIT_JOB_BEGIN) {
     return {...state, isLoading: true}
@@ -223,6 +300,32 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     }
   }
+
+  //_____________________--______________________---
+  if (action.type === EDIT_GRAD_BEGIN) {
+    return {...state, isLoading: true}
+  }
+
+  if (action.type === EDIT_GRAD_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Grad Updated!',
+    }
+  }
+  
+  if (action.type === EDIT_GRAD_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+    }
+  }
+  //_____________________--______________________---
 
   if (action.type === SHOW_STATS_BEGIN) {
     return {
