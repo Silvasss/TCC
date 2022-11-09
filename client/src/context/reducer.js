@@ -1,3 +1,4 @@
+import { initialState } from './appContext'
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
@@ -36,8 +37,6 @@ import {
   CLEAR_FILTERS,
   CHANGE_PAGE,
 } from './actions'
-
-import { initialState } from './appContext'
 
 
 const reducer = (state, action) => {
@@ -209,8 +208,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      jobs: action.payload.jobs,
-      totalJobs: action.payload.totalJobs,
+      grabs: action.payload.grabs,
+      totalGrabs: action.payload.totalGrabs,
       numOfPages: action.payload.numOfPages,
     }
   }
@@ -224,8 +223,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      jobs: action.payload.jobs,
-      totalJobs: action.payload.totalJobs,
+      grads: action.payload.grads,
+      totalGrabs: action.payload.totalGrads,
       numOfPages: action.payload.numOfPages,
     }
   }
@@ -250,18 +249,19 @@ const reducer = (state, action) => {
 
   //_____________________--______________________---
   if (action.type === SET_EDIT_GRAD) {
-    const job = state.jobs.find((job) => job._id === action.payload.id)
 
-    const { _id, position, company, jobLocation, jobType, status } = job
+    const grad = state.grads.find((grad) => grad._id === action.payload.id)
+
+    const { _id, curso, instituicao, gradLocation, gradType, status } = grad
 
     return {
       ...state,
       isEditing: true,
-      editJobId: _id,
-      position,
-      company,
-      jobLocation,
-      jobType,
+      editGradId: _id,
+      curso,
+      instituicao,
+      gradLocation,
+      gradType,
       status,
     }
   }
@@ -360,5 +360,6 @@ const reducer = (state, action) => {
 
   throw new Error(`no such action : ${action.type}`)
 }
+
 
 export default reducer

@@ -147,6 +147,7 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('location')
   }
 
+  // User
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
 
@@ -215,6 +216,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_VALUES })
   }
 
+  // Jobs
   const createJob = async () => {
     dispatch({ type: CREATE_JOB_BEGIN })
 
@@ -332,6 +334,124 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
+  // Graduação
+  const createGrad = async () => {
+    dispatch({ type: CREATE_GRAD_BEGIN })
+
+    try {
+      const { curso, instituicao, gradLocation, gradType, status } = state
+
+      await authFetch.post('/grads', {curso, instituicao, gradLocation, gradType, status})
+
+      dispatch({ type: CREATE_GRAD_SUCCESS })
+
+      dispatch({ type: CLEAR_VALUES })
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+
+      dispatch({
+        type: CREATE_GRAD_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+
+    clearAlert()
+  }
+
+  const getGrads = async () => {
+    const { page, search, searchStatus, searchType, sort } = state
+
+    let url = `/grads?page=${page}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
+
+    if (search) {
+      url = url + `&search=${search}`
+    }
+
+    dispatch({ type: GET_GRADS_BEGIN })
+
+    try {
+      const { data } = await authFetch(url)
+
+      const { grads, totalGrads, numOfPages } = data
+
+      dispatch({
+        type: GET_GRADS_SUCCESS,
+        payload: {
+          grads,
+          totalGrads,
+          numOfPages,
+        },
+      })
+    } catch (error) {
+      logoutUser()
+    }
+
+    clearAlert()
+  }
+
+  const setEditGrad = (id) => {
+    dispatch({ type: SET_EDIT_GRAD, payload: { id } })
+  }
+
+  const editGrad = async () => {
+    dispatch({ type: EDIT_GRAD_BEGIN })
+
+    try {
+      const { curso, instituicao, gradLocation, gradType, status } = state
+
+      await authFetch.patch(`/grads/${state.editGradId}`, {curso, instituicao, gradLocation, gradType, status})
+
+      dispatch({ type: EDIT_GRAD_SUCCESS })
+
+      dispatch({ type: CLEAR_VALUES })
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+
+      dispatch({
+        type: EDIT_GRAD_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+
+    clearAlert()
+  }
+
+  const deleteGrad = async (gradId) => {
+    dispatch({ type: DELETE_GRAD_BEGIN })
+
+    try {
+      await authFetch.delete(`/grads/${gradId}`)
+
+      getGrads()
+    } catch (error) {
+      logoutUser()
+    }
+  }
+
+  const showStatsGrad = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN })
+
+    try {
+      const { data } = await authFetch('/grads/stats')
+
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+          monthlyApplications: data.monthlyApplications,
+        },
+      })
+    } catch (error) {
+      logoutUser()
+    }
+
+    clearAlert()
+  }
+
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS })
   }
@@ -352,11 +472,16 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createJob,
+        createGrad,
         getJobs,
         setEditJob,
+        setEditGrad,
         deleteJob,
+        deleteGrad,
         editJob,
+        editGrad,
         showStats,
+        showStatsGrad,
         clearFilters,
         changePage,
       }}>

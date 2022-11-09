@@ -119,6 +119,7 @@ const deleteJob = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Success! Job removed' })
 }
 
+// Alterar
 const showStats = async (req, res) => {
   let stats = await Job.aggregate([
     { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },

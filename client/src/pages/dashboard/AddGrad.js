@@ -56,7 +56,7 @@ const AddGrad = () => {
         {showAlert && <Alert />}
 
         <div className='form-center'>
-          <FormRow type='text' name='name' value={instituicao} labelText="nome da instituição" handleChange={handleGradInput}/>
+          <FormRow type='text' name='instituicao' value={instituicao} labelText="nome da instituição" handleChange={handleGradInput}/>
           
           <FormRow type='text' name='curso' value={curso} labelText="curso" handleChange={handleGradInput}/>
 
@@ -64,7 +64,7 @@ const AddGrad = () => {
 
           <FormRowSelect name='status' value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
-          <FormRowSelect name='jobType' labelText='modalidade de ensino' value={gradType} handleChange={handleGradInput} list={gradTypeOptions}/>
+          <FormRowSelect name='gradType' labelText='modalidade de ensino' value={gradType} handleChange={handleGradInput} list={gradTypeOptions}/>
 
           <div className='btn-container'>
             <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>adicionar</button>
