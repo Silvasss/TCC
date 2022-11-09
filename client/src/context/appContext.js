@@ -73,6 +73,7 @@ const initialState = {
   status: 'Anterior',
   statusGrad: 'finalizada', // 
   jobs: [],
+  grads: [],
   totalJobs: 0,
   numOfPages: 1,
   page: 1,
@@ -484,6 +485,7 @@ const AppProvider = ({ children }) => {
         showStatsGrad,
         clearFilters,
         changePage,
+        getGrads
       }}>
 
       {children}
