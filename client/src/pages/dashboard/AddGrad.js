@@ -24,13 +24,13 @@ const AddGrad = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    if (!instituicao || !gradLocation) {
+    
+    if (!curso || !instituicao || !gradLocation) {
       displayAlert()
 
       return
     }
-
+    
     if (isEditing) {
       editGrad()
 
@@ -41,11 +41,11 @@ const AddGrad = () => {
   }
 
   const handleGradInput = (e) => {
-    const instituicao = e.target.instituicao
-
+    const name = e.target.name
+    
     const value = e.target.value
     
-    handleChange({ instituicao, value })
+    handleChange({ name, value })
   }
 
   return (
@@ -62,7 +62,7 @@ const AddGrad = () => {
 
           <FormRow type='text' labelText='Localização da empresa' name='gradLocation' value={gradLocation} handleChange={handleGradInput}/>
 
-          <FormRowSelect name='status' value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
+          <FormRowSelect name='statusGrad' labelText="status" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
           <FormRowSelect name='gradType' labelText='modalidade de ensino' value={gradType} handleChange={handleGradInput} list={gradTypeOptions}/>
 

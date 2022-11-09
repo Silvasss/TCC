@@ -339,9 +339,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, gradLocation, gradType, status } = state
+      const { curso, instituicao, gradLocation, gradType, statusGrad } = state
 
-      await authFetch.post('/grads', {curso, instituicao, gradLocation, gradType, status})
+      await authFetch.post('/grads', {curso, instituicao, gradLocation, gradType, statusGrad})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 
@@ -399,9 +399,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, gradLocation, gradType, status } = state
+      const { curso, instituicao, gradLocation, gradType, statusGrad } = state
 
-      await authFetch.patch(`/grads/${state.editGradId}`, {curso, instituicao, gradLocation, gradType, status})
+      await authFetch.patch(`/grads/${state.editGradId}`, {curso, instituicao, gradLocation, gradType, statusGrad})
 
       dispatch({ type: EDIT_GRAD_SUCCESS })
 
