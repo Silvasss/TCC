@@ -60,7 +60,7 @@ const AddGrad = () => {
           
           <FormRow type='text' name='curso' value={curso} labelText="curso" handleChange={handleGradInput}/>
 
-          <FormRow type='text' labelText='Localização da empresa' name='gradLocation' value={gradLocation} handleChange={handleGradInput}/>
+          <FormRow type='text' labelText='Localização da instituição' name='gradLocation' value={gradLocation} handleChange={handleGradInput}/>
 
           <FormRowSelect name='statusGrad' labelText="status" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
