@@ -29,7 +29,7 @@ const GradsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>{totalGrads} instituições{grads.length > 1 && 's'} encontradas</h5>
+      <h5>{totalGrads} instituiçõe{grads.length > 1 && 's'} encontradas</h5>
 
       <div className='grads'>
         {grads.map((grad) => {

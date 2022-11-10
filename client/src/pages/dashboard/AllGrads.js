@@ -1,13 +1,11 @@
-import { GradsContainer, SearchContainer } from '../../components'
+import { GradsContainer } from '../../components'
 
+
+// Apresentar todos os egressos da instituição
 
 const AllGrads = () => {
-  return (
-    <>
-      <SearchContainer />
-
-      <GradsContainer />
-    </>
+  return (        
+    <GradsContainer />    
   )
 }
 
