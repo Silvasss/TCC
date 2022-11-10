@@ -78,6 +78,31 @@ const getAllGrads = async (req, res) => {
     res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
 }
 
+const getAllEgressosGrads = async (req, res) => {
+    const queryObject = {
+        instituicao: req.user.instituicao,
+    }
+
+    let result = Grad.find(queryObject)
+
+    // setup pagination
+    const page = Number(req.query.page) || 1
+
+    const limit = Number(req.query.limit) || 10
+
+    const skip = (page - 1) * limit
+
+    result = result.skip(skip).limit(limit)
+
+    const grads = await result
+
+    const totalGrads = await Grad.countDocuments(queryObject)
+
+    const numOfPages = Math.ceil(totalGrads / limit)
+
+    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
+}
+
 const updateGrad = async (req, res) => {
     const { id: gradId } = req.params
 
@@ -125,4 +150,4 @@ const showStats = async (req, res) => {
 }
 
 
-export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats }
+export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads }
