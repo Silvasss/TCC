@@ -208,8 +208,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      grabs: action.payload.grabs,
-      totalGrabs: action.payload.totalGrabs,
+      jobs: action.payload.jobs,
+      totalJobs: action.payload.totalJobs,
       numOfPages: action.payload.numOfPages,
     }
   }

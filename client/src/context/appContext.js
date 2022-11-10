@@ -245,7 +245,7 @@ const AppProvider = ({ children }) => {
 
   const getJobs = async () => {
     const { page, search, searchStatus, searchType, sort } = state
-
+    
     let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
 
     if (search) {
@@ -258,7 +258,7 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch(url)
 
       const { jobs, totalJobs, numOfPages } = data
-
+      
       dispatch({
         type: GET_JOBS_SUCCESS,
         payload: {
