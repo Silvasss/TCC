@@ -7,14 +7,14 @@ import Wrapper from '../assets/wrappers/JobsContainer'
 import PageBtnContainer from './PageBtnContainer'
 
 
-const GradsContainer = () => {
-  const {getGrads, grads, isLoading, page, totalGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
+const EgressosContainer = () => {
+  const {getEgressos, grads, isLoading, page, totalGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
   
   useEffect(() => {
-    getGrads()
+    getEgressos()
     // eslint-disable-next-line
   }, [page, search, searchStatus, searchType, sort])
-
+  
   if (isLoading) {
     return <Loading center />
   }
@@ -29,9 +29,9 @@ const GradsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>{totalGrads} instituiçõe{grads.length > 1 && 's'} encontradas</h5>
+      <h5>{totalGrads} egresso{grads.length > 1 && 's'} encontrados</h5>
 
-      <div className='grads'>
+      <div className='egressos'>
         {grads.map((grad) => {
           return <Grad key={grad._id} {...grad} />
         })}
@@ -43,4 +43,4 @@ const GradsContainer = () => {
 }
 
 
-export default GradsContainer
+export default EgressosContainer

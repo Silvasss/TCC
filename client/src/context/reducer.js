@@ -22,6 +22,8 @@ import {
   GET_JOBS_SUCCESS,
   GET_GRADS_BEGIN,
   GET_GRADS_SUCCESS,
+  GET_ALLGRADS_BEGIN,
+  GET_ALLGRADS_SUCCESS,
   SET_EDIT_JOB,
   SET_EDIT_GRAD,
   DELETE_JOB_BEGIN,
@@ -220,6 +222,20 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_GRADS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      grads: action.payload.grads,
+      totalGrabs: action.payload.totalGrads,
+      numOfPages: action.payload.numOfPages,
+    }
+  }
+
+  if (action.type === GET_ALLGRADS_BEGIN) {
+    return {...state, isLoading: true, showAlert: false}
+  }
+
+  if (action.type === GET_ALLGRADS_SUCCESS) {
     return {
       ...state,
       isLoading: false,

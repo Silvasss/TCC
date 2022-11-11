@@ -78,13 +78,9 @@ const getAllGrads = async (req, res) => {
     res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
 }
 
-const getAllEgressosGrads = async (req, res) => {
-    const queryObject = {
-        instituicao: req.user.instituicao,
-    }
-
-    let result = Grad.find(queryObject)
-
+const getAllEgressosGrads = async (req, res) => {    
+    let result = Grad.find({createdBy: req.user.userId})
+    
     // setup pagination
     const page = Number(req.query.page) || 1
 
@@ -94,13 +90,46 @@ const getAllEgressosGrads = async (req, res) => {
 
     result = result.skip(skip).limit(limit)
 
-    const grads = await result
+    let grads = await result    
 
-    const totalGrads = await Grad.countDocuments(queryObject)
+    const arrayNomesInstituicoes = []    
+
+    grads.forEach(function (arrayItem) {
+        arrayNomesInstituicoes.push(arrayItem.instituicao)
+    })
+
+    const arrayFinal = []
+
+    arrayNomesInstituicoes.forEach(async function (arrayItem) {
+        const result2 = await Grad.find({instituicao : {$regex: arrayItem, $options: 'i'}}) 
+
+        arrayFinal.push(result2)
+    })
+    
+    const arrayFinalEgressos = []
+    
+    setTimeout(() => {
+        arrayFinal.forEach(function (arrayItem) {            
+            arrayItem.forEach(function (arrayItem2) {
+                arrayFinalEgressos.push(arrayItem2)
+            })
+        })
+
+        grads = arrayFinalEgressos
+        
+        const totalGrads = arrayFinalEgressos.length 
+
+        const numOfPages = Math.ceil(totalGrads / limit)
+
+        res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
+    }, 1000)
+    
+    /*
+    const totalGrads = await Grad.countDocuments({createdBy: req.user.userId})
 
     const numOfPages = Math.ceil(totalGrads / limit)
 
-    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
+    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })*/
 }
 
 const updateGrad = async (req, res) => {

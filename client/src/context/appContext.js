@@ -25,6 +25,8 @@ import {
   GET_JOBS_SUCCESS,
   GET_GRADS_BEGIN,
   GET_GRADS_SUCCESS,
+  GET_ALLGRADS_BEGIN,
+  GET_ALLGRADS_SUCCESS,
   SET_EDIT_JOB,
   SET_EDIT_GRAD,
   DELETE_JOB_BEGIN,
@@ -392,6 +394,37 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
+  const getEgressos = async () => {
+    const { page, search, searchStatus, searchType, sort } = state
+
+    let url = `/grads/getegressos?page=${page}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
+
+    if (search) {
+      url = url + `&search=${search}`
+    }
+
+    dispatch({ type: GET_ALLGRADS_BEGIN })
+
+    try {
+      const { data } = await authFetch(url)
+      
+      const { grads, totalGrads, numOfPages } = data
+
+      dispatch({
+        type: GET_ALLGRADS_SUCCESS,
+        payload: {
+          grads,
+          totalGrads,
+          numOfPages,
+        },
+      })
+    } catch (error) {
+      logoutUser()
+    }
+
+    clearAlert()
+  }
+
   const setEditGrad = (id) => {
     dispatch({ type: SET_EDIT_GRAD, payload: { id } })
   }
@@ -485,7 +518,8 @@ const AppProvider = ({ children }) => {
         showStatsGrad,
         clearFilters,
         changePage,
-        getGrads
+        getGrads,
+        getEgressos
       }}>
 
       {children}
