@@ -15,8 +15,8 @@ const GradSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['finalizada', 'cursando', 'trancada'],
-      default: 'finalizada',
+      enum: ['finalizada', 'cursando', 'trancada', 'pendente', 'recusada'],
+      default: 'pendente',
     },
     gradType: {
       type: String,

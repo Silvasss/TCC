@@ -1,15 +1,11 @@
-import { Link } from 'react-router-dom'
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa'
 import moment from 'moment'
 
-import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Egresso = ({_id, curso, instituicao, gradLocation, gradType, createdAt, status, }) => { 
-  const { setEditGrad, deleteGrad } = useAppContext()
-
+const Egresso = ({curso, instituicao, gradLocation, gradType, createdAt, status, }) => { 
   let date = moment(createdAt)
 
   date = date.format('MMM Do, YYYY')

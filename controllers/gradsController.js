@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
+import mongoose from 'mongoose'
 
 import checkPermissions from '../utils/checkPermissions.js'
 import Grad from '../models/Grad.js'
@@ -169,8 +170,26 @@ const deleteGrad = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: 'Success! Grad removed' })
 }
 
-const showStats = async (req, res) => {
-    res.send('show stats') 
+const showStats = async (req, res) => {    
+    let stats = await Grad.aggregate([
+        { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+        { $group: { _id: '$status', count: { $sum: 1 } } },
+    ])
+
+    stats = stats.reduce((acc, curr) => {
+        const { _id: title, count } = curr
+
+        acc[title] = count
+
+        return acc
+    }, {})
+
+    const defaultStats = {
+        pending: stats.pendente || 0,
+        declined: stats.recusada || 0,
+    }
+
+    res.status(StatusCodes.OK).json({ defaultStats })
 }
 
 

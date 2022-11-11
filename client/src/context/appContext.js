@@ -321,17 +321,17 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SHOW_STATS_BEGIN })
 
     try {
-      const { data } = await authFetch('/jobs/stats')
+      const { data } = await authFetch('/grads/stats')
 
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
-          stats: data.defaultStats,
-          monthlyApplications: data.monthlyApplications,
+          stats: data.defaultStats
         },
       })
     } catch (error) {
-      logoutUser()
+      //logoutUser()
+      console.log(error)
     }
 
     clearAlert()
