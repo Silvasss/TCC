@@ -111,25 +111,20 @@ const getAllEgressosGrads = async (req, res) => {
     setTimeout(() => {
         arrayFinal.forEach(function (arrayItem) {            
             arrayItem.forEach(function (arrayItem2) {
-                arrayFinalEgressos.push(arrayItem2)
+                if (JSON.stringify(arrayItem2.createdBy) !== JSON.stringify(req.user.userId)) {
+                    arrayFinalEgressos.push(arrayItem2)
+                }                
             })
         })
 
         grads = arrayFinalEgressos
-        
+
         const totalGrads = arrayFinalEgressos.length 
 
         const numOfPages = Math.ceil(totalGrads / limit)
 
         res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
-    }, 1000)
-    
-    /*
-    const totalGrads = await Grad.countDocuments({createdBy: req.user.userId})
-
-    const numOfPages = Math.ceil(totalGrads / limit)
-
-    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })*/
+    }, 1000)    
 }
 
 const updateGrad = async (req, res) => {
