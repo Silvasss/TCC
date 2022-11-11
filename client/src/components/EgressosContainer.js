@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useAppContext } from '../context/appContext'
 import Loading from './Loading'
-import Grad from './Grad'
+import Egresso from './Egresso'
 import Wrapper from '../assets/wrappers/JobsContainer' 
 import PageBtnContainer from './PageBtnContainer'
 
@@ -33,7 +33,7 @@ const EgressosContainer = () => {
 
       <div className='egressos'>
         {grads.map((grad) => {
-          return <Grad key={grad._id} {...grad} />
+          return <Egresso key={grad._id} {...grad} />
         })}
       </div>
 
