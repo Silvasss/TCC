@@ -1,6 +1,7 @@
 import Alert from './Alert'
 import BigSidebar from './BigSidebar'
 import FormRow from './FormRow'
+import FormRowDate from './FormRowDate'
 import FormRowSelect from './FormRowSelect'
 import JobsContainer from './JobsContainer'
 import Loading from './Loading'
@@ -12,4 +13,4 @@ import GradsContainer from './GradsContainer'
 import EgressosContainer from './EgressosContainer'
 
 
-export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer}
+export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate}

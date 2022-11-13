@@ -31,6 +31,12 @@ const GradSchema = new mongoose.Schema(
       default: 'Brasil',
       required: true,
     },
+    dataInicioGraduacao: {
+      type: String
+    },
+    dataFimGraduacao: {
+      type: String
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

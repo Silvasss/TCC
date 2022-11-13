@@ -14,7 +14,7 @@ const JobsContainer = () => {
     getJobs()
     // eslint-disable-next-line
   }, [page, search, searchStatus, searchType, sort])
-  console.log(jobs)
+  
   if (isLoading) {
     return <Loading center />
   }

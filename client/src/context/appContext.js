@@ -75,13 +75,14 @@ const initialState = {
   statusGradOptions: ['finalizada', 'cursando', 'trancada'], //
   status: 'Anterior',
   statusGrad: 'finalizada', // 
+  dataInicioGraduacao: '', //
+  dataFimGraduacao: '', //
   jobs: [],
   grads: [],
   totalJobs: 0,
   numOfPages: 1,
   page: 1,
   stats: {},
-  monthlyApplications: [],
   search: '',
   searchStatus: 'todos',
   searchType: 'todos',
@@ -343,11 +344,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, gradLocation, gradType, statusGrad } = state
+      const { curso, instituicao, gradLocation, gradType, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
 
       let nomeEgresso = JSON.parse(user).name + " " + JSON.parse(user).lastName
       
-      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, gradLocation, gradType, statusGrad})
+      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, gradLocation, gradType, statusGrad, dataInicioGraduacao, dataFimGraduacao})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 
@@ -478,8 +479,7 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
-          stats: data.defaultStats,
-          monthlyApplications: data.monthlyApplications,
+          stats: data.defaultStats
         },
       })
     } catch (error) {

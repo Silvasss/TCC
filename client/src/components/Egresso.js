@@ -1,15 +1,14 @@
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaPhoenixFramework } from 'react-icons/fa' 
-import { ImFlag } from "react-icons/im";
-import moment from 'moment'
+import { FaLocationArrow, FaBriefcase, FaPhoenixFramework } from 'react-icons/fa' 
+import { BsCalendarDate, BsCalendar2DateFill } from 'react-icons/bs'
+import { GiDistressSignal } from 'react-icons/gi'
+import { ImFlag } from "react-icons/im"
 
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, createdAt, status }) => { 
-  let date = moment(createdAt)
+const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, status, dataInicioGraduacao, dataFimGraduacao }) => { 
 
-  date = date.format('DD MMM YYYY')
 
   return (
     <Wrapper>
@@ -27,13 +26,16 @@ const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, creat
         <div className='content-center'>
           <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
 
-          <JobInfo icon={<FaCalendarAlt />} text={date} />
+          <JobInfo icon={<BsCalendarDate />} text={dataInicioGraduacao} />
 
           <JobInfo icon={<FaBriefcase />} text={gradType} />
 
-          <JobInfo icon={<ImFlag />} text={status} />
+          <JobInfo icon={<BsCalendar2DateFill />} text={dataFimGraduacao} />
 
-          <JobInfo icon={<FaPhoenixFramework />} text={nomeEgresso ? nomeEgresso : 'nome desconhecido'} />          
+          <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
+
+          <JobInfo icon={<FaPhoenixFramework />} text={nomeEgresso ? nomeEgresso : 'nome desconhecido'} />               
+                         
         </div>        
       </div>
     </Wrapper>

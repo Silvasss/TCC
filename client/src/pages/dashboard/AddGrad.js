@@ -1,4 +1,4 @@
-import { FormRow, FormRowSelect, Alert } from '../../components'
+import { FormRow, FormRowSelect, Alert, FormRowDate } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
@@ -20,9 +20,10 @@ const AddGrad = () => {
     clearValues,
     createGrad, //
     editGrad, //
-    user, //
+    dataInicioGraduacao, //
+    dataFimGraduacao //
   } = useAppContext()
-
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     
@@ -66,6 +67,10 @@ const AddGrad = () => {
           <FormRowSelect name='statusGrad' labelText="status" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
           <FormRowSelect name='gradType' labelText='modalidade de ensino' value={gradType} handleChange={handleGradInput} list={gradTypeOptions}/>
+
+          <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
+
+          <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
 
           <div className='btn-container'>
             <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>adicionar</button>
