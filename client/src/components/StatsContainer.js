@@ -1,4 +1,5 @@
-import { FaSuitcaseRolling, FaBug } from 'react-icons/fa'
+import { FaBug } from 'react-icons/fa'
+import { GiAxeInStump } from "react-icons/gi"
 
 import { useAppContext } from '../context/appContext'
 import StatItem from './StatItem'
@@ -12,7 +13,7 @@ const StatsContainer = () => {
     {
       title: 'solicitações pendentes',
       count: stats.pending || 0,
-      icon: <FaSuitcaseRolling />,
+      icon: <GiAxeInStump />,
       color: '#e9b949',
       bcg: '#fcefc7',
     },

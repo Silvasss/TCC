@@ -1,14 +1,15 @@
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa'
+import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaPhoenixFramework } from 'react-icons/fa' 
+import { ImFlag } from "react-icons/im";
 import moment from 'moment'
 
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Egresso = ({curso, instituicao, gradLocation, gradType, createdAt, status, }) => { 
+const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, createdAt, status }) => { 
   let date = moment(createdAt)
 
-  date = date.format('MMM Do, YYYY')
+  date = date.format('DD MMM YYYY')
 
   return (
     <Wrapper>
@@ -30,9 +31,10 @@ const Egresso = ({curso, instituicao, gradLocation, gradType, createdAt, status,
 
           <JobInfo icon={<FaBriefcase />} text={gradType} />
 
-          <div className={`status ${status}`}>{status}</div>
-        </div>
-        
+          <JobInfo icon={<ImFlag />} text={status} />
+
+          <JobInfo icon={<FaPhoenixFramework />} text={nomeEgresso ? nomeEgresso : 'nome desconhecido'} />          
+        </div>        
       </div>
     </Wrapper>
   )

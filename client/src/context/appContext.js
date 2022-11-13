@@ -62,6 +62,7 @@ const initialState = {
   editGradId: '',
   position: '',
   curso: '', //
+  nomeEgresso: '', //
   company: '',
   instituicao: '', //
   jobLocation: userLocation || '',
@@ -344,7 +345,9 @@ const AppProvider = ({ children }) => {
     try {
       const { curso, instituicao, gradLocation, gradType, statusGrad } = state
 
-      await authFetch.post('/grads', {curso, instituicao, gradLocation, gradType, statusGrad})
+      let nomeEgresso = JSON.parse(user).name + " " + JSON.parse(user).lastName
+      
+      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, gradLocation, gradType, statusGrad})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 

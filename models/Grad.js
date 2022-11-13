@@ -3,6 +3,9 @@ import mongoose from 'mongoose'
 
 const GradSchema = new mongoose.Schema(
   {
+    nomeEgresso: {
+      type: String,
+    },
     instituicao: {
       type: String,
       required: [true, 'Please provide instituicao'],

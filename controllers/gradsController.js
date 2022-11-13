@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 import checkPermissions from '../utils/checkPermissions.js'
 import Grad from '../models/Grad.js'
+import User from '../models/User.js'
 
 import {
   BadRequestError,
@@ -16,7 +17,7 @@ const createGrad = async (req, res) => {
     if (!curso || !instituicao) {
         throw new BadRequestError('Please provide all values')
     }
-
+    
     req.body.createdBy = req.user.userId
 
     const grad = await Grad.create(req.body)
@@ -80,6 +81,8 @@ const getAllGrads = async (req, res) => {
 }
 
 const getAllEgressosGrads = async (req, res) => {    
+    // obter o nome da pessoa da outra coleção e adicionar no lista de objetos retornados para o front
+
     let result = Grad.find({createdBy: req.user.userId})
     
     // setup pagination
@@ -92,7 +95,7 @@ const getAllEgressosGrads = async (req, res) => {
     result = result.skip(skip).limit(limit)
 
     let grads = await result    
-
+    
     const arrayNomesInstituicoes = []    
 
     grads.forEach(function (arrayItem) {
@@ -109,13 +112,15 @@ const getAllEgressosGrads = async (req, res) => {
     
     const arrayFinalEgressos = []
     
+    
     setTimeout(() => {
         arrayFinal.forEach(function (arrayItem) {            
             arrayItem.forEach(function (arrayItem2) {
-                if (JSON.stringify(arrayItem2.createdBy) !== JSON.stringify(req.user.userId)) {
+                if (JSON.stringify(arrayItem2.createdBy) !== JSON.stringify(req.user.userId)) {                   
                     arrayFinalEgressos.push(arrayItem2)
                 }                
             })
+            
         })
 
         grads = arrayFinalEgressos

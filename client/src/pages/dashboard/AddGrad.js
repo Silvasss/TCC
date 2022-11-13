@@ -20,6 +20,7 @@ const AddGrad = () => {
     clearValues,
     createGrad, //
     editGrad, //
+    user, //
   } = useAppContext()
 
   const handleSubmit = (e) => {
