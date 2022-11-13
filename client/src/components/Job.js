@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom'
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa'
-import moment from 'moment'
+import { FaLocationArrow, FaBriefcase } from 'react-icons/fa'
+import { TbCurrentLocation } from 'react-icons/tb'
 
 import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Job = ({_id, position, company, jobLocation, jobType, createdAt, status, }) => { 
+const Job = ({_id, position, company, jobLocation, jobType, status, }) => { 
   const { setEditJob, deleteJob } = useAppContext()
 
-  let date = moment(createdAt)
-
-  date = date.format('MMM Do, YYYY')
 
   return (
     <Wrapper>
@@ -30,11 +27,9 @@ const Job = ({_id, position, company, jobLocation, jobType, createdAt, status, }
         <div className='content-center'>
           <JobInfo icon={<FaLocationArrow />} text={jobLocation} />
 
-          <JobInfo icon={<FaCalendarAlt />} text={date} />
-
           <JobInfo icon={<FaBriefcase />} text={jobType} />
 
-          <div className={`status ${status}`}>{status}</div>
+          <JobInfo icon={<TbCurrentLocation />} text={status} />
         </div>
 
         <footer>
