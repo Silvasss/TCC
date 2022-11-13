@@ -47,7 +47,7 @@ const reducer = (state, action) => {
       ...state,
       showAlert: true,
       alertType: 'danger',
-      alertText: 'Please provide all values!',
+      alertText: 'Forneça todos os valores!',
     }
   }
 
@@ -162,7 +162,7 @@ const reducer = (state, action) => {
       isLoading: false,
       showAlert: true,
       alertType: 'success',
-      alertText: 'New Job Created!',
+      alertText: 'Experiência de trabalho adicionada!',
     }
   }
 
@@ -187,7 +187,7 @@ const reducer = (state, action) => {
       isLoading: false,
       showAlert: true,
       alertType: 'success',
-      alertText: 'New Grad Created!',
+      alertText: 'Graduação adicionada!',
     }
   }
 
@@ -303,7 +303,7 @@ const reducer = (state, action) => {
       isLoading: false,
       showAlert: true,
       alertType: 'success',
-      alertText: 'Job Updated!',
+      alertText: 'Experiência de trabalho atualizada!',
     }
   }
   
@@ -328,7 +328,7 @@ const reducer = (state, action) => {
       isLoading: false,
       showAlert: true,
       alertType: 'success',
-      alertText: 'Grad Updated!',
+      alertText: 'Graduação atualizada!',
     }
   }
   
