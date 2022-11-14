@@ -7,6 +7,7 @@ import xss from 'xss-clean'
 import mongoSanitize from 'express-mongo-sanitize'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import path from 'path'
 
 // db and authenticateUser
 import connectDB from './db/connect.js'
@@ -43,6 +44,11 @@ app.use(mongoSanitize())
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', authenticateUser, jobsRouter)
 app.use('/api/v1/grads', authenticateUser, gradsRouter)
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
 
 
 app.use(notFoundMiddleware)
