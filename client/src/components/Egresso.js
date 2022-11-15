@@ -33,11 +33,11 @@ const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, statu
         <div className='content-center'>
           <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
 
-          <JobInfo icon={<BsCalendarDate />} text={dateInicio} />
-
+          <JobInfo icon={<BsCalendarDate />} text={dateInicio.length < 8 || 'Invalid date' ? 'data não informada' : dateInicio} />
+          
           <JobInfo icon={<FaBriefcase />} text={gradType} />
 
-          <JobInfo icon={<BsCalendar2DateFill />} text={dateFim} />
+          <JobInfo icon={<BsCalendar2DateFill />} text={dateFim.length < 8 || 'Invalid date' ? 'data não informada' : dateInicio} />
 
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
 
