@@ -1,13 +1,11 @@
 import { StatusCodes } from 'http-status-codes'
 
 import User from '../models/User.js'
-import Job from '../models/Job.js'
-import Grad from '../models/Grad.js'
 import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
 
 
 const register = async (req, res) => {
-  const { name, email, password, lastName, location, job, grad } = req.body
+  const { name, email, password } = req.body
 
   if (!name || !email || !password) {
     throw new BadRequestError('please provide all values')
@@ -19,22 +17,7 @@ const register = async (req, res) => {
     throw new BadRequestError('Email already in use')
   }
 
-  const user = await User.create({ name, email, password, lastName, location })
-
-  // !!!!!!!!!!!!!!!!!____________________________________!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  const userId = user._id.toString()
-
-  const { company, position, status, jobType, jobLocation } = job
-
-  const { instituicao, curso, gradType } = grad
-
-  const jobApiPost = await Job.create({ company, position, status, jobType, jobLocation, createdBy: userId })
-
-  const gradApiPost = await Grad.create({ instituicao, curso, gradType, createdBy: userId })
-
-
-  // !!!!!!!!!!!!!!!!!____________________________________!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const user = await User.create({ name, email, password })
 
   const token = user.createJWT()
 
