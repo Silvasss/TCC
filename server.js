@@ -27,9 +27,9 @@ const app = express()
 
 dotenv.config()
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(morgan('dev'))
-}
+//if (process.env.NODE_ENV !== 'production') {
+  //app.use(morgan('dev'))
+//}
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 

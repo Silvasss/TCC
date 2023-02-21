@@ -81,11 +81,11 @@ const getAllGrads = async (req, res) => {
 }
 
 const getAllEgressosGrads = async (req, res) => {    
-    // obter o nome da pessoa da outra coleção e adicionar no lista de objetos retornados para o front
-
+    // Informações das instituições cadastradas pelo usuário 
     let result = Grad.find({createdBy: req.user.userId})
     
-    // setup pagination
+    // --------setup pagination-------------
+    // NÃO FUNCIONA
     const page = Number(req.query.page) || 1
 
     const limit = Number(req.query.limit) || 10
@@ -93,27 +93,34 @@ const getAllEgressosGrads = async (req, res) => {
     const skip = (page - 1) * limit
 
     result = result.skip(skip).limit(limit)
+    // -------------------------------------
 
+    // Coleção com todos os valores do objeto "grads"
     let grads = await result    
     
+    // Lista com os nomes das instituições
     const arrayNomesInstituicoes = []    
 
+    // Percorrendo cada posição do objeto "grads" e pegando os nomes das instituições
     grads.forEach(function (arrayItem) {
         arrayNomesInstituicoes.push(arrayItem.instituicao)
     })
 
+    // Lista com todos os egressos que estudaram na mesma faculdade
     const arrayFinal = []
 
+    // Adicionando na lista todos os egressos filtrado da mesma instituição
     arrayNomesInstituicoes.forEach(async function (arrayItem) {
         const result2 = await Grad.find({instituicao : {$regex: arrayItem, $options: 'i'}}) 
 
         arrayFinal.push(result2)
     })
     
-    const arrayFinalEgressos = []
-    
+    // Lista com todos os egressos exceto o usuário da conta
+    const arrayFinalEgressos = []    
     
     setTimeout(() => {
+        // Filtrado ambas listas criadas nas duas funcões anteriores
         arrayFinal.forEach(function (arrayItem) {            
             arrayItem.forEach(function (arrayItem2) {
                 if (JSON.stringify(arrayItem2.createdBy) !== JSON.stringify(req.user.userId)) {                   
@@ -123,11 +130,13 @@ const getAllEgressosGrads = async (req, res) => {
             
         })
 
+        // --Filtrando da maneira errada!!--
         grads = arrayFinalEgressos
 
         const totalGrads = arrayFinalEgressos.length 
 
         const numOfPages = Math.ceil(totalGrads / limit)
+        // ---------------------------------
 
         res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
     }, 1000)    

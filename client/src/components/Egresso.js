@@ -10,12 +10,11 @@ import JobInfo from './JobInfo'
 
 const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, status, dataInicioGraduacao, dataFimGraduacao }) => { 
   let dateInicio = moment(dataInicioGraduacao)  
-  let dateFim = moment(dataFimGraduacao)
-
-
+  let dateFim = moment(dataFimGraduacao) 
+  
   dateInicio = dateInicio.format('DD MMM YYYY')
-  dateFim = dateFim.format('DD MMM YYYY')
-
+  dateFim =  dateFim.format('DD MMM YYYY')
+   
 
   return (
     <Wrapper>
