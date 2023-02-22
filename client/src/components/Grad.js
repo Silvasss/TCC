@@ -27,12 +27,12 @@ const Grad = ({_id, curso, instituicao, gradLocation, gradType, status, dataInic
       <div className='content'>
         <div className='content-center'>
           <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
-    
-          <JobInfo icon={<BsCalendarDate />} text={dataInicioGraduacao.length === 10 || ' ' ? 'data não informada' : dataFimGraduacao} />
+          
+          <JobInfo icon={<BsCalendarDate />} text={dataInicioGraduacao} />
 
           <JobInfo icon={<FaBriefcase />} text={gradType} />
           
-          <JobInfo icon={<BsCalendar2DateFill />} text={dataFimGraduacao.length === 10 || ' '? 'data não informada' : dataFimGraduacao} />
+          <JobInfo icon={<BsCalendar2DateFill />} text={dataFimGraduacao} />
 
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
         </div>
