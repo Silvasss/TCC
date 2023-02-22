@@ -98,45 +98,22 @@ const getAllEgressosGrads = async (req, res) => {
     // Coleção com todos os valores do objeto "grads"
     let grads = await result    
     
-    // Lista com os nomes das instituições
-    const arrayNomesInstituicoes = []    
+    // Lista com todos os egressos exceto o usuário da conta
+    const gradsArrayFinal = []    
 
     // Percorrendo cada posição do objeto "grads" e pegando os nomes das instituições
-    grads.forEach(function (arrayItem) {
-        arrayNomesInstituicoes.push(arrayItem.instituicao)
+    grads.forEach(async function (arrayItem) {
+        const result2 = await Grad.find({instituicao : {$regex: arrayItem.instituicao, $options: 'i'}, createdBy: {$nin: req.user.userId}}) 
+
+        gradsArrayFinal.push(result2)
     })
-
-    // Lista com todos os egressos que estudaram na mesma faculdade
-    const arrayFinal = []
-
-    // Adicionando na lista todos os egressos filtrado da mesma instituição
-    arrayNomesInstituicoes.forEach(async function (arrayItem) {
-        const result2 = await Grad.find({instituicao : {$regex: arrayItem, $options: 'i'}}) 
-
-        arrayFinal.push(result2)
-    })
-    
-    // Lista com todos os egressos exceto o usuário da conta
-    const arrayFinalEgressos = []    
-    
-    setTimeout(() => {
-        // Filtrado ambas listas criadas nas duas funcões anteriores
-        arrayFinal.forEach(function (arrayItem) {            
-            arrayItem.forEach(function (arrayItem2) {
-                if (JSON.stringify(arrayItem2.createdBy) !== JSON.stringify(req.user.userId)) {                   
-                    arrayFinalEgressos.push(arrayItem2)
-                }                
-            })
             
-        })
+    setTimeout(() => {       
+        grads = gradsArrayFinal[0]
 
-        // --Filtrando da maneira errada!!--
-        grads = arrayFinalEgressos
-
-        const totalGrads = arrayFinalEgressos.length 
+        const totalGrads = grads.length 
 
         const numOfPages = Math.ceil(totalGrads / limit)
-        // ---------------------------------
 
         res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
     }, 1000)    

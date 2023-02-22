@@ -33,7 +33,7 @@ const EgressosContainer = () => {
 
       <div className='egressos'>
         {grads.map((grad) => {
-          console.log(grad._id)
+          console.log(grad)
           return <Egresso key={grad._id} {...grad} />
         })}
       </div>

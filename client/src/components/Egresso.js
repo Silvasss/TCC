@@ -14,7 +14,7 @@ const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, statu
   
   dateInicio = dateInicio.format('DD MMM YYYY')
   dateFim =  dateFim.format('DD MMM YYYY')
-   
+  
 
   return (
     <Wrapper>
