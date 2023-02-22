@@ -19,6 +19,9 @@ const EgressosContainer = () => {
     return <Loading center />
   }
 
+  // Remove Duplicate objects from JSON Array
+  var newGrads = grads.filter((arr, index, self) => index === self.findIndex((t) => (t._id === arr._id)))
+
   if (grads.length === 0) {
     return (
       <Wrapper>
@@ -32,9 +35,8 @@ const EgressosContainer = () => {
       <h5>{totalGrads} egresso{grads.length > 1 && 's'} encontrados</h5>
 
       <div className='egressos'>
-        {grads.map((grad) => {
-          console.log(grad)
-          return <Egresso key={grad._id} {...grad} />
+        {newGrads.map((grad) => {
+          return <Egresso key={(grad._id)} {...grad} />
         })}
       </div>
 
