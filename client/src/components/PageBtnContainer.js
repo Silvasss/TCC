@@ -6,7 +6,7 @@ import Wrapper from '../assets/wrappers/PageBtnContainer'
 
 const PageBtnContainer = () => {
   const { numOfPages, page, changePage } = useAppContext()
-
+  
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1
   })
