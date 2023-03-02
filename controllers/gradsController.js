@@ -90,7 +90,6 @@ const getAllEgressosGrads = async (req, res) => {
 
     // Problema no parâmetro recebido pelo "limit"
     const limit = Number(req.query.limit) || 2
-    console.log(limit)
 
     const skip = (page - 1) * limit
 
