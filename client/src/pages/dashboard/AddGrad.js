@@ -1,4 +1,4 @@
-import { FormRow, FormRowSelect, Alert, FormRowDate } from '../../components'
+import { FormRowSelect, Alert, FormRowDate } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
@@ -10,9 +10,11 @@ const AddGrad = () => {
     showAlert,
     displayAlert,
     instituicao, //
+    instituicaoOptions, //
     curso,
     statusGrad, // 
     statusGradOptions, //
+    cursoOptions, //
     handleChange,
     clearValues,
     createGrad, //
@@ -60,10 +62,10 @@ const AddGrad = () => {
 
         {showAlert && <Alert />}
 
-        <div className='form-center'>
-          <FormRow type='text' name='instituicao' value={instituicao} labelText="nome da instituição" handleChange={handleGradInput}/>
-          
-          <FormRow type='text' name='curso' value={curso} labelText="curso" handleChange={handleGradInput}/>
+        <div className='form-center'>          
+          <FormRowSelect name='instituicao' labelText="Selecione uma instituição" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
+
+          <FormRowSelect name='curso' labelText="Selecione um curso" value={curso} handleChange={handleGradInput} list={cursoOptions}/>
 
           <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
@@ -72,7 +74,7 @@ const AddGrad = () => {
           <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
 
           <div className='btn-container'>
-            <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>adicionar</button>
+            <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>{isEditing ? 'atualizar' : 'adicionar'}</button>
             
             <button className='btn btn-block clear-btn'
               onClick={(e) => {

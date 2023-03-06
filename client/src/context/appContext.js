@@ -55,31 +55,30 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
-  userLocation: userLocation || '',
+  userLocation: userLocation || '', // lista com os nomes das cidades
   showSidebar: false,
   isEditing: false,
   editJobId: '',
   editGradId: '',
   position: '',
-  curso: '', //
+  curso: '',
+  cursoOptions: [''], // lista com os nomes dos cursos
   nomeEgresso: '', //
   company: '',
-  instituicao: '', //
+  instituicao: '',
+  instituicaoOptions: [''], // lista com os nomes das instituiçoes
   jobLocation: userLocation || '',
-  gradLocation: userLocation || '', //
-  jobTypeOptions: ['full-time', 'Tempo parcial', 'Remoto', 'Estágio'],
-  gradTypeOptions: ['presencial', 'semipresencial', 'EaD'], // 
-  jobType: 'full-time',
-  gradType: 'presencial',
+  jobTypeOptions: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
+  jobType: 'Tempo integral',
   statusOptions: ['Atual', 'Anterior'],
   statusGradOptions: ['Anterior', 'Atual'], //
   status: 'Anterior',
-  statusGrad: 'finalizada', // 
+  statusGrad: 'Anterior', // 
   dataInicioGraduacao: '', //
   dataFimGraduacao: '', //
   jobs: [],
   grads: [],
-  totalJobs: 0,
+  totalJobs: 0, // Falta esse campo para a páginação das graduações
   numOfPages: 1,
   page: 1,
   stats: {},
