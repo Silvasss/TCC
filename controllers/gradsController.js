@@ -80,16 +80,15 @@ const getAllGrads = async (req, res) => {
     res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
 }
 
-const getAllEgressosGrads = async (req, res) => {    
-    // Informações das instituições cadastradas pelo usuário 
-    let result = Grad.find({createdBy: req.user.userId})
+const getAllEgressosGrads = async (req, res) => {       
+    // Todas as instituições cadastradas no banco
+    let result = Grad.find()
     
-    // --------setup pagination-------------
-    
+    // --------setup pagination-------------    
     const page = Number(req.query.page) || 1
 
     // Problema no parâmetro recebido pelo "limit"
-    const limit = Number(req.query.limit) || 2
+    const limit = Number(req.query.limit) || 10
 
     const skip = (page - 1) * limit
 
@@ -97,28 +96,13 @@ const getAllEgressosGrads = async (req, res) => {
     // -------------------------------------
 
     // Coleção com todos os valores do objeto "grads"
-    let grads = await result    
+    let grads = await result            
     
-    // Lista com todos os egressos exceto o usuário da conta
-    const gradsArrayFinal = []    
-
-    // Percorrendo cada posição do objeto "grads" e pegando os nomes das instituições
-    grads.forEach(async function (arrayItem) {
-        const result2 = await Grad.find({instituicao : {$regex: arrayItem.instituicao, $options: 'i'}, createdBy: {$nin: req.user.userId}}) 
-        
-        gradsArrayFinal.push(result2)
-    })
-            
-    setTimeout(() => {         
-        // Method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth
-        grads = gradsArrayFinal.flat()
-
-        const totalGrads = grads.length 
-        
-        const numOfPages = Math.ceil(totalGrads / limit)
-        
-        res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
-    }, 1000)    
+    const totalGrads = grads.length 
+    
+    const numOfPages = Math.ceil(totalGrads / limit)
+    
+    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })     
 }
 
 const updateGrad = async (req, res) => {

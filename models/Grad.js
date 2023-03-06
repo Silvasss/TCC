@@ -8,28 +8,18 @@ const GradSchema = new mongoose.Schema(
     },
     instituicao: {
       type: String,
-      required: [true, 'Please provide instituicao'],
+      required: [true, 'Por favor, forneça instituicao'],
       maxlength: 100,
     },
     curso: {
       type: String,
-      required: [true, 'Please provide curso'],
+      required: [true, 'Por favor, forneça curso'],
       maxlength: 50,
     },
     status: {
       type: String,
-      enum: ['finalizada', 'cursando', 'trancada', 'pendente', 'recusada'],
+      enum: ['Atual', 'Anterior'],
       default: 'pendente',
-    },
-    gradType: {
-      type: String,
-      enum: ['presencial', 'semipresencial', 'EaD'],
-      default: 'presencial',
-    },
-    gradLocation: {
-      type: String,
-      default: 'Brasil',
-      required: true,
     },
     dataInicioGraduacao: {
       type: String
@@ -40,7 +30,7 @@ const GradSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Please provide user'],
+      required: [true, 'Por favor, forneça o usuário'],
     },
   },
   { timestamps: true }

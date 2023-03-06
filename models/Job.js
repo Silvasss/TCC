@@ -5,12 +5,12 @@ const JobSchema = new mongoose.Schema(
   {
     company: {
       type: String,
-      required: [true, 'Please provide company'],
+      required: [true, 'Por favor, forneça empresa'],
       maxlength: 50,
     },
     position: {
       type: String,
-      required: [true, 'Please provide position'],
+      required: [true, 'Por favor, forneça posição'],
       maxlength: 100,
     },
     status: {
@@ -20,8 +20,8 @@ const JobSchema = new mongoose.Schema(
     },
     jobType: {
       type: String,
-      enum: ['full-time', 'Tempo parcial', 'Remoto', 'Estágio'],
-      default: 'full-time',
+      enum: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
+      default: 'Tempo integral',
     },
     jobLocation: {
       type: String,
@@ -31,7 +31,7 @@ const JobSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Please provide user'],
+      required: [true, 'Por favor, forneça usuário'],
     },
   },
   { timestamps: true }
