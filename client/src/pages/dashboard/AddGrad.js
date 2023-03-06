@@ -10,10 +10,7 @@ const AddGrad = () => {
     showAlert,
     displayAlert,
     instituicao, //
-    gradLocation, //
     curso,
-    gradTypeOptions, //
-    gradType, // 
     statusGrad, // 
     statusGradOptions, //
     handleChange,
@@ -27,7 +24,7 @@ const AddGrad = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    if (!curso || !instituicao || !gradLocation) {
+    if (!curso || !instituicao ) {
       displayAlert()
 
       return
@@ -50,6 +47,12 @@ const AddGrad = () => {
     handleChange({ name, value })
   }
 
+
+  // MODIFICAÇÕES
+  // ! - Campos nome da "Nome Da Instituição" e "Curso", é necessário trocar o tipo do campo de entrada para caixa de seleção
+  // ! - Adicionar no "AppContext" a lista com os valores
+
+
   return (
     <Wrapper>
       <form className='form'>
@@ -62,11 +65,7 @@ const AddGrad = () => {
           
           <FormRow type='text' name='curso' value={curso} labelText="curso" handleChange={handleGradInput}/>
 
-          <FormRow type='text' labelText='Localização da instituição' name='gradLocation' value={gradLocation} handleChange={handleGradInput}/>
-
-          <FormRowSelect name='statusGrad' labelText="status" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
-
-          <FormRowSelect name='gradType' labelText='modalidade de ensino' value={gradType} handleChange={handleGradInput} list={gradTypeOptions}/>
+          <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 
           <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
 

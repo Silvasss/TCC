@@ -1,28 +1,20 @@
-import { FaLocationArrow, FaBriefcase, FaPhoenixFramework } from 'react-icons/fa' 
-import { BsCalendarDate, BsCalendar2DateFill } from 'react-icons/bs'
+import { FaPhoenixFramework } from 'react-icons/fa' 
 import { GiDistressSignal } from 'react-icons/gi'
 import { ImFlag } from "react-icons/im"
-import moment from 'moment'
 
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, status, dataInicioGraduacao, dataFimGraduacao }) => { 
-  let dateInicio = moment(dataInicioGraduacao)  
-  let dateFim = moment(dataFimGraduacao) 
-  
-  dateInicio = dateInicio.format('DD MMM YYYY')
-  dateFim =  dateFim.format('DD MMM YYYY')
-  
+const Egresso = ({nomeEgresso, curso, instituicao, status }) => {   
 
   return (
     <Wrapper>
       <header>
-        <div className='main-icon'>{instituicao.charAt(0)}</div>
+        <div className='main-icon'>{nomeEgresso.charAt(0)}</div>
 
         <div className='info'>
-          <h5>{curso}</h5>
+          <h5>{nomeEgresso}</h5>
 
           <p>{instituicao}</p>
         </div>
@@ -30,20 +22,12 @@ const Egresso = ({nomeEgresso, curso, instituicao, gradLocation, gradType, statu
 
       <div className='content'>
         <div className='content-center'>
-          <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
-
-          <JobInfo icon={<BsCalendarDate />} text={dateInicio.length < 11 ? 'data não informada' : dateInicio} />
-          
-          <JobInfo icon={<FaBriefcase />} text={gradType} />
-
-          <JobInfo icon={<BsCalendar2DateFill />} text={dateFim.length < 11 ? 'data não informada' : dateInicio} />
-
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
 
-          <JobInfo icon={<FaPhoenixFramework />} text={nomeEgresso ? nomeEgresso : 'nome desconhecido'} />               
-                         
+          <JobInfo icon={<FaPhoenixFramework />} text={curso} />            
         </div>        
       </div>
+      
     </Wrapper>
   )
 }

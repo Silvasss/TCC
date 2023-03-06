@@ -72,7 +72,7 @@ const initialState = {
   jobType: 'full-time',
   gradType: 'presencial',
   statusOptions: ['Atual', 'Anterior'],
-  statusGradOptions: ['finalizada', 'cursando', 'trancada'], //
+  statusGradOptions: ['Anterior', 'Atual'], //
   status: 'Anterior',
   statusGrad: 'finalizada', // 
   dataInicioGraduacao: '', //

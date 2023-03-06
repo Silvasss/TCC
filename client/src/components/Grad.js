@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { FaLocationArrow, FaBriefcase } from 'react-icons/fa'
+import { FaLocationArrow } from 'react-icons/fa'
 import { GiDistressSignal } from 'react-icons/gi'
-import { BsCalendarDate, BsCalendar2DateFill } from 'react-icons/bs'
 import { ImFlag } from "react-icons/im"
 
 import { useAppContext } from '../context/appContext'
@@ -9,7 +8,7 @@ import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Grad = ({_id, curso, instituicao, gradLocation, gradType, status, dataInicioGraduacao, dataFimGraduacao}) => { 
+const Grad = ({ _id, curso, instituicao, gradLocation, status }) => { 
   const { setEditGrad, deleteGrad } = useAppContext()
   
   return (
@@ -27,12 +26,6 @@ const Grad = ({_id, curso, instituicao, gradLocation, gradType, status, dataInic
       <div className='content'>
         <div className='content-center'>
           <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
-          
-          <JobInfo icon={<BsCalendarDate />} text={dataInicioGraduacao} />
-
-          <JobInfo icon={<FaBriefcase />} text={gradType} />
-          
-          <JobInfo icon={<BsCalendar2DateFill />} text={dataFimGraduacao} />
 
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
         </div>
