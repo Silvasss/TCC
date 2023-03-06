@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 
 import checkPermissions from '../utils/checkPermissions.js'
 import Grad from '../models/Grad.js'
-import User from '../models/User.js'
 
 import {
   BadRequestError,
@@ -15,7 +14,7 @@ const createGrad = async (req, res) => {
     const { curso, instituicao } = req.body
 
     if (!curso || !instituicao) {
-        throw new BadRequestError('Please provide all values')
+        throw new BadRequestError('Forneça todos os valores')
     }
     
     req.body.createdBy = req.user.userId
@@ -111,13 +110,13 @@ const updateGrad = async (req, res) => {
     const { instituicao, curso } = req.body
 
     if (!curso || !instituicao) {
-        throw new BadRequestError('Please provide all values')
+        throw new BadRequestError('Forneça todos os valores')
     }
 
     const grad = await Grad.findOne({ _id: gradId })
 
     if (!grad) {
-        throw new NotFoundError(`No grad with id :${gradId}`)
+        throw new NotFoundError(`Sem graduação com id: ${gradId}`)
     }
 
     // check permissions
@@ -137,14 +136,14 @@ const deleteGrad = async (req, res) => {
     const grad = await Grad.findOne({ _id: gradId })
 
     if (!grad) {
-        throw new NotFoundError(`No grad with id :${gradId}`)
+        throw new NotFoundError(`Sem graduação com id: ${gradId}`)
     }
 
     checkPermissions(req.user, grad.createdBy)
 
     await grad.remove()
 
-    res.status(StatusCodes.OK).json({ msg: 'Success! Grad removed' })
+    res.status(StatusCodes.OK).json({ msg: 'Sucesso! Graduação removida' })
 }
 
 const showStats = async (req, res) => {    

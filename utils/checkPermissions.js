@@ -6,7 +6,7 @@ const checkPermissions = (requestUser, resourceUserId) => {
     return
   }
 
-  throw new UnAuthenticatedError('Not authorized to access this route')
+  throw new UnAuthenticatedError('Não autorizado a acessar esta rota')
 }
 
 

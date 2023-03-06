@@ -13,7 +13,7 @@ const createJob = async (req, res) => {
   const { position, company } = req.body
 
   if (!position || !company) {
-    throw new BadRequestError('Please provide all values')
+    throw new BadRequestError('Forneça todos os valores')
   }
 
   req.body.createdBy = req.user.userId
@@ -54,13 +54,13 @@ const updateJob = async (req, res) => {
   const { company, position } = req.body
 
   if (!position || !company) {
-    throw new BadRequestError('Please provide all values')
+    throw new BadRequestError('Forneça todos os valores')
   }
 
   const job = await Job.findOne({ _id: jobId })
 
   if (!job) {
-    throw new NotFoundError(`No job with id :${jobId}`)
+    throw new NotFoundError(`Sem trabalho com id: ${jobId}`)
   }
 
   // check permissions
@@ -80,14 +80,14 @@ const deleteJob = async (req, res) => {
   const job = await Job.findOne({ _id: jobId })
 
   if (!job) {
-    throw new NotFoundError(`No job with id :${jobId}`)
+    throw new NotFoundError(`Sem trabalho com id: ${jobId}`)
   }
 
   checkPermissions(req.user, job.createdBy)
 
   await job.remove()
 
-  res.status(StatusCodes.OK).json({ msg: 'Success! Job removed' })
+  res.status(StatusCodes.OK).json({ msg: 'Sucesso! Trabalho removido' })
 }
 
 const showStats = async (req, res) => {
