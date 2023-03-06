@@ -22,6 +22,10 @@ const Navbar = () => {
           {/*<h3 className='logo-text'>dashboard</h3>*/}
         </div>
 
+        {
+          // Adicionar aqui um icone para mostrar as solicitações pendentes para aprovação das instituições
+        }
+
         <div className='btn-container'>
           <button type='button' className='btn' onClick={() => setShowLogout(!showLogout)}>
             <FaUserCircle />
