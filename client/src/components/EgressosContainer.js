@@ -26,7 +26,7 @@ const EgressosContainer = () => {
     <Wrapper>
       <h5>{totalGrads} egressos{grads.length > 1 && 's'} encontrados</h5>
 
-      <div className='egressos'>
+      <div className='jobs'>
         {newGrads.map((grad) => {
           return <Egresso key={(grad._id)} {...grad} />
         })}

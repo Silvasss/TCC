@@ -21,9 +21,9 @@ const GradsContainer = () => {
   
   return (
     <Wrapper>
-      <h5>{totalGrads} instituições{grads.length > 1 && 's'} encontradas</h5>
+      <h5>{totalGrads} Minha{grads.length > 1 && 's'} instituiç{grads.length > 1 ? 'ões' : 'ão'} encontrada{grads.length > 1 && 's'}</h5>
 
-      <div className='grads'>
+      <div className='jobs'>
         {grads.map((grad) => {
           return <Grad key={grad._id} {...grad} />
         })}

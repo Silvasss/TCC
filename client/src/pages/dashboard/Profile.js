@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { FormRow, Alert, JobsContainer, GradsContainer, FormRowSelect } from '../../components'
+import { FormRow, Alert, JobsContainer, FormRowSelect } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
@@ -68,8 +68,6 @@ const Profile = () => {
           </button>
         </div>
       </form>
-
-      <GradsContainer />  
 
       <JobsContainer />     
       
