@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { FaLocationArrow } from 'react-icons/fa'
 import { GiDistressSignal } from 'react-icons/gi'
 import { ImFlag } from "react-icons/im"
 
@@ -8,7 +7,7 @@ import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const Grad = ({ _id, curso, instituicao, gradLocation, status }) => { 
+const Grad = ({ _id, curso, instituicao, status }) => { 
   const { setEditGrad, deleteGrad } = useAppContext()
   
   return (
@@ -25,7 +24,6 @@ const Grad = ({ _id, curso, instituicao, gradLocation, status }) => {
 
       <div className='content'>
         <div className='content-center'>
-          <JobInfo icon={<FaLocationArrow />} text={gradLocation} />
 
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
         </div>

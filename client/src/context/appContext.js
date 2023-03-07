@@ -352,11 +352,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, gradLocation, gradType, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
+      const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
 
       let nomeEgresso = JSON.parse(user).name + " " + JSON.parse(user).lastName
       
-      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, gradLocation, gradType, statusGrad, dataInicioGraduacao, dataFimGraduacao})
+      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 

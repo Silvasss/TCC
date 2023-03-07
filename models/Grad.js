@@ -19,7 +19,7 @@ const GradSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ['Atual', 'Anterior'],
-      default: 'Pendente',
+      default: 'Anterior',
     },
     dataInicioGraduacao: {
       type: String
