@@ -10,7 +10,6 @@ const StatsItem = ({ count, title, icon, color, bcg }) => {
         <span className='icon'>{icon}</span>
       </header>
       
-      <h5 className='title'>{title}</h5>
     </Wrapper>
   )
 }

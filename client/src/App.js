@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Register, Landing, Error, ProtectedRoute } from './pages'
-import { Profile, SharedLayout, Stats, AddJob, AddGrad, AllGrads } from './pages/dashboard'
+import { Profile, SharedLayout, AddJob, AddGrad, AllGrads } from './pages/dashboard'
 
 
 function App() {
@@ -16,7 +16,11 @@ function App() {
             </ProtectedRoute>
           }>
 
-          <Route index element={<Stats />} />
+          {
+            // Nova rota aqui! 
+            // com os cursos do usuário
+            //<Route index element={<Stats />} />
+          }
 
           <Route path='all-grads' element={<AllGrads />} />
           <Route path='add-job' element={<AddJob />} />

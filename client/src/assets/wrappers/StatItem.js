@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 const Wrapper = styled.article`
-  padding: 2rem;
+  padding: .1rem;
 
   background: var(--white);
 
@@ -23,7 +23,7 @@ const Wrapper = styled.article`
 
     font-weight: 700;
 
-    font-size: 50px;
+    font-size: 20px;
 
     color: ${(props) => props.color};
   }
@@ -41,9 +41,9 @@ const Wrapper = styled.article`
   }
 
   .icon {
-    width: 70px;
+    width: 18px;
 
-    height: 60px;
+    height: 15px;
 
     background: ${(props) => props.bcg};
 
