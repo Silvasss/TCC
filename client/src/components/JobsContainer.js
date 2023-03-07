@@ -8,7 +8,7 @@ import PageBtnContainer from './PageBtnContainer'
 
 
 const JobsContainer = () => {
-  const {getJobs, jobs, isLoading, page, totalJobs, search, searchStatus, searchType, sort, numOfPages,} = useAppContext()
+  const {getJobs, jobs, isLoading, page, search, searchStatus, searchType, sort, numOfPages,} = useAppContext()
   
   useEffect(() => {
     getJobs()
@@ -19,17 +19,9 @@ const JobsContainer = () => {
     return <Loading center />
   }
 
-  if (jobs.length === 0) {
-    return (
-      <Wrapper>
-        <h2>Nada foi encontrado...</h2>
-      </Wrapper>
-    )
-  }
-
   return (
     <Wrapper>
-      <h5>{totalJobs} job{jobs.length > 1 && 's'} encontrados</h5>
+      <h5>experiências{jobs.length > 1 && 's'} encontrados</h5>
 
       <div className='jobs'>
         {jobs.map((job) => {

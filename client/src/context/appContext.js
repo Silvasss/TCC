@@ -1,6 +1,12 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 
+import listaUniversidades from '../assets/dados/universidadesBrasil.json'
+import listaEstados from '../assets/dados/estadosCidadesBrasil.json'
+import listacursosSuperioresBrasil from '../assets/dados/cursosSuperioresBrasil.json'
+import listaProfissoes from '../assets/dados/profissoesBrasil.json'
+
+
 import reducer from './reducer'
 import {
   DISPLAY_ALERT,
@@ -44,6 +50,7 @@ import {
 } from './actions'
 
 
+
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
@@ -61,13 +68,15 @@ const initialState = {
   editJobId: '',
   editGradId: '',
   position: '',
+  positionOptions: listaProfissoes,
   curso: '',
-  cursoOptions: [''], // lista com os nomes dos cursos
+  cursoOptions: listacursosSuperioresBrasil.map(cursosSuperioresBrasil => cursosSuperioresBrasil.name), // lista com os nomes dos cursos
   nomeEgresso: '', //
   company: '',
   instituicao: '',
-  instituicaoOptions: [''], // lista com os nomes das instituiçoes
-  jobLocation: userLocation || '',
+  instituicaoOptions: listaUniversidades.map(listaUniversidades => listaUniversidades["ACADEMIA DA FORÇA AÉREA"]), // lista com os nomes das instituiçoes
+  jobLocation: userLocation || '',  
+  gradLocation: listaEstados.map(listaEstados => listaEstados.Nome), // lista com os nomes das cidades
   jobTypeOptions: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
   jobType: 'Tempo integral',
   statusOptions: ['Atual', 'Anterior'],
@@ -93,7 +102,7 @@ const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-
+  
   // axios
   const authFetch = axios.create({baseURL: '/api/v1',})
 

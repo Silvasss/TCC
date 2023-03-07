@@ -49,11 +49,9 @@ const AddGrad = () => {
     handleChange({ name, value })
   }
 
-
   // MODIFICAÇÕES
-  // ! - Campos nome da "Nome Da Instituição" e "Curso", é necessário trocar o tipo do campo de entrada para caixa de seleção
-  // ! - Adicionar no "AppContext" a lista com os valores
-
+  // 1 - Criar um campo de seleção que permite digitar pra buscar que funcione corretamente!
+  // 2 - Desativar os campos de datas de acordo com a situação do curso
 
   return (
     <Wrapper>
@@ -62,9 +60,9 @@ const AddGrad = () => {
 
         {showAlert && <Alert />}
 
-        <div className='form-center'>          
+        <div className='form-center'>     
           <FormRowSelect name='instituicao' labelText="Selecione uma instituição" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
-
+          
           <FormRowSelect name='curso' labelText="Selecione um curso" value={curso} handleChange={handleGradInput} list={cursoOptions}/>
 
           <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>

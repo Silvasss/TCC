@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-import { FormRow, Alert, JobsContainer, GradsContainer } from '../../components'
+import { FormRow, Alert, JobsContainer, GradsContainer, FormRowSelect } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 
 const Profile = () => {
-  const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext()
+  const { user, showAlert, displayAlert, updateUser, isLoading, gradLocation } = useAppContext()
 
   const [name, setName] = useState(user?.name)
   const [email, setEmail] = useState(user?.email)
@@ -54,13 +54,13 @@ const Profile = () => {
             value={email}
             handleChange={(e) => setEmail(e.target.value)}
           />
-
-          <FormRow
-            type='text'
-            name='location'
-            labelText="localização"
-            value={location}
-            handleChange={(e) => setLocation(e.target.value)}
+          
+          <FormRowSelect
+            name='location' 
+            value={location} 
+            handleChange={(e) => setLocation(e.target.value)} 
+            list={gradLocation}
+            selectValue={location}
           />
 
           <button className='btn btn-block' type='submit' disabled={isLoading}>

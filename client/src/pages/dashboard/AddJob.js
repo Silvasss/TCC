@@ -10,8 +10,10 @@ const AddJob = () => {
     showAlert,
     displayAlert,
     position,
+    positionOptions,
     company,
     jobLocation,
+    gradLocation,
     jobType,
     jobTypeOptions,
     status,
@@ -39,7 +41,7 @@ const AddJob = () => {
 
     createJob()
   }
-
+  
   const handleJobInput = (e) => {
     const name = e.target.name
 
@@ -47,7 +49,7 @@ const AddJob = () => {
     
     handleChange({ name, value })
   }
-
+  
   return (
     <Wrapper>
       <form className='form'>
@@ -56,13 +58,13 @@ const AddJob = () => {
         {showAlert && <Alert />}
 
         <div className='form-center'>
-          <FormRow type='text' name='position' value={position} labelText="cargo" handleChange={handleJobInput}/>
+          <FormRowSelect name='position' labelText="Selecione um cargo" value={position} handleChange={handleJobInput} list={positionOptions}/>
           
           <FormRow type='text' name='company' value={company} labelText="empresa" handleChange={handleJobInput}/>
 
-          <FormRow type='text' labelText='Localização da empresa' name='jobLocation' value={jobLocation} handleChange={handleJobInput}/>
+          <FormRowSelect name='jobLocation' labelText="Localização da empresa" value={jobLocation} handleChange={handleJobInput} list={gradLocation}/>
 
-          <FormRowSelect name='status' value={status} handleChange={handleJobInput} list={statusOptions}/>
+          <FormRowSelect name='Situação' value={status} handleChange={handleJobInput} list={statusOptions}/>
 
           <FormRowSelect name='jobType' labelText='Jornada de trabalho' value={jobType} handleChange={handleJobInput} list={jobTypeOptions}/>
 
