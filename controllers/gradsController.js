@@ -97,11 +97,12 @@ const getAllEgressosGrads = async (req, res) => {
     // Coleção com todos os valores do objeto "grads"
     let grads = await result            
     
-    const totalGrads = grads.length 
+    //const totalGrads = grads.length 
+    const totalUserGrads = await Grad.countDocuments() 
     
-    const numOfPages = Math.ceil(totalGrads / limit)
+    const numOfPages = Math.ceil(totalUserGrads / limit)
     
-    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })     
+    res.status(StatusCodes.OK).json({ grads, totalUserGrads, numOfPages })     
 }
 
 const updateGrad = async (req, res) => {

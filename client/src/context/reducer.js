@@ -240,7 +240,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       grads: action.payload.grads,
-      totalGrabs: action.payload.totalGrads,
+      totalGrads: action.payload.totalGrads,
       numOfPages: action.payload.numOfPages,
     }
   }

@@ -21,6 +21,8 @@ const EgressosContainer = () => {
 
   // Remove Duplicate objects from JSON Array
   var newGrads = grads.filter((arr, index, self) => index === self.findIndex((t) => (t._id === arr._id)))
+  
+  // ! problema com o número "totalGrads"
 
   return (
     <Wrapper>

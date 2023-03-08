@@ -87,9 +87,13 @@ const initialState = {
   dataFimGraduacao: '', //
   jobs: [],
   grads: [],
-  totalJobs: 0, // Falta esse campo para a páginação das graduações
-  numOfPages: 1,
-  page: 1,
+  totalJobs: 0,
+  totalGrads: 0,  // Quantidade de graduações que foram encontradas
+  totalUserGrads: 0,  // Quantidade de graduações do usuário que foram encontradas
+  numOfPages: 1, // Número total de páginas de todas as graduações
+  numOfPagesUserGrads: 1, // Número total de páginas de todas as graduações do usuário
+  pageUserGrads: 1, // Número da página atual das proprias graduações do usuário, que ele está visualizando
+  pageTodasGrads: 1, // Número da página atual de todas as graduações que o usuário está visualizando
   stats: {},
   search: '',
   searchStatus: 'todos',
@@ -124,7 +128,6 @@ const AppProvider = ({ children }) => {
       return response
     },
     (error) => {
-      // console.log(error.response)
       if (error.response.status === 401) {
         logoutUser()
       }
@@ -144,6 +147,7 @@ const AppProvider = ({ children }) => {
     }, 3000)
   }
 
+  // ----------------------------------User-----------------------------------
   const addUserToLocalStorage = ({ user, token, location }) => {
     localStorage.setItem('user', JSON.stringify(user))
 
@@ -159,8 +163,7 @@ const AppProvider = ({ children }) => {
 
     localStorage.removeItem('location')
   }
-
-  // User
+  
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
 
@@ -228,8 +231,9 @@ const AppProvider = ({ children }) => {
   const clearValues = () => {
     dispatch({ type: CLEAR_VALUES })
   }
+  // ------------------------------END-User----------------------------------
 
-  // Jobs
+  // ----------------------------------Jobs----------------------------------
   const createJob = async () => {
     dispatch({ type: CREATE_JOB_BEGIN })
 
@@ -256,9 +260,9 @@ const AppProvider = ({ children }) => {
   }
 
   const getJobs = async () => {
-    const { page, search, searchStatus, searchType, sort } = state
+    const { pageUserGrads, search, searchStatus, searchType, sort } = state
     
-    let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+    let url = `/jobs?page=${pageUserGrads}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`
@@ -326,7 +330,9 @@ const AppProvider = ({ children }) => {
       logoutUser()
     }
   }
+  // ----------------------------------END-Jobs----------------------------------
 
+  // ----------------------------------Grad--------------------------------------
   const showStats = async () => {
     dispatch({ type: SHOW_STATS_BEGIN })
 
@@ -347,7 +353,6 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
-  // Graduação
   const createGrad = async () => {
     dispatch({ type: CREATE_GRAD_BEGIN })
 
@@ -376,9 +381,9 @@ const AppProvider = ({ children }) => {
   }
 
   const getGrads = async () => {
-    const { page, search, searchStatus, searchType, sort } = state
+    const { pageTodasGrads, search, searchStatus, searchType, sort } = state
 
-    let url = `/grads?page=${page}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
+    let url = `/grads?page=${pageTodasGrads}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`
@@ -389,14 +394,14 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url)
 
-      const { grads, totalGrads, numOfPages } = data
-
+      const { grads, totalUserGrads, numOfPagesUserGrads } = data
+      
       dispatch({
         type: GET_GRADS_SUCCESS,
         payload: {
           grads,
-          totalGrads,
-          numOfPages,
+          totalUserGrads,
+          numOfPagesUserGrads,
         },
       })
     } catch (error) {
@@ -421,7 +426,7 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch(url)
       
       const { grads, totalGrads, numOfPages } = data
-
+      
       dispatch({
         type: GET_ALLGRADS_SUCCESS,
         payload: {
@@ -433,7 +438,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       logoutUser()
     }
-
+    
     clearAlert()
   }
 
@@ -496,6 +501,7 @@ const AppProvider = ({ children }) => {
 
     clearAlert()
   }
+  // --------------------------------END-Grad--------------------------------------
 
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS })
