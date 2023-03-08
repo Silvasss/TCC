@@ -1,9 +1,13 @@
-import { GradsContainer } from '../../components'
+import { GradsContainer, SearchContainer } from '../../components'
 
 
 const AllMyGrads = () => {
     return (        
-        <GradsContainer />    
+        <>
+            <SearchContainer />
+
+            <GradsContainer />    
+        </>
     )
 }
 

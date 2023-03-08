@@ -8,7 +8,7 @@ import PageBtnContainer from './PageBtnContainer'
 
 
 const GradsContainer = () => {
-  const {getGrads, grads, isLoading, page, totalGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
+  const {getGrads, grads, isLoading, page, totalUserGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
   
   useEffect(() => {
     getGrads()
@@ -21,7 +21,7 @@ const GradsContainer = () => {
   
   return (
     <Wrapper>
-      <h5>{totalGrads} Minha{grads.length > 1 && 's'} instituiç{grads.length > 1 ? 'ões' : 'ão'} encontrada{grads.length > 1 && 's'}</h5>
+      <h5>{totalUserGrads} Minha{grads.length > 1 && 's'} instituiç{grads.length > 1 ? 'ões' : 'ão'} encontrada{grads.length > 1 && 's'}</h5>
 
       <div className='jobs'>
         {grads.map((grad) => {

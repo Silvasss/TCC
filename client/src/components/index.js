@@ -12,6 +12,7 @@ import StatsContainer from './StatsContainer'
 import GradsContainer from './GradsContainer'
 import EgressosContainer from './EgressosContainer'
 import AutoComplete from './FormSelectAutoComplete'
+import SearchContainer from './SearchContainer'
 
 
-export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete}
+export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer }

@@ -99,7 +99,7 @@ const initialState = {
   searchStatus: 'todos',
   searchType: 'todos',
   sort: 'ultimo',
-  sortOptions: ['ultimo', 'antigo', 'a-z', 'z-a'],
+  sortOptions: ['Recentes', 'Antigos', 'A-Z', 'Z-A'],
 }
 
 const AppContext = React.createContext()
