@@ -450,9 +450,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, gradLocation, gradType, statusGrad } = state
+      // Variáveis "dataInicioGraduacao" e "dataFimGraduacao" é reconhecida no reducer, mas não e apresentada no front
 
-      await authFetch.patch(`/grads/${state.editGradId}`, {curso, instituicao, gradLocation, gradType, statusGrad})
+      const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
+
+      await authFetch.patch(`/grads/${state.editGradId}`, { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao })
 
       dispatch({ type: EDIT_GRAD_SUCCESS })
 

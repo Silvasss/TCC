@@ -145,7 +145,7 @@ const reducer = (state, action) => {
       position: '',
       company: '',
       jobLocation: state.userLocation,
-      jobType: 'full-time',
+      jobType: 'Tempo integral',
       status: 'Pendente',
     }
 
@@ -226,8 +226,8 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       grads: action.payload.grads,
-      totalGrabs: action.payload.totalGrads,
-      numOfPages: action.payload.numOfPages,
+      totalUserGrads: action.payload.totalUserGrads,
+      numOfPagesUserGrads: action.payload.numOfPagesUserGrads,
     }
   }
 
@@ -267,8 +267,8 @@ const reducer = (state, action) => {
   if (action.type === SET_EDIT_GRAD) {
 
     const grad = state.grads.find((grad) => grad._id === action.payload.id)
-
-    const { _id, curso, instituicao, gradLocation, gradType, status } = grad
+    
+    const { _id, curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = grad
 
     return {
       ...state,
@@ -276,9 +276,9 @@ const reducer = (state, action) => {
       editGradId: _id,
       curso,
       instituicao,
-      gradLocation,
-      gradType,
-      status,
+      statusGrad,
+      dataInicioGraduacao, 
+      dataFimGraduacao
     }
   }
   //_____________________--______________________---
