@@ -8,12 +8,12 @@ import PageBtnContainer from './PageBtnContainer'
 
 
 const GradsContainer = () => {
-  const {getGrads, grads, isLoading, page, totalUserGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
+  const {getGrads, userGrads, isLoading, page, totalUserGrads, searchUser, searchUserStatus, sortUser, numOfPagesUserGrads} = useAppContext()
   
   useEffect(() => {
     getGrads()
     // eslint-disable-next-line
-  }, [page, search, searchStatus, searchType, sort])
+  }, [page, searchUser, searchUserStatus, sortUser])
 
   if (isLoading) {
     return <Loading center />
@@ -21,15 +21,15 @@ const GradsContainer = () => {
   
   return (
     <Wrapper>
-      <h5>{totalUserGrads} Minha{grads.length > 1 && 's'} instituiç{grads.length > 1 ? 'ões' : 'ão'} encontrada{grads.length > 1 && 's'}</h5>
+      <h5>{totalUserGrads} Minha{totalUserGrads > 1 && 's'} instituiç{totalUserGrads > 1 ? 'ões' : 'ão'} encontrada{totalUserGrads > 1 && 's'}</h5>
 
       <div className='jobs'>
-        {grads.map((grad) => {
+        {userGrads.map((grad) => {
           return <Grad key={grad._id} {...grad} />
         })}
       </div>
 
-      {numOfPages > 1 && <PageBtnContainer />}
+      {numOfPagesUserGrads > 1 && <PageBtnContainer />}
     </Wrapper>
   )
 }

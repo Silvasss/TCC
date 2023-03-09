@@ -1,4 +1,4 @@
-import { EgressosContainer, SearchContainer } from '../../components'
+import { EgressosContainer, SearchAllEgressosContainer } from '../../components'
 
 
 // Apresentar todos os egressos da instituição
@@ -6,7 +6,7 @@ import { EgressosContainer, SearchContainer } from '../../components'
 const AllGrads = () => {
   return (     
     <>
-      <SearchContainer />   
+      <SearchAllEgressosContainer />   
 
       <EgressosContainer />    
     </>

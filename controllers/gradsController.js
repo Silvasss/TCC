@@ -24,40 +24,37 @@ const createGrad = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ grad })
 }
 
-const getAllGrads = async (req, res) => {
-    const { status, gradType, sort, search } = req.query
-
+// Todas as instituições do usuário cadastradas no banco
+const getAllGrads = async (req, res) => {    
+    const { status, sort, search } = req.query
+    
     const queryObject = {
         createdBy: req.user.userId,
     }
 
-    if (status && status !== 'todos') {
+    if (status && status !== 'Todos') {
         queryObject.status = status
     }
 
-    if (gradType && gradType !== 'todos') {
-        queryObject.gradType = gradType
-    }
-
     if (search) {
-        queryObject.curso = { $regex: search, $options: 'i' }
+        queryObject.instituicao = { $regex: search, $options: 'i' }
     }
 
     let result = Grad.find(queryObject)
 
-    if (sort === 'ultimo') {
+    if (sort === 'Recentes') {
         result = result.sort('-createdAt')
     }
 
-    if (sort === 'antigo') {
+    if (sort === 'Antigos') {
         result = result.sort('createdAt')
     }
 
-    if (sort === 'a-z') {
+    if (sort === 'A-Z') {
         result = result.sort('position')
     }
 
-    if (sort === 'z-a') {
+    if (sort === 'Z-A') {
         result = result.sort('-position')
     }
 
@@ -70,23 +67,53 @@ const getAllGrads = async (req, res) => {
 
     result = result.skip(skip).limit(limit)
 
-    const grads = await result
+    const userGrads = await result
 
-    const totalGrads = await Grad.countDocuments(queryObject)
+    const totalUserGrads = await Grad.countDocuments(queryObject)
 
-    const numOfPages = Math.ceil(totalGrads / limit)
+    const numOfPages = Math.ceil(totalUserGrads / limit)
 
-    res.status(StatusCodes.OK).json({ grads, totalGrads, numOfPages })
+    res.status(StatusCodes.OK).json({ userGrads, totalUserGrads, numOfPages })
 }
 
+// Todas as instituições cadastradas no banco
 const getAllEgressosGrads = async (req, res) => {       
-    // Todas as instituições cadastradas no banco
-    let result = Grad.find()
+    const { status, sort, search } = req.query
+ 
+    const queryObject = {
+        // Exceto as do usuário
+        createdBy: {$nin: req.user.userId},
+    }
+
+    if (status && status !== 'Todos') {
+        queryObject.status = status
+    }
+
+    if (search) {
+        queryObject.instituicao = { $regex: search, $options: 'i' }
+    }
+
+    let result = Grad.find(queryObject)
+
+    if (sort === 'Recentes') {
+        result = result.sort('-createdAt')
+    }
+
+    if (sort === 'Antigos') {
+        result = result.sort('createdAt')
+    }
+
+    if (sort === 'A-Z') {
+        result = result.sort('position')
+    }
+
+    if (sort === 'Z-A') {
+        result = result.sort('-position')
+    }
     
     // --------setup pagination-------------    
     const page = Number(req.query.page) || 1
 
-    // Problema no parâmetro recebido pelo "limit"
     const limit = Number(req.query.limit) || 10
 
     const skip = (page - 1) * limit
@@ -95,14 +122,13 @@ const getAllEgressosGrads = async (req, res) => {
     // -------------------------------------
 
     // Coleção com todos os valores do objeto "grads"
-    let grads = await result            
+    let allGrads = await result            
     
-    //const totalGrads = grads.length 
-    const totalUserGrads = await Grad.countDocuments() 
+    const totalAllGrads = await Grad.countDocuments(queryObject) 
     
-    const numOfPages = Math.ceil(totalUserGrads / limit)
+    const numOfPages = Math.ceil(totalAllGrads / limit)
     
-    res.status(StatusCodes.OK).json({ grads, totalUserGrads, numOfPages })     
+    res.status(StatusCodes.OK).json({ allGrads, totalAllGrads, numOfPages })     
 }
 
 const updateGrad = async (req, res) => {

@@ -225,7 +225,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      grads: action.payload.grads,
+      userGrads: action.payload.userGrads,
       totalUserGrads: action.payload.totalUserGrads,
       numOfPagesUserGrads: action.payload.numOfPagesUserGrads,
     }
@@ -239,8 +239,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      grads: action.payload.grads,
-      totalGrads: action.payload.totalGrads,
+      allGrads: action.payload.allGrads,
+      totalAllGrads: action.payload.totalAllGrads,
       numOfPages: action.payload.numOfPages,
     }
   }
@@ -363,9 +363,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       search: '',
-      searchStatus: 'todos',
-      searchType: 'todos',
-      sort: 'ultimo',
+      searchStatus: 'Todos',
+      searchType: 'Todos',
+      sort: 'Recentes',
     }
   }
 

@@ -85,21 +85,26 @@ const initialState = {
   statusGrad: 'Anterior', // 
   dataInicioGraduacao: '', //
   dataFimGraduacao: '', //
-  jobs: [],
-  grads: [],
-  totalJobs: 0,
-  totalGrads: 0,  // Quantidade de graduações que foram encontradas
+  jobs: [], // Todas as experiências do usuário
+  userGrads: [], // Graduações do usuário
+  allGrads: [], // Todas as graduações do banco
+  totalJobs: 0, // Quantidade de experiências que foram encontradas
+  totalAllGrads: 0,  // Quantidade de graduações que foram encontradas
   totalUserGrads: 0,  // Quantidade de graduações do usuário que foram encontradas
   numOfPages: 1, // Número total de páginas de todas as graduações
   numOfPagesUserGrads: 1, // Número total de páginas de todas as graduações do usuário
   pageUserGrads: 1, // Número da página atual das proprias graduações do usuário, que ele está visualizando
   pageTodasGrads: 1, // Número da página atual de todas as graduações que o usuário está visualizando
-  stats: {},
-  search: '',
-  searchStatus: 'todos',
-  searchType: 'todos',
-  sort: 'ultimo',
+  pageTodasUserGrads: 1, // Número da página atual de todas as graduações do próprio usuário que está sendo visualizada
+  stats: {}, // Página removida
+  search: '', // Qual instituição que o usuário escolheu/digitou na página "Todos os Egressos"
+  searchUser: '', // Qual instituição que o usuário escolheu/digitou na página "Minhas Graduações"
+  searchStatus: 'Todos', // Qual Situação que o usuário escolheu na página "Todos os Egressos"
+  searchUserStatus: 'Todos', // Qual Situação que o usuário escolheu na página "Minhas Graduações"
+  sort: 'Recentes', // Qual Filtro que o usuário escolheu na página "Todos os Egressos"
+  sortUser: 'Recentes', // Qual Filtro que o usuário escolheu na página "Minhas Graduações"
   sortOptions: ['Recentes', 'Antigos', 'A-Z', 'Z-A'],
+  sortUserOptions: ['Recentes', 'Antigos', 'A-Z', 'Z-A'],
 }
 
 const AppContext = React.createContext()
@@ -381,12 +386,12 @@ const AppProvider = ({ children }) => {
   }
 
   const getGrads = async () => {
-    const { pageTodasGrads, search, searchStatus, searchType, sort } = state
+    const { pageTodasUserGrads, searchUser, searchUserStatus, sortUser } = state
 
-    let url = `/grads?page=${pageTodasGrads}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
+    let url = `/grads?page=${pageTodasUserGrads}&status=${searchUserStatus}&sort=${sortUser}`
 
-    if (search) {
-      url = url + `&search=${search}`
+    if (searchUser) {
+      url = url + `&search=${searchUser}`
     }
 
     dispatch({ type: GET_GRADS_BEGIN })
@@ -394,12 +399,12 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url)
 
-      const { grads, totalUserGrads, numOfPagesUserGrads } = data
+      const { userGrads, totalUserGrads, numOfPagesUserGrads } = data
       
       dispatch({
         type: GET_GRADS_SUCCESS,
         payload: {
-          grads,
+          userGrads,
           totalUserGrads,
           numOfPagesUserGrads,
         },
@@ -412,9 +417,9 @@ const AppProvider = ({ children }) => {
   }
 
   const getEgressos = async () => {
-    const { page, search, searchStatus, searchType, sort } = state
-
-    let url = `/grads/getegressos?page=${page}&status=${searchStatus}&gradType=${searchType}&sort=${sort}`
+    const { pageTodasGrads, search, searchStatus, sort } = state
+    
+    let url = `/grads/getegressos?page=${pageTodasGrads}&status=${searchStatus}&sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`
@@ -425,18 +430,19 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url)
       
-      const { grads, totalGrads, numOfPages } = data
+      const { allGrads, totalAllGrads, numOfPages } = data
       
       dispatch({
         type: GET_ALLGRADS_SUCCESS,
         payload: {
-          grads,
-          totalGrads,
+          allGrads,
+          totalAllGrads,
           numOfPages,
         },
       })
     } catch (error) {
-      logoutUser()
+      //logoutUser()
+      console.log(error)
     }
     
     clearAlert()

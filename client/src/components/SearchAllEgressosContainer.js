@@ -7,10 +7,10 @@ import Wrapper from '../assets/wrappers/SearchContainer'
 
 
 // Filtros da página de graduações do usuário
-const SearchContainer = () => {
+const SearchAllEgressosContainer = () => {
   const [localSearch, setLocalSearch] = useState('')
 
-  const { isLoading, searchStatus, sort, sortOptions, handleChange, clearFilters, statusOptions, userGrads } = useAppContext()
+  const { isLoading, searchStatus, sort, sortOptions, handleChange, clearFilters, statusOptions, allGrads } = useAppContext()
 
   const handleSearch = (e) => {
 
@@ -36,10 +36,11 @@ const SearchContainer = () => {
       timeoutID = setTimeout(() => { handleChange({ name: e.target.name, value: e.target.value }) }, 1000)
     }
   }
-
+  
   const optimizedDebounce = useMemo(() => debounce(), [])
-
-  const listaNomesInstituicoes = userGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
+  
+  // Remove os nomes duplicados
+  const listaNomesInstituicoes = allGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
   
   return (
     <Wrapper>      
@@ -50,7 +51,7 @@ const SearchContainer = () => {
         <div className='form-center'>
           <FormRowSelect name='search' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes.map((grad) => {return grad.instituicao})}/>
 
-          <FormRowSelect labelText='situação' name='searchStatus' value={searchStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
+          <FormRowSelect name='searchStatus' labelText='situação' value={searchStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
           
           <FormRowSelect name='sort' labelText="Filtro" value={sort} handleChange={handleSearch} list={sortOptions} />
           
@@ -63,4 +64,4 @@ const SearchContainer = () => {
 }
 
 
-export default SearchContainer
+export default SearchAllEgressosContainer

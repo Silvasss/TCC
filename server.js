@@ -20,20 +20,21 @@ import gradsRouter from './routes/gradsRoutes.js'
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 import authenticateUser from './middleware/auth.js'
+import morgan from 'morgan'
 
 
 const app = express()
 
 dotenv.config()
 
-//if (process.env.NODE_ENV !== 'production') {
-  //app.use(morgan('dev'))
-//}
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'))
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // only when ready to deploy
-app.use(express.static(path.resolve(__dirname, './client/build')));
+//app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.use(express.json())
 app.use(helmet())

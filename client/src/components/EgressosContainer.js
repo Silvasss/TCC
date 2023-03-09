@@ -8,28 +8,23 @@ import PageBtnContainer from './PageBtnContainer'
 
 
 const EgressosContainer = () => {
-  const {getEgressos, grads, isLoading, page, totalGrads, search, searchStatus, searchType, sort, numOfPages} = useAppContext()
-  
+  const {getEgressos, allGrads, isLoading, page, totalAllGrads, search, searchStatus, sort, numOfPages} = useAppContext()
+
   useEffect(() => {
     getEgressos()
     // eslint-disable-next-line
-  }, [page, search, searchStatus, searchType, sort])
+  }, [page, search, searchStatus, sort])
   
   if (isLoading) {
     return <Loading center />
   }
-
-  // Remove Duplicate objects from JSON Array
-  var newGrads = grads.filter((arr, index, self) => index === self.findIndex((t) => (t._id === arr._id)))
   
-  // ! problema com o número "totalGrads"
-
   return (
     <Wrapper>
-      <h5>{totalGrads} egressos{grads.length > 1 && 's'} encontrados</h5>
+      <h5>{totalAllGrads} egressos{totalAllGrads > 1 && 's'} encontrados</h5>
 
       <div className='jobs'>
-        {newGrads.map((grad) => {
+        {allGrads.map((grad) => {
           return <Egresso key={(grad._id)} {...grad} />
         })}
       </div>
