@@ -37,6 +37,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CLEAR_USERFILTERS,
   CHANGE_PAGE,
 } from './actions'
 
@@ -359,13 +360,24 @@ const reducer = (state, action) => {
     }
   }
 
+  // Todas as graduações
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
       search: '',
       searchStatus: 'Todos',
-      searchType: 'Todos',
       sort: 'Recentes',
+    }
+  }
+
+  // Todas as graduações do usuário
+  // Todas as graduações
+  if (action.type === CLEAR_USERFILTERS) {
+    return {
+      ...state,
+      searchUser: '',
+      searchUserStatus: 'Todos',
+      sortUser: 'Recentes',
     }
   }
 

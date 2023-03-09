@@ -46,6 +46,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CLEAR_USERFILTERS,
   CHANGE_PAGE,
 } from './actions'
 
@@ -390,6 +391,8 @@ const AppProvider = ({ children }) => {
 
     let url = `/grads?page=${pageTodasUserGrads}&status=${searchUserStatus}&sort=${sortUser}`
 
+    console.log(url)
+
     if (searchUser) {
       url = url + `&search=${searchUser}`
     }
@@ -515,6 +518,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_FILTERS })
   }
 
+  // Clear filtro usuário
+  const clearUSERFilters = () => {
+    dispatch({ type: CLEAR_USERFILTERS })
+  }
+
   const changePage = (page) => {
     dispatch({ type: CHANGE_PAGE, payload: { page } })
   }
@@ -542,6 +550,7 @@ const AppProvider = ({ children }) => {
         showStats,
         showStatsGrad,
         clearFilters,
+        clearUSERFilters,
         changePage,
         getGrads,
         getEgressos

@@ -10,7 +10,7 @@ import Wrapper from '../assets/wrappers/SearchContainer'
 const SearchContainer = () => {
   const [localSearch, setLocalSearch] = useState('')
 
-  const { isLoading, searchStatus, sort, sortOptions, handleChange, clearFilters, statusOptions, userGrads } = useAppContext()
+  const { isLoading, searchUserStatus, sortUser, sortOptions, handleChange, clearUSERFilters, statusOptions, userGrads } = useAppContext()
 
   const handleSearch = (e) => {
 
@@ -22,7 +22,7 @@ const SearchContainer = () => {
 
     setLocalSearch('')
 
-    clearFilters()
+    clearUSERFilters()
   }
 
   const debounce = () => {
@@ -48,11 +48,11 @@ const SearchContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>
-          <FormRowSelect name='search' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes.map((grad) => {return grad.instituicao})}/>
+          <FormRowSelect name='searchUser' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes.map((grad) => {return grad.instituicao})}/>
 
-          <FormRowSelect labelText='situação' name='searchStatus' value={searchStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
+          <FormRowSelect labelText='situação' name='searchStatus' value={searchUserStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
           
-          <FormRowSelect name='sort' labelText="Filtro" value={sort} handleChange={handleSearch} list={sortOptions} />
+          <FormRowSelect name='sort' labelText="Filtro" value={sortUser} handleChange={handleSearch} list={sortOptions} />
           
           <button className='btn btn-block btn-danger' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>
