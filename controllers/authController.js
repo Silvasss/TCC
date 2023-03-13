@@ -1,11 +1,20 @@
 import { StatusCodes } from 'http-status-codes'
+import { createClient } from '@supabase/supabase-js'
+import dotenv from 'dotenv'
 
 import User from '../models/User.js'
 import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
 
+dotenv.config()
+
+// The Supabase client is your entrypoint to the rest of the Supabase functionality and is the 
+// easiest way to interact with everything we offer within the Supabase ecosystem.
 
 const register = async (req, res) => {
   const { name, email, password } = req.body
+
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.ANON_KEY)
+
 
   if (!name || !email || !password) {
     throw new BadRequestError('Forneça todos os valores')
@@ -19,26 +28,28 @@ const register = async (req, res) => {
     throw new BadRequestError('Tamanho mínimo da senha 6 caracteres')
   }
 
-  const userAlreadyExists = await User.findOne({ email })
-
-  if (userAlreadyExists) {
+  const { error } = await supabase.auth.signUp({name, email, password})
+  
+  if (error != null && error.message === "User already registered") {
     throw new BadRequestError('Email já em uso')
   }
+    
+  //const { data } = await supabase.auth.getSession()
 
-  const user = await User.create({ name, email, password })
+  console.log(await supabase.auth.getSession())
 
-  const token = user.createJWT()
+  // const token = user.createJWT()
 
-  res.status(StatusCodes.CREATED).json({
-    user: {
-      email: user.email,
-      lastName: user.lastName,
-      location: user.location,
-      name: user.name,
-    },
-    token,
-    location: user.location,
-  })
+  // res.status(StatusCodes.CREATED).json({
+  //   user: {
+  //     email: user.email,
+  //     lastName: user.lastName,
+  //     location: user.location,
+  //     name: user.name,
+  //   },
+  //   token,
+  //   location: user.location,
+  // })
 }
 
 const login = async (req, res) => {
