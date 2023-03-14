@@ -364,7 +364,7 @@ const AppProvider = ({ children }) => {
 
     try {
       const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
-
+      // Remover sobrenome
       let nomeEgresso = JSON.parse(user).name + " " + JSON.parse(user).lastName
       
       await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao})
@@ -390,8 +390,6 @@ const AppProvider = ({ children }) => {
     const { pageTodasUserGrads, searchUser, searchUserStatus, sortUser } = state
 
     let url = `/grads?page=${pageTodasUserGrads}&status=${searchUserStatus}&sort=${sortUser}`
-
-    console.log(url)
 
     if (searchUser) {
       url = url + `&search=${searchUser}`

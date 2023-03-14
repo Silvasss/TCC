@@ -267,7 +267,7 @@ const reducer = (state, action) => {
   //_____________________--______________________---
   if (action.type === SET_EDIT_GRAD) {
 
-    const grad = state.grads.find((grad) => grad._id === action.payload.id)
+    const grad = state.userGrads.find((grad) => grad._id === action.payload.id)
     
     const { _id, curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = grad
 
