@@ -69,19 +69,19 @@ const initialState = {
   editJobId: '',
   editGradId: '',
   position: '',
-  positionOptions: listaProfissoes,
+  positionOptions: listaProfissoes.map(x => ({"value": x.charAt(0).toUpperCase() + x.slice(1), "label": x.charAt(0).toUpperCase() + x.slice(1)})),
   curso: '',
-  cursoOptions: listacursosSuperioresBrasil.map(cursosSuperioresBrasil => cursosSuperioresBrasil.name), // lista com os nomes dos cursos
+  cursoOptions: (listacursosSuperioresBrasil.map(cursosSuperioresBrasil => cursosSuperioresBrasil.name)).map(x => ({"value": x, "label": x})), // lista com os nomes dos cursos
   nomeEgresso: '', //
   company: '',
   instituicao: '',
-  instituicaoOptions: listaUniversidades.map(listaUniversidades => listaUniversidades["ACADEMIA DA FORÇA AÉREA"]), // lista com os nomes das instituiçoes
+  instituicaoOptions: (listaUniversidades.map(listaUniversidades => listaUniversidades["ACADEMIA DA FORÇA AÉREA"])).map(x => ({"value": x, "label": x})), // lista com os nomes das instituiçoes
   jobLocation: userLocation || '',  
-  gradLocation: listaEstados.map(listaEstados => listaEstados.Nome), // lista com os nomes das cidades
-  jobTypeOptions: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
+  gradLocation: (listaEstados.map(listaEstados => listaEstados.Nome)).map(x => ({"value": x, "label": x})), // lista com os nomes das cidades
+  jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
-  statusOptions: ['Atual', 'Anterior'],
-  statusGradOptions: ['Anterior', 'Atual'], //
+  statusOptions: [{"value": 'Todos', "label": 'Todos'}, {"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
+  statusGradOptions: [{"value": 'Todos', "label": 'Todos'}, {"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}], //
   status: 'Anterior',
   statusGrad: 'Anterior', // 
   dataInicioGraduacao: '', //
@@ -104,8 +104,8 @@ const initialState = {
   searchUserStatus: 'Todos', // Qual Situação que o usuário escolheu na página "Minhas Graduações"
   sort: 'Recentes', // Qual Filtro que o usuário escolheu na página "Todos os Egressos"
   sortUser: 'Recentes', // Qual Filtro que o usuário escolheu na página "Minhas Graduações"
-  sortOptions: ['Recentes', 'Antigos', 'A-Z', 'Z-A'],
-  sortUserOptions: ['Recentes', 'Antigos', 'A-Z', 'Z-A'],
+  sortOptions: [{"value": 'Recentes', "label": 'Recentes'}, {"value": 'Antigos', "label": 'Antigos'},{"value": 'A-Z', "label": 'A-Z'}, {"value": 'Z-A', "label": 'Z-A'}],
+  sortUserOptions: [{"value": 'Recentes', "label": 'Recentes'}, {"value": 'Antigos', "label": 'Antigos'},{"value": 'A-Z', "label": 'A-Z'}, {"value": 'Z-A', "label": 'Z-A'}],
 }
 
 const AppContext = React.createContext()
@@ -388,7 +388,7 @@ const AppProvider = ({ children }) => {
 
   const getGrads = async () => {
     const { pageTodasUserGrads, searchUser, searchUserStatus, sortUser } = state
-
+    
     let url = `/grads?page=${pageTodasUserGrads}&status=${searchUserStatus}&sort=${sortUser}`
 
     if (searchUser) {

@@ -13,8 +13,9 @@ const SearchAllEgressosContainer = () => {
   const { isLoading, searchStatus, sort, sortOptions, handleChange, clearFilters, statusOptions, allGrads } = useAppContext()
 
   const handleSearch = (e) => {
-
-    handleChange({ name: e.target.name, value: e.target.value })
+    if (e[1] && e[0] && e[1]){
+      handleChange({ name: e[0], value: e[1] })
+    } 
   }
 
   const handleSubmit = (e) => {
@@ -28,20 +29,23 @@ const SearchAllEgressosContainer = () => {
   const debounce = () => {
     let timeoutID
     
-    return (e) => {
-      setLocalSearch(e.target.value)
+    return (e) => {  
+      if (e[0] && e[1]) {
+        setLocalSearch(e[1])
 
-      clearTimeout(timeoutID)      
-
-      timeoutID = setTimeout(() => { handleChange({ name: e.target.name, value: e.target.value }) }, 1000)
+        clearTimeout(timeoutID)      
+        
+        timeoutID = setTimeout(() => { handleChange({ name: e[0], value: e[1] }) }, 1000)
+      } 
     }
   }
   
   const optimizedDebounce = useMemo(() => debounce(), [])
   
-  // Remove os nomes duplicados
-  const listaNomesInstituicoes = allGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
-  
+  let listaNomesInstituicoes = allGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
+
+  listaNomesInstituicoes = (listaNomesInstituicoes.map(listaNomesInstituicoes => listaNomesInstituicoes.instituicao)).map(x => ({"value": x, "label": x}))
+
   return (
     <Wrapper>      
       <form className='form'>
@@ -49,9 +53,9 @@ const SearchAllEgressosContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>
-          <FormRowSelect name='search' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes.map((grad) => {return grad.instituicao})}/>
+          <FormRowSelect name='search' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes}/>
 
-          <FormRowSelect name='searchStatus' labelText='situação' value={searchStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
+          <FormRowSelect name='searchStatus' labelText='situação' value={searchStatus} handleChange={handleSearch} list={statusOptions} />
           
           <FormRowSelect name='sort' labelText="Filtro" value={sort} handleChange={handleSearch} list={sortOptions} />
           

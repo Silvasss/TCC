@@ -21,6 +21,7 @@ const Profile = () => {
 
       return
     }
+
     updateUser({ name, email, lastName, location })
   }
 
@@ -58,7 +59,7 @@ const Profile = () => {
           <FormRowSelect
             name='location' 
             value={location} 
-            handleChange={(e) => setLocation(e.target.value)} 
+            handleChange={(e) => setLocation(e[1])} 
             list={gradLocation}
             selectValue={location}
           />

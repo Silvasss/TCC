@@ -1,20 +1,35 @@
+import React from 'react'
+import Select from 'react-select'
 
   
-const FormRowSelect = ({ labelText, name, value, handleChange, list, selectValue }) => {
+const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {   
+  const handleGradInput = (selecao, nome) => {  
+    handleChange([nome.name, selecao.value])
+  } 
+
+  let posicaoLista
+
+  try {
+    const novaLista = list.map(list => list["value"])
+  
+    posicaoLista = novaLista.findIndex((x) => x === value.charAt(0).toUpperCase() + value.slice(1))
+    
+    posicaoLista = posicaoLista === -1 ? posicaoLista + 1 : posicaoLista
+  } catch (error) {}
+
+
+  // *****Problemas******
+  //
+  // Função limpar não funciona!
+  //
+  // ********************
+
   
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>{labelText || name}</label>
 
-      <select name={name} value={value === '' ? 'Selecione um' : value } onChange={handleChange} className='form-select' select={selectValue}>
-        {list.map((itemValue, index) => {
-          return (
-            <option key={index} value={itemValue}>
-              {itemValue}
-            </option>
-          )
-        })}
-      </select>
+      <Select name={name} defaultValue={list[posicaoLista]} options={list} onChange={handleGradInput} />      
     </div>
   )
 }

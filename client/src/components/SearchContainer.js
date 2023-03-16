@@ -10,11 +10,12 @@ import Wrapper from '../assets/wrappers/SearchContainer'
 const SearchContainer = () => {
   const [localSearch, setLocalSearch] = useState('')
 
-  const { isLoading, searchUserStatus, sortUser, sortOptions, handleChange, clearUSERFilters, statusOptions, userGrads } = useAppContext()
+  const { isLoading, searchUserStatus, sortUser, sortOptions, handleChange, clearUSERFilters, statusOptions, userGrads, gradLocation2 } = useAppContext()
 
   const handleSearch = (e) => {
-
-    handleChange({ name: e.target.name, value: e.target.value })
+    if (e[1] && e[0] && e[1]){
+      handleChange({ name: e[0], value: e[1] })
+    } 
   }
 
   const handleSubmit = (e) => {
@@ -29,18 +30,23 @@ const SearchContainer = () => {
     let timeoutID
     
     return (e) => {
-      setLocalSearch(e.target.value)
+      if (e[0] && e[1]) {
+        setLocalSearch(e[1])
 
-      clearTimeout(timeoutID)      
-
-      timeoutID = setTimeout(() => { handleChange({ name: e.target.name, value: e.target.value }) }, 1000)
+        clearTimeout(timeoutID)      
+        
+        timeoutID = setTimeout(() => { handleChange({ name: e[0], value: e[1] }) }, 1000)
+      }       
     }
   }
 
   const optimizedDebounce = useMemo(() => debounce(), [])
 
-  const listaNomesInstituicoes = userGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
-  
+  let listaNomesInstituicoes = userGrads.filter((arr, index, self) => index === self.findIndex((t) => (t.instituicao === arr.instituicao)))
+
+  listaNomesInstituicoes = (listaNomesInstituicoes.map(listaNomesInstituicoes => listaNomesInstituicoes.instituicao)).map(x => ({"value": x, "label": x}))
+
+
   return (
     <Wrapper>      
       <form className='form'>
@@ -48,11 +54,11 @@ const SearchContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>
-          <FormRowSelect name='searchUser' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes.map((grad) => {return grad.instituicao})}/>
+          <FormRowSelect name='searchUser' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes}/>
 
-          <FormRowSelect labelText='situação' name='searchStatus' value={searchUserStatus} handleChange={handleSearch} list={['Todos', ...statusOptions]} />
+          <FormRowSelect name='searchUserStatus' labelText='situação' value={searchUserStatus} handleChange={handleSearch} list={statusOptions} />
           
-          <FormRowSelect name='sort' labelText="Filtro" value={sortUser} handleChange={handleSearch} list={sortOptions} />
+          <FormRowSelect name='sortUser' labelText="Filtro" value={sortUser} handleChange={handleSearch} list={sortOptions} />
           
           <button className='btn btn-block btn-danger' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>

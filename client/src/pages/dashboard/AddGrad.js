@@ -23,7 +23,7 @@ const AddGrad = () => {
     createGrad, //
     editGrad, //
     dataInicioGraduacao, //
-    dataFimGraduacao //
+    dataFimGraduacao, //
   } = useAppContext()
   
   const handleSubmit = (e) => {
@@ -47,7 +47,6 @@ const AddGrad = () => {
   const [disableDataConclusao, setDisableDataConclusao] = useState(false)
 
   const handleGradInput = (e) => {    
-
     try {
       if (e.target.name === 'statusGrad' && e.target.value === 'Atual') {
         
@@ -74,6 +73,11 @@ const AddGrad = () => {
   // Problemas!
   // 1 - Campo de entrada da data e desativado, mas não é ativado novamente
   
+  const limpar = () => {
+    clearValues()
+  }
+
+  
   return (
     <Wrapper>
       <form className='form'>
@@ -98,8 +102,8 @@ const AddGrad = () => {
             <button className='btn btn-block clear-btn'
               onClick={(e) => {
                 e.preventDefault()
-
-                clearValues()
+                
+                limpar()
               }}>
               limpar
             </button>            

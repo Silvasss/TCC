@@ -43,13 +43,21 @@ const AddJob = () => {
   }
   
   const handleJobInput = (e) => {
-    const name = e.target.name
+    try {
+      const name = e.target.name
 
-    const value = e.target.value
+      const value = e.target.value
+      
+      handleChange({ name, value })
+    } catch (error) {
+      const name = e[0]
     
-    handleChange({ name, value })
-  }
-  
+      const value = e[1]
+      
+      handleChange({ name, value })
+    }    
+  }      
+
   return (
     <Wrapper>
       <form className='form'>
@@ -81,7 +89,7 @@ const AddJob = () => {
             </button>            
           </div>
 
-        </div>
+        </div> 
       </form>
     </Wrapper>
   )
