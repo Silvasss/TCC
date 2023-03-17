@@ -195,5 +195,15 @@ const showStats = async (req, res) => {
     res.status(StatusCodes.OK).json({ defaultStats })
 }
 
+// Retorna as informações do egresso sobre instituições e experiências
+const getDadosEgresso = async (req, res) => {
+  //        Objetivos
+  //  0 - Criar todo as linhas de chamada dessa função
+  //  1 - Criar o código que busca o nome do egresso no banco e retorna o ID dele e localização.
+  //  2 - Obter todas as instituições do egresso
+  //  3 - Obter todas as experiências do egresso
+  //  4 - Retornar ambas listas 
+    
+}
 
 export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads }

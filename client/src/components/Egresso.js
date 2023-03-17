@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { FaPhoenixFramework } from 'react-icons/fa' 
 import { GiDistressSignal } from 'react-icons/gi'
 import { ImFlag } from "react-icons/im"
@@ -24,8 +26,10 @@ const Egresso = ({nomeEgresso, curso, instituicao, status }) => {
         <div className='content-center'>
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
 
-          <JobInfo icon={<FaPhoenixFramework />} text={curso} />            
+          <JobInfo icon={<FaPhoenixFramework />} text={curso} />      
+
         </div>        
+        <Link to='/egresso' className='btn verPerfil-btn'>Visualizar perfil</Link>
       </div>
       
     </Wrapper>

@@ -42,6 +42,8 @@ html {
   --red-dark: #842029;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
+  --orange-light: #FFD68A;
+  --orange-dark: #FFA500;
 
   /* fonts  */
   --headingFont: 'Roboto Condensed', Sans-Serif;
@@ -179,7 +181,7 @@ ul {
 }
 .btn-danger {
   background: var(--red-light);
-  color: var(--red-dark);
+  color: var(--white-dark);
 }
 .btn-danger:hover {
   background: var(--red-dark);
@@ -346,3 +348,5 @@ ul {
     margin-right: 0.5rem;
   }
 }
+
+

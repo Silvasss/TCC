@@ -59,7 +59,7 @@ const SearchAllEgressosContainer = () => {
           
           <FormRowSelect name='sort' labelText="Filtro" value={sort} handleChange={handleSearch} list={sortOptions} />
           
-          <button className='btn btn-block btn-danger' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
+          <button className='btn btn-block limpar-btn' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>
       </form>
 

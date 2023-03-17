@@ -127,7 +127,7 @@ const Wrapper = styled.article`
     margin-top: 1rem;
   }
 
-  .edit-btn, .delete-btn {
+  .edit-btn, .delete-btn, .searc-btn {
     letter-spacing: var(--letterSpacing);
 
     cursor: pointer;
@@ -143,10 +143,40 @@ const Wrapper = styled.article`
     margin-right: 0.5rem;
   }
 
+  .searc-btn {
+    color: var(--green-dark);
+
+    background: var(--green-light);
+
+    margin-right: 0.5rem;
+  }
+
   .delete-btn {
     color: var(--red-dark);
 
     background: var(--red-light);
+  }
+
+  .verPerfil-btn {
+    background-color: #57abff;
+    border-radius: 0.25rem;
+    border: transparent;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.375rem 0.75rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: 0.3s ease-in-out all;
+  }
+
+  .verPerfil-btn:hover {
+    background-color:#80b5ea;
+    color: #fff;
+  }
+
+  .verPerfil-btn:active {
+    position:relative;
+    top:1px;
   }
 
   &:hover .actions {
