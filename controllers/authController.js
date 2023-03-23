@@ -32,7 +32,6 @@ const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({
     user: {
       email: user.email,
-      lastName: user.lastName,
       location: user.location,
       name: user.name,
     },
@@ -68,9 +67,9 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { email, name, lastName, location } = req.body
+  const { email, name, location } = req.body
 
-  if (!email || !name || !lastName || !location) {
+  if (!email || !name || !location) {
     throw new BadRequestError('Forneça todos os valores')
   }
 
@@ -78,7 +77,6 @@ const updateUser = async (req, res) => {
 
   user.email = email
   user.name = name
-  user.lastName = lastName
   user.location = location
 
   await user.save()

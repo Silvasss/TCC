@@ -371,8 +371,8 @@ const AppProvider = ({ children }) => {
 
     try {
       const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
-      // Remover sobrenome
-      let nomeEgresso = JSON.parse(user).name + " " + JSON.parse(user).lastName
+      
+      let nomeEgresso = JSON.parse(user).name
       
       await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao})
 
