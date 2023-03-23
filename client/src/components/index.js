@@ -11,9 +11,11 @@ import SmallSidebar from './SmallSidebar'
 import StatsContainer from './StatsContainer'
 import GradsContainer from './GradsContainer'
 import EgressosContainer from './EgressosContainer'
+import PerfilEgressoContainer from './PerfilEgressoContainer'
+import EgressoPerfil from './EgressoPerfil'
 import AutoComplete from './FormSelectAutoComplete'
 import SearchContainer from './SearchContainer'
 import SearchAllEgressosContainer from './SearchAllEgressosContainer'
+import JobEgressoPerfil from './JobEgressoPerfil'
 
-
-export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer }
+export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPerfil, JobEgressoPerfil }

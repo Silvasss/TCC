@@ -48,6 +48,8 @@ import {
   CLEAR_FILTERS,
   CLEAR_USERFILTERS,
   CHANGE_PAGE,
+  GET_EGRESSO_PROFILE_BEGIN,
+  GET_EGRESSO_PROFILE_SUCCESS
 } from './actions'
 
 
@@ -106,6 +108,11 @@ const initialState = {
   sortUser: 'Recentes', // Qual Filtro que o usuário escolheu na página "Minhas Graduações"
   sortOptions: [{"value": 'Recentes', "label": 'Recentes'}, {"value": 'Antigos', "label": 'Antigos'},{"value": 'A-Z', "label": 'A-Z'}, {"value": 'Z-A', "label": 'Z-A'}],
   sortUserOptions: [{"value": 'Recentes', "label": 'Recentes'}, {"value": 'Antigos', "label": 'Antigos'},{"value": 'A-Z', "label": 'A-Z'}, {"value": 'Z-A', "label": 'Z-A'}],
+  egressoDadosAllJobs: [], // Todas as informações de experiências para o perfil do egresso
+  egressoDadosAllGrads: [], // Todas as informações de graduações para o perfil do egresso
+  egressoNome: '',
+  egressoLocalizacao: '',
+  egressoId: '', // "createdBy" do egresso, página todos os egressos
 }
 
 const AppContext = React.createContext()
@@ -510,6 +517,28 @@ const AppProvider = ({ children }) => {
 
     clearAlert()
   }
+
+  const showProfileEgresso = async (egressoId) => {
+    dispatch({ type: GET_EGRESSO_PROFILE_BEGIN })
+
+    try {
+      const { data } = await authFetch.post(`/grads/egressoProfile/${egressoId}`)
+
+      const { egressoDadosAllGrads, egressoNome, egressoLocalizacao, egressoDadosAllJobs } = data
+
+      dispatch({
+        type: GET_EGRESSO_PROFILE_SUCCESS,
+        payload: {
+          egressoDadosAllGrads,
+          egressoNome,
+          egressoDadosAllJobs,
+          egressoLocalizacao
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }    
+  }
   // --------------------------------END-Grad--------------------------------------
 
   const clearFilters = () => {
@@ -551,7 +580,8 @@ const AppProvider = ({ children }) => {
         clearUSERFilters,
         changePage,
         getGrads,
-        getEgressos
+        getEgressos,
+        showProfileEgresso
       }}>
 
       {children}

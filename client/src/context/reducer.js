@@ -39,6 +39,8 @@ import {
   CLEAR_FILTERS,
   CLEAR_USERFILTERS,
   CHANGE_PAGE,
+  GET_EGRESSO_PROFILE_BEGIN,
+  GET_EGRESSO_PROFILE_SUCCESS
 } from './actions'
 
 
@@ -245,6 +247,21 @@ const reducer = (state, action) => {
       numOfPages: action.payload.numOfPages,
     }
   }
+
+  if (action.type === GET_EGRESSO_PROFILE_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false }
+  }
+
+  if (action.type === GET_EGRESSO_PROFILE_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      egressoDadosAllJobs: action.payload.egressoDadosAllJobs,
+      egressoDadosAllGrads: action.payload.egressoDadosAllGrads,
+      egressoNome: action.payload.egressoNome,
+      egressoLocalizacao: action.payload.egressoLocalizacao
+    }
+  }
   //_____________________--______________________---
 
   if (action.type === SET_EDIT_JOB) {
@@ -282,6 +299,7 @@ const reducer = (state, action) => {
       dataFimGraduacao
     }
   }
+
   //_____________________--______________________---
 
   if (action.type === DELETE_JOB_BEGIN) {
@@ -359,6 +377,8 @@ const reducer = (state, action) => {
       stats: action.payload.stats
     }
   }
+  
+  //_____________________--______________________---
 
   // Todas as graduações
   if (action.type === CLEAR_FILTERS) {

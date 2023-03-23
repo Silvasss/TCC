@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 
 import checkPermissions from '../utils/checkPermissions.js'
 import Grad from '../models/Grad.js'
+import Job from '../models/Job.js'
+import User from '../models/User.js'
 
 import {
   BadRequestError,
@@ -197,13 +199,24 @@ const showStats = async (req, res) => {
 
 // Retorna as informações do egresso sobre instituições e experiências
 const getDadosEgresso = async (req, res) => {
-  //        Objetivos
-  //  0 - Criar todo as linhas de chamada dessa função
-  //  1 - Criar o código que busca o nome do egresso no banco e retorna o ID dele e localização.
-  //  2 - Obter todas as instituições do egresso
-  //  3 - Obter todas as experiências do egresso
-  //  4 - Retornar ambas listas 
-    
+    const { id: egressoId } = req.params
+
+    const queryObject = {
+        createdBy: egressoId,
+    }
+
+    const egressoDadosAllGrads = await Grad.find(queryObject)
+
+    const { name, location } = await User.findOne({_id: egressoId})
+
+    const egressoDadosAllJobs = await Job.find(queryObject)
+
+    const egressoNome = name
+
+    const egressoLocalizacao = location
+
+    res.status(StatusCodes.OK).json({ egressoDadosAllGrads, egressoNome, egressoLocalizacao, egressoDadosAllJobs })
 }
 
-export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads }
+
+export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads, getDadosEgresso }
