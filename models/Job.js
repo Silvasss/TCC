@@ -28,6 +28,12 @@ const JobSchema = new mongoose.Schema(
       default: 'Brasil',
       required: true,
     },
+    jobLocationEstado: {
+      type: String
+    },
+    jobLocationCidade: {
+      type: String
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

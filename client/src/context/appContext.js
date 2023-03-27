@@ -78,7 +78,9 @@ const initialState = {
   company: '',
   instituicao: '',
   instituicaoOptions: (listaUniversidades.map(listaUniversidades => listaUniversidades["ACADEMIA DA FORÇA AÉREA"])).map(x => ({"value": x, "label": x})), // lista com os nomes das instituiçoes
-  jobLocation: userLocation || '',  
+  jobLocation: userLocation,
+  jobLocationEstado: '', 
+  jobLocationCidade: '',  
   gradLocation: (listaEstados.map(listaEstados => listaEstados.Nome)).map(x => ({"value": x, "label": x})), // lista com os nomes das cidades
   jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
@@ -251,9 +253,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_JOB_BEGIN })
 
     try {
-      const { position, company, jobLocation, jobType, status } = state
+      const { position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status } = state
 
-      await authFetch.post('/jobs', {position, company, jobLocation, jobType, status})
+      await authFetch.post('/jobs', {position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status})
 
       dispatch({ type: CREATE_JOB_SUCCESS })
 
@@ -311,9 +313,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_JOB_BEGIN })
 
     try {
-      const { position, company, jobLocation, jobType, status } = state
+      const { position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status } = state
 
-      await authFetch.patch(`/jobs/${state.editJobId}`, {company, position, jobLocation, jobType, status})
+      await authFetch.patch(`/jobs/${state.editJobId}`, {company, position, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status})
 
       dispatch({ type: EDIT_JOB_SUCCESS })
 

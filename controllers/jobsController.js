@@ -10,9 +10,9 @@ import {
 
 
 const createJob = async (req, res) => {
-  const { position, company } = req.body
+  const { position, company, jobLocation } = req.body
 
-  if (!position || !company) {
+  if (!position || !company || !jobLocation) {
     throw new BadRequestError('Forneça todos os valores')
   }
 
@@ -51,9 +51,9 @@ const getAllJobs = async (req, res) => {
 const updateJob = async (req, res) => {
   const { id: jobId } = req.params
 
-  const { company, position } = req.body
+  const { company, position, jobLocation } = req.body
 
-  if (!position || !company) {
+  if (!position || !company || !jobLocation) {
     throw new BadRequestError('Forneça todos os valores')
   }
 
