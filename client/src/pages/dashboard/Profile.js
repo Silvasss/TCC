@@ -2,49 +2,61 @@ import { useEffect, useState } from 'react'
 
 import { City, Country, State } from "country-state-city"
 
-import { FormRow, Alert, JobsContainer, FormRowSelect } from '../../components'
+import { FormRow, Alert, JobsContainer } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import Select from 'react-select'
 
 
 const Profile = () => {
-  const { user, showAlert, displayAlert, updateUser, isLoading, gradLocation } = useAppContext()
+  const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext()
 
   let countryData = Country.getAllCountries()
 
   const [name, setName] = useState(user?.name)
   const [email, setEmail] = useState(user?.email)
-  const [location, setLocation] = useState(user?.location)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (!name || !email || !location) {
-      displayAlert()
-
-      return
-    }
-
-    updateUser({ name, email, location })
-  }
 
   const [stateData, setStateData] = useState()
   const [cityData, setCityData] = useState()
-
-  const [country, setCountry] = useState(countryData[0])
-  const [state, setState] = useState()
-  const [city, setCity] = useState()
+  
+  // -----------Valores iniciais---------------------------------
+  const [country, setCountry] = useState(Country.getCountryByCode(user.location))
+     
+  const [state, setState] = useState(State.getStateByCodeAndCountry(user?.locationEstado, user?.location))
+  
+  const [city, setCity] = useState(
+    City.getCitiesOfState(user?.location, user?.locationEstado)[City.getCitiesOfState(user?.location, user?.locationEstado).map(e => e.name).indexOf(user.locationCidade)]
+  )
+  // ------------------------------------------------------------
 
   useEffect(() => {setStateData(State.getStatesOfCountry(country?.isoCode))}, [country])
 
   useEffect(() => {setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))}, [state])
 
-  useEffect(() => {stateData && setState(stateData[0])}, [stateData])
+  //useEffect(() => {stateData && setState(stateData)}, [stateData])
+  
+  useEffect(() => {
+    if(country.isoCode !== user?.location){
+      setState(stateData)
+    }
+  }, [stateData])
 
-  useEffect(() => {cityData && setCity(cityData[0])}, [cityData])
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
-  //console.log(countryData)
+    if (!name || !email || !country.name) {
+      displayAlert()
+
+      return
+    }
+    
+    if (Array.isArray(stateData) && stateData.length === 0) {
+      updateUser({ name, email, locationPais: country.isoCode, locationEstado: null, locationCidade: null })
+    } else {
+      updateUser({ name, email, locationPais: country.isoCode, locationEstado: state.isoCode, locationCidade: city.name })
+    }    
+  } 
+
 
   return (
     <Wrapper>
@@ -69,37 +81,52 @@ const Profile = () => {
             handleChange={(e) => setEmail(e.target.value)}
           />
           
-          <FormRowSelect
-            name='Localização' 
-            value={location} 
-            handleChange={(e) => setLocation(e[1])} 
-            list={gradLocation}
-            selectValue={location}
-          />
+          <div className='form-row'>
+            <label htmlFor={name} className='form-label'>{'localização do País'}</label>
+                
+            <Select 
+              placeholder='Selecione um País'
+              options={countryData}  
+              getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option.name}
+              onChange={setCountry}
+              defaultValue={country}
+            />     
+          </div>
+          
+          {
+            (Array.isArray(stateData) && stateData.length > 0) &&
+            
+            <div className='form-row'>
+              <label htmlFor={name} className='form-label'>{'localização do Estado'}</label>
+              
+              <Select 
+                placeholder='Selecione o Estado'
+                options={stateData} 
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.name}
+                onChange={setState}
+                defaultValue={state}
+              />  
+            </div>
+          }
 
-          <Select name={name} 
-            placeholder='Selecione um País'
-            options={countryData}  
-            getOptionLabel={(option) => option.name}
-            getOptionValue={(option) => option.name}
-            onChange={setCountry}
-          />     
-          
-          <Select name={name} 
-            placeholder='Selecione o Estado'
-            options={stateData}  
-            getOptionLabel={(option) => option.name}
-            getOptionValue={(option) => option.name}
-            onChange={setState}
-          />
-          
-          <Select name={name} 
-            placeholder='Selecione a Cidade'
-            options={cityData}  
-            getOptionLabel={(option) => option.name}
-            getOptionValue={(option) => option.name}
-            onChange={setCity}
-          /> 
+          {
+            (Array.isArray(cityData) && cityData.length > 0) &&
+
+            <div className='form-row'>
+              <label htmlFor={name} className='form-label'>{'localização do Cidade'}</label>
+                  
+              <Select 
+                placeholder='Selecione a Cidade'
+                options={cityData}  
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.name}
+                onChange={setCity}
+                defaultValue={city}
+              />    
+            </div>
+          }
 
           <button className='btn btn-block' type='submit' disabled={isLoading}>
             {isLoading ? 'Por favor, aguarde...' : 'salvar alterações'}

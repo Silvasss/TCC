@@ -92,4 +92,6 @@ const Register = () => {
     </Wrapper>
   )
 }
+
+
 export default Register
