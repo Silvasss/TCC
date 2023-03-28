@@ -21,7 +21,7 @@ const JobsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>experiência{jobs.length > 1 && 's'}</h5>
+      <h5>experiência{jobs.length > 1 ? 's' : ''} profissiona{jobs.length > 1 ? 'is' : 'l'}</h5>
 
       <div className='jobs'>
         {jobs.map((job) => {

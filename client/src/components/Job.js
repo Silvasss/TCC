@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { FaLocationArrow, FaBriefcase } from 'react-icons/fa'
 import { TbCurrentLocation } from 'react-icons/tb'
 
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+
 import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
@@ -10,6 +13,22 @@ import JobInfo from './JobInfo'
 const Job = ({_id, position, company, jobLocation, jobType, status, }) => { 
   const { setEditJob, deleteJob } = useAppContext()
 
+  const submit = (_id) => {
+    confirmAlert({
+      title: `Deseja excluir?`,
+      message: `A experiência profissional em ${company} como ${position}. Tem certeza de que deseja excluir isso?`,
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => deleteJob(_id)
+        },
+        {
+          label: 'Não',  
+          onClick: () => {}
+        }
+      ]
+    })
+  }
 
   return (
     <Wrapper>
@@ -36,7 +55,7 @@ const Job = ({_id, position, company, jobLocation, jobType, status, }) => {
           <div className='actions'>
             <Link to='/add-job' className='btn edit-btn' onClick={() => setEditJob(_id)}>Editar</Link>
 
-            <button type='button' className='btn delete-btn' onClick={() => deleteJob(_id)}>Apagar</button>
+            <button type='button' className='btn delete-btn' onClick={() => submit(_id)}>Apagar</button>
           </div>
         </footer>
         
