@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom'
 
 import { FaPhoenixFramework } from 'react-icons/fa' 
-import { GiDistressSignal } from 'react-icons/gi'
-import { ImFlag } from "react-icons/im"
 
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 import { useAppContext } from '../context/appContext'
 
 
-const Egresso = ({createdBy, nomeEgresso, curso, instituicao, status }) => {   
+const Egresso = ({createdBy, nomeEgresso, curso, instituicao }) => {   
   const { showProfileEgresso } = useAppContext()
 
 
@@ -27,12 +25,10 @@ const Egresso = ({createdBy, nomeEgresso, curso, instituicao, status }) => {
 
       <div className='content'>
         <div className='content-center'>
-          <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
+          <JobInfo icon={<FaPhoenixFramework />} text={curso} />     
 
-          <JobInfo icon={<FaPhoenixFramework />} text={curso} />      
-
+          <Link to='/egresso' className='btn verPerfil-btn' onClick={() => showProfileEgresso(createdBy)}>Visualizar perfil</Link>
         </div>        
-        <Link to='/egresso' className='btn verPerfil-btn' onClick={() => showProfileEgresso(createdBy)}>Visualizar perfil</Link>
       </div>
       
     </Wrapper>

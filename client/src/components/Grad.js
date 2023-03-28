@@ -44,18 +44,12 @@ const Grad = ({ _id, curso, instituicao, status }) => {
 
       <div className='content'>
         <div className='content-center'>
-
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />
-        </div>
 
-        <footer>
-          <div className='actions'>
-            <Link to='/add-grad' className='btn edit-btn' onClick={() => setEditGrad(_id)}>Editar</Link>
+          <Link to='/add-grad' className='btn edit-btn' onClick={() => setEditGrad(_id)}>Editar</Link>
 
-            <button type='button' className='btn delete-btn' onClick={() => submit(_id)}>Apagar</button>
-          </div>
-        </footer>
-        
+          <button type='button' className='btn delete-btn' onClick={() => submit(_id)}>Apagar</button>
+        </div>        
       </div>
     </Wrapper>
   )
