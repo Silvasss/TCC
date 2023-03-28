@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../context/appContext'
 
@@ -44,12 +44,13 @@ const AddGrad = () => {
     createGrad()
   }
 
-  const [disableDataConclusao, setDisableDataConclusao] = useState(false)
-
+  const [disableDataConclusao, setDisableDataConclusao] = useState(true)
+  
   const handleGradInput = (e) => {    
     try {
-      if (e.target.name === 'statusGrad' && e.target.value === 'Atual') {
-        
+      if (e[0] === 'statusGrad' && e[1] === 'Atual') {
+        setDisableDataConclusao(false)
+      } else {
         setDisableDataConclusao(true)
       }
 
@@ -67,17 +68,10 @@ const AddGrad = () => {
     }    
   }
 
-  // MODIFICAÇÕES
-  // 1 - Criar um campo de seleção que permite digitar pra buscar que funcione corretamente!
-
-  // Problemas!
-  // 1 - Campo de entrada da data e desativado, mas não é ativado novamente
-  
   const limpar = () => {
     clearValues()
   }
 
-  
   return (
     <Wrapper>
       <form className='form'>
@@ -94,8 +88,10 @@ const AddGrad = () => {
 
           <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
           
-          <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' enabled={disableDataConclusao} value={dataFimGraduacao} handleChange={handleGradInput}/>
-
+          { disableDataConclusao &&
+            <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
+          }
+                    
           <div className='btn-container'>
             <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>{isEditing ? 'atualizar' : 'adicionar'}</button>
             

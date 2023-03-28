@@ -84,8 +84,8 @@ const initialState = {
   gradLocation: (listaEstados.map(listaEstados => listaEstados.Nome)).map(x => ({"value": x, "label": x})), // lista com os nomes das cidades
   jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
-  statusOptions: [{"value": 'Todos', "label": 'Todos'}, {"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
-  statusGradOptions: [{"value": 'Todos', "label": 'Todos'}, {"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}], //
+  statusOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
+  statusGradOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}], //
   status: 'Anterior',
   statusGrad: 'Anterior', // 
   dataInicioGraduacao: '', //
