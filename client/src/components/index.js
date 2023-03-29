@@ -18,4 +18,5 @@ import SearchContainer from './SearchContainer'
 import SearchAllEgressosContainer from './SearchAllEgressosContainer'
 import JobEgressoPerfil from './JobEgressoPerfil'
 
+
 export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPerfil, JobEgressoPerfil }
