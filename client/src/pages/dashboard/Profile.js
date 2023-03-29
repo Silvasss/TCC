@@ -45,7 +45,7 @@ const Profile = () => {
     if(country.isoCode !== user?.location){
       setState(stateData)
     }
-  }, [stateData])
+  }, [country])
 
   const handleSubmit = (e) => {
     e.preventDefault()

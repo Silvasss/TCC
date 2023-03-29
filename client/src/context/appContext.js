@@ -81,6 +81,8 @@ const initialState = {
   jobLocation: userLocation,
   jobLocationEstado: '', 
   jobLocationCidade: '',  
+  jobLocationLongitude: '',
+  jobLocationLatitude: '',
   gradLocation: (listaEstados.map(listaEstados => listaEstados.Nome)).map(x => ({"value": x, "label": x})), // lista com os nomes das cidades
   jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
@@ -253,9 +255,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_JOB_BEGIN })
 
     try {
-      const { position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status } = state
-
-      await authFetch.post('/jobs', {position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobType, status})
+      const { position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobLocationLatitude, jobLocationLongitude, jobType, status } = state
+      
+      await authFetch.post('/jobs', {position, company, jobLocation, jobLocationEstado, jobLocationCidade, jobLocationLatitude, jobLocationLongitude, jobType, status})
 
       dispatch({ type: CREATE_JOB_SUCCESS })
 

@@ -34,6 +34,12 @@ const JobSchema = new mongoose.Schema(
     jobLocationCidade: {
       type: String
     },
+    jobLocationLatitude: {
+      type: String
+    },
+    jobLocationLongitude: {
+      type: String
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

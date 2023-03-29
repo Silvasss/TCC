@@ -18,7 +18,6 @@ const AddJob = () => {
     positionOptions,
     company,
     jobLocation,
-    gradLocation,
     jobType,
     jobTypeOptions,
     status,
@@ -47,16 +46,34 @@ const AddJob = () => {
   )
   // ------------------------------------------------------------
 
-  useEffect(() => {setStateData(State.getStatesOfCountry(country?.isoCode))}, [country])
+  useEffect(() => {
+    setStateData(State.getStatesOfCountry(country?.isoCode))
+  }, [country])
 
-  useEffect(() => {setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))}, [state])
+  useEffect(() => {
+    setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))
+
+    handleChange({ name: 'jobLocationEstado', value: state?.isoCode })
+    
+    handleChange({ name: 'jobLocationLatitude', value: state?.latitude })
+
+    handleChange({ name: 'jobLocationLongitude', value: state?.longitude })
+  }, [state])
+
+  useEffect(() => {
+    handleChange({ name: 'jobLocationCidade', value: city?.name })
+    
+    handleChange({ name: 'jobLocationLatitude', value: city?.latitude })
+
+    handleChange({ name: 'jobLocationLongitude', value: city?.longitude })
+  }, [city])
 
   // Melhorar isso!
   useEffect(() => {
     if(country.isoCode !== jobLocation){
       setState(stateData)
     }
-  }, [stateData])
+  }, [country])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -116,7 +133,7 @@ const AddJob = () => {
               options={countryData}  
               getOptionLabel={(option) => option.name}
               getOptionValue={(option) => option.name}
-              onChange={setCountry}
+              onChange={handleJobInput}
               defaultValue={country}
             />     
           </div>
