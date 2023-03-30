@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { useAppContext } from '../../context/appContext'
 
@@ -17,7 +17,6 @@ const AddGrad = () => {
     curso,
     statusGrad, // 
     statusGradOptions, //
-    cursoOptions, //
     handleChange,
     clearValues,
     createGrad, //
@@ -45,6 +44,8 @@ const AddGrad = () => {
   }
 
   const [disableDataConclusao, setDisableDataConclusao] = useState(true)
+
+  const [cursosInstituicao, setCursosInstituicao] = useState(instituicaoOptions[0].cursos)
   
   const handleGradInput = (e) => {    
     try {
@@ -60,6 +61,8 @@ const AddGrad = () => {
       
       handleChange({ name, value })
     } catch (error) {
+      if (e[0] === 'instituicao') {setCursosInstituicao(instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].cursos)}
+
       const name = e[0]
     
       const value = e[1]
@@ -71,6 +74,7 @@ const AddGrad = () => {
   const limpar = () => {
     clearValues()
   }
+  
 
   return (
     <Wrapper>
@@ -82,7 +86,7 @@ const AddGrad = () => {
         <div className='form-center'>     
           <FormRowSelect name='instituicao' labelText="Selecione uma instituição" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
           
-          <FormRowSelect name='curso' labelText="Selecione um curso" value={curso} handleChange={handleGradInput} list={cursoOptions}/>
+          <FormRowSelect name='curso' labelText="Selecione um curso" value={curso} handleChange={handleGradInput} list={cursosInstituicao}/>
 
           <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
 

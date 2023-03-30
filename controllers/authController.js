@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes'
 
 import User from '../models/User.js'
+//import Instituicao from '../models/Instituicao.js'
+
 import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
 
 
@@ -58,6 +60,8 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError('Credenciais inválidas')
   }
+
+  //const instituicoesDados = await Instituicao.find()
 
   const token = user.createJWT()
 

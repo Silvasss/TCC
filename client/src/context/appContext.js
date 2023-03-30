@@ -1,9 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 
-import listaUniversidades from '../assets/dados/universidadesBrasil.json'
-import listaEstados from '../assets/dados/estadosCidadesBrasil.json'
-import listacursosSuperioresBrasil from '../assets/dados/cursosSuperioresBrasil.json'
+import instituicoesPalmas from '../assets/dados/instituicoesPalmas.json'
 import listaProfissoes from '../assets/dados/profissoesBrasil.json'
 
 
@@ -53,7 +51,6 @@ import {
 } from './actions'
 
 
-
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
@@ -73,17 +70,15 @@ const initialState = {
   position: '',
   positionOptions: listaProfissoes.map(x => ({"value": x.charAt(0).toUpperCase() + x.slice(1), "label": x.charAt(0).toUpperCase() + x.slice(1)})),
   curso: '',
-  cursoOptions: (listacursosSuperioresBrasil.map(cursosSuperioresBrasil => cursosSuperioresBrasil.name)).map(x => ({"value": x, "label": x})), // lista com os nomes dos cursos
   nomeEgresso: '', //
   company: '',
   instituicao: '',
-  instituicaoOptions: (listaUniversidades.map(listaUniversidades => listaUniversidades["ACADEMIA DA FORÇA AÉREA"])).map(x => ({"value": x, "label": x})), // lista com os nomes das instituiçoes
+  instituicaoOptions: instituicoesPalmas, // lista com os nomes das instituiçoes
   jobLocation: userLocation,
   jobLocationEstado: '', 
   jobLocationCidade: '',  
   jobLocationLongitude: '',
   jobLocationLatitude: '',
-  gradLocation: (listaEstados.map(listaEstados => listaEstados.Nome)).map(x => ({"value": x, "label": x})), // lista com os nomes das cidades
   jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
   statusOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
@@ -188,7 +183,7 @@ const AppProvider = ({ children }) => {
       const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
 
       const { user, token, location } = data
-
+      
       dispatch({
         type: SETUP_USER_SUCCESS,
         payload: { user, token, location, alertText },
@@ -405,7 +400,7 @@ const AppProvider = ({ children }) => {
     if (searchUser) {
       url = url + `&search=${searchUser}`
     }
-
+    
     dispatch({ type: GET_GRADS_BEGIN })
 
     try {
@@ -418,7 +413,7 @@ const AppProvider = ({ children }) => {
         payload: {
           userGrads,
           totalUserGrads,
-          numOfPagesUserGrads,
+          numOfPagesUserGrads          
         },
       })
     } catch (error) {

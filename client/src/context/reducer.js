@@ -230,7 +230,7 @@ const reducer = (state, action) => {
       isLoading: false,
       userGrads: action.payload.userGrads,
       totalUserGrads: action.payload.totalUserGrads,
-      numOfPagesUserGrads: action.payload.numOfPagesUserGrads,
+      numOfPagesUserGrads: action.payload.numOfPagesUserGrads
     }
   }
 

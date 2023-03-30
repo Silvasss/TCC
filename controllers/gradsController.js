@@ -2,9 +2,11 @@ import { StatusCodes } from 'http-status-codes'
 import mongoose from 'mongoose'
 
 import checkPermissions from '../utils/checkPermissions.js'
+
 import Grad from '../models/Grad.js'
 import Job from '../models/Job.js'
 import User from '../models/User.js'
+import Instituicao from '../models/Instituicao.js'
 
 import {
   BadRequestError,
@@ -44,6 +46,8 @@ const getAllGrads = async (req, res) => {
 
     let result = Grad.find(queryObject)
 
+    const instituicoesDados = await Instituicao.find()
+
     if (sort === 'Recentes') {
         result = result.sort('-createdAt')
     }
@@ -75,7 +79,7 @@ const getAllGrads = async (req, res) => {
 
     const numOfPages = Math.ceil(totalUserGrads / limit)
 
-    res.status(StatusCodes.OK).json({ userGrads, totalUserGrads, numOfPages })
+    res.status(StatusCodes.OK).json({ userGrads, totalUserGrads, numOfPages, instituicoesDados })
 }
 
 // Todas as instituições cadastradas no banco

@@ -13,7 +13,6 @@ const Profile = () => {
   // Quando ocorre alteração no estado/país, não é alterado o valor apresentado na caixa de seleção
   // Adicionar a opção "value" e modificar o estado dela quando ocorrer o update dos valores
 
-
   const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext()
 
   let countryData = Country.getAllCountries()

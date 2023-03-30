@@ -1,0 +1,89 @@
+[
+    {
+        "_id": "6425cabfbc27a76c634486af",
+        "label": "Universidade Federal do Tocantins",
+        "value": "Universidade Federal do Tocantins",
+        "instituicaoLatitude": "-10.179855888129467",
+        "instituicaoLongitude": "-48.36282233407288",
+        "cursos": [
+            {
+                "label": "Filosofia",
+                "value": "Filosofia"
+            },
+            {
+                "label": "Arquitetura e Urbanismo",
+                "value": "Arquitetura e Urbanismo"
+            },
+            {
+                "label": "Artes - Teatro",
+                "value": "Artes - Teatro"
+            },
+            {
+                "label": "Engenharia de Alimentos",
+                "value": "Engenharia de Alimentos"
+            },
+            {
+                "label": "Ciências Econômicas",
+                "value": "Ciências Econômicas"
+            }
+        ]
+    },
+    {
+        "_id": "6425cabfbc27a76c634486b0",
+        "label": "Centro Universitário Católica do Tocantins",
+        "value": "Centro Universitário Católica do Tocantins",
+        "instituicaoLatitude": "-10.270474284066651",
+        "instituicaoLongitude": "-48.33127680254285",
+        "cursos": [
+            {
+                "label": "Agronomia",
+                "value": "Agronomia"
+            },
+            {
+                "label": "Enfermagem",
+                "value": "Enfermagem"
+            },
+            {
+                "label": "Engenharia Ambiental e Sanitária",
+                "value": "Engenharia Ambiental e Sanitária"
+            },
+            {
+                "label": "Engenharia de Produção",
+                "value": "Engenharia de Produção"
+            },
+            {
+                "label": "Engenharia Elétrica",
+                "value": "Engenharia Elétrica"
+            }
+        ]
+    },
+    {
+        "_id": "6425cabfbc27a76c634486b1",
+        "label": "Centro Universitário Luterano de Palmas",
+        "value": "Centro Universitário Luterano de Palmas",
+        "instituicaoLatitude": "-10.278441717088269",
+        "instituicaoLongitude": "-48.33457263255626",
+        "cursos": [
+            {
+                "label": "Biomedicina",
+                "value": "Biomedicina"
+            },
+            {
+                "label": "Fisioterapia",
+                "value": "Fisioterapia"
+            },
+            {
+                "label": "Medicina Veterinária",
+                "value": "Medicina Veterinária"
+            },
+            {
+                "label": "Estética e Cosmética",
+                "value": "Estética e Cosmética"
+            },
+            {
+                "label": "Farmácia",
+                "value": "Farmácia"
+            }
+        ]
+    }
+]
