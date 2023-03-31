@@ -46,9 +46,7 @@ const AddJob = () => {
   )
   // ------------------------------------------------------------
 
-  useEffect(() => {
-    setStateData(State.getStatesOfCountry(country?.isoCode))
-  }, [country])
+  useEffect(() => {setStateData(State.getStatesOfCountry(country?.isoCode))}, [country])
 
   useEffect(() => {
     setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))
