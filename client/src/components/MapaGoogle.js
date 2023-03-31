@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
 
-const MapGoogle = ({ nomeInstituicao }) => {
+const MapGoogle = ({ latitude, longitude, pais, estado, cidade }) => {
     // https://www.googlemapsgenerator.com/en/
 
     const styles = {
@@ -33,19 +33,35 @@ const MapGoogle = ({ nomeInstituicao }) => {
         }
     }
 
-    return (        
-        <Popup trigger={<button className="button"> Ver no mapa </button>} modal nested>
-            {close => (
-            <div className="modal" style={styles.header}>
-                <button className="close" onClick={close} style={styles.close}>&times;</button>
+    if (!pais) {
+        return (
+            <Popup trigger={<button className="button"> Ver no mapa </button>} modal nested>
+                {close => (
+                    <div className="modal" style={styles.header}>
+                        <button className="close" onClick={close} style={styles.close}>&times;</button>
 
-                <div className="content" style={styles.content}>
-                    <iframe title='mapGoogle' style={styles.frame} src="https://maps.google.com/maps?width=700&amp;height=440&amp;hl=en&amp;q=-10.278441717088269%2C%20-48.33457263255626&amp;ie=UTF8&amp;t=&amp;z=15&amp;iwloc=B&amp;output=embed"></iframe>
-                </div>
-            </div>
-            )}
-        </Popup>
-    )
+                        <div className="content" style={styles.content}>
+                            <iframe title='mapGoogle' style={styles.frame} src={`https://maps.google.com/maps?q=${latitude},${longitude}&hl=es&z=15&amp&output=embed`}></iframe>
+                        </div>
+                    </div>
+                )}
+            </Popup>
+        )
+    } else{
+        return (
+            <Popup trigger={<button className="button"> Ver no mapa </button>} modal nested>
+                {close => (
+                    <div className="modal" style={styles.header}>
+                        <button className="close" onClick={close} style={styles.close}>&times;</button>
+
+                        <div className="content" style={styles.content}>
+                            <iframe title='mapGoogle' style={styles.frame} src={`https://maps.google.com/maps?q=${(estado && cidade) ? `${pais},${estado},${cidade}` : `${pais}`}&hl=es&z=15&amp&output=embed`}></iframe>
+                        </div>
+                    </div>
+                )}
+            </Popup>
+        )
+    }
 
 }
 

@@ -1,11 +1,13 @@
 import { FaLocationArrow, FaBriefcase } from 'react-icons/fa'
 import { TbCurrentLocation } from 'react-icons/tb'
 
+import MapGoogle from './MapaGoogle.js'
+
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
 
-const JobEgressoPerfil = ({ position, company, jobLocation, jobType, status }) => { 
+const JobEgressoPerfil = ({ position, company, jobLocation, jobType, status, jobLocationLatitude, jobLocationLongitude, jobLocationEstado, jobLocationCidade}) => { 
 
   return (
     <Wrapper>
@@ -29,6 +31,8 @@ const JobEgressoPerfil = ({ position, company, jobLocation, jobType, status }) =
         </div>
         
       </div>
+
+      <MapGoogle latitude={jobLocationLatitude} longitude={jobLocationLongitude} estado={jobLocationEstado} cidade={jobLocationCidade} pais={jobLocation}/>
     </Wrapper>
   )
 }

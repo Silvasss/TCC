@@ -8,7 +8,7 @@ import JobInfo from './JobInfo'
 import MapGoogle from './MapaGoogle'
 
 
-const EgressoPerfil = ({ curso, instituicao, status, dataInicioGraduacao, dataFimGraduacao }) => {
+const EgressoPerfil = ({ curso, instituicao, status, dataInicioGraduacao, dataFimGraduacao, gradLocationLatitude, gradLocationLongitude}) => {
   
   return (
     <Wrapper>
@@ -34,7 +34,7 @@ const EgressoPerfil = ({ curso, instituicao, status, dataInicioGraduacao, dataFi
         </div>
       </div>
       
-      <MapGoogle nomeInstituicao={instituicao}/>
+      <MapGoogle latitude={gradLocationLatitude} longitude={gradLocationLongitude}/>
       
     </Wrapper>
   )
