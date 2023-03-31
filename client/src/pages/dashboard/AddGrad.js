@@ -61,7 +61,21 @@ const AddGrad = () => {
       
       handleChange({ name, value })
     } catch (error) {
-      if (e[0] === 'instituicao') {setCursosInstituicao(instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].cursos)}
+      if (e[0] === 'instituicao') {
+        setCursosInstituicao(instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].cursos)
+
+        let name = 'gradLocationLatitude'
+    
+        let value = instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].instituicaoLatitude
+          
+        handleChange({ name, value })
+
+        name = 'gradLocationLongitude'
+    
+        value = instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].instituicaoLongitude
+        
+        handleChange({ name, value })
+      }
 
       const name = e[0]
     

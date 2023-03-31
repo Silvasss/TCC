@@ -79,6 +79,8 @@ const initialState = {
   jobLocationCidade: '',  
   jobLocationLongitude: '',
   jobLocationLatitude: '',
+  gradLocationLatitude: '',
+  gradLocationLongitude: '',
   jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
   jobType: 'Tempo integral',
   statusOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
@@ -369,11 +371,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_GRAD_BEGIN })
 
     try {
-      const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
+      const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao, gradLocationLatitude, gradLocationLongitude } = state
       
       let nomeEgresso = JSON.parse(user).name
       
-      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao})
+      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao, gradLocationLatitude, gradLocationLongitude})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 

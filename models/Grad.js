@@ -27,6 +27,12 @@ const GradSchema = new mongoose.Schema(
     dataFimGraduacao: {
       type: String
     },
+    gradLocationLatitude: {
+      type: String
+    },
+    gradLocationLongitude: {
+      type: String
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

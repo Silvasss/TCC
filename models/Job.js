@@ -25,7 +25,7 @@ const JobSchema = new mongoose.Schema(
     },
     jobLocation: {
       type: String,
-      default: 'Brasil',
+      default: 'BR',
       required: true,
     },
     jobLocationEstado: {
