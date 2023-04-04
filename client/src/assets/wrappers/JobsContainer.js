@@ -12,6 +12,23 @@ const Wrapper = styled.section`
     font-weight: 700;
   }
 
+  .jobs .mapaGoogle-iframe {
+    grid-template-columns: 1fr;
+
+    grid-column-start: 1;
+
+    grid-row-start: 1;
+
+    grid-row-end: 5;
+
+    row-gap: 2rem;
+  }
+
+  .jobs .mapaGoogle-iframe {
+    width: 100%; 
+    height: 600px;
+  }
+
   .jobs {
     display: grid;
 

@@ -33,6 +33,12 @@ const UserSchema = new mongoose.Schema({
     maxlength: 40,
     default: 'BR',
   },
+  nomePais: {
+    type: String,
+    trim: true,
+    maxlength: 40,
+    default: 'Brasil',
+  },
   locationEstado: {
     type: String,
     trim: true,

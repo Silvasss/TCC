@@ -112,7 +112,7 @@ const initialState = {
   egressoDadosAllJobs: [], // Todas as informações de experiências para o perfil do egresso
   egressoDadosAllGrads: [], // Todas as informações de graduações para o perfil do egresso
   egressoNome: '',
-  egressoLocalizacao: '',
+  egressoListaLocalizacao: '',
   egressoId: '', // "createdBy" do egresso, página todos os egressos
 }
 
@@ -525,7 +525,7 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch.post(`/grads/egressoProfile/${egressoId}`)
 
-      const { egressoDadosAllGrads, egressoNome, egressoLocalizacao, egressoDadosAllJobs } = data
+      const { egressoDadosAllGrads, egressoNome, egressoDadosAllJobs, egressoListaLocalizacao } = data
 
       dispatch({
         type: GET_EGRESSO_PROFILE_SUCCESS,
@@ -533,7 +533,7 @@ const AppProvider = ({ children }) => {
           egressoDadosAllGrads,
           egressoNome,
           egressoDadosAllJobs,
-          egressoLocalizacao
+          egressoListaLocalizacao
         },
       })
     } catch (error) {

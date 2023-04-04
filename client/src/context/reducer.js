@@ -259,7 +259,7 @@ const reducer = (state, action) => {
       egressoDadosAllJobs: action.payload.egressoDadosAllJobs,
       egressoDadosAllGrads: action.payload.egressoDadosAllGrads,
       egressoNome: action.payload.egressoNome,
-      egressoLocalizacao: action.payload.egressoLocalizacao
+      egressoListaLocalizacao: action.payload.egressoListaLocalizacao
     }
   }
   //_____________________--______________________---

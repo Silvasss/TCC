@@ -21,7 +21,7 @@ const EgressoPerfil = ({ curso, instituicao, status, dataInicioGraduacao, dataFi
           <p>{instituicao}</p>
         </div>
       </header>
-
+    
       <div className='content'>
         <div className='content-center'>
           <JobInfo icon={status === 'pendente' ? <GiDistressSignal /> : <ImFlag />} text={status} />

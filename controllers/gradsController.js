@@ -211,15 +211,15 @@ const getDadosEgresso = async (req, res) => {
 
     const egressoDadosAllGrads = await Grad.find(queryObject)
 
-    const { name, location } = await User.findOne({_id: egressoId})
+    const { name, location, nomePais, locationEstado, locationCidade } = await User.findOne({_id: egressoId})
 
     const egressoDadosAllJobs = await Job.find(queryObject)
 
     const egressoNome = name
 
-    const egressoLocalizacao = location
+    const egressoListaLocalizacao = [location, nomePais, locationEstado, locationCidade]
 
-    res.status(StatusCodes.OK).json({ egressoDadosAllGrads, egressoNome, egressoLocalizacao, egressoDadosAllJobs })
+    res.status(StatusCodes.OK).json({ egressoDadosAllGrads, egressoNome, egressoDadosAllJobs, egressoListaLocalizacao })
 }
 
 

@@ -71,7 +71,7 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { email, name, locationPais, locationEstado, locationCidade } = req.body
+  const { email, name, locationPais, locationEstado, locationCidade, nomePais } = req.body
   
   if (!email || !name || !locationPais) {
     throw new BadRequestError('Forneça todos os valores')
@@ -82,6 +82,7 @@ const updateUser = async (req, res) => {
   user.email = email
   user.name = name
   user.location = locationPais
+  user.nomePais = nomePais
   user.locationEstado = locationEstado
   user.locationCidade = locationCidade
 

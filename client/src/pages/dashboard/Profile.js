@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { City, Country, State } from "country-state-city"
 
-import { FormRow, Alert, JobsContainer } from '../../components'
 import { useAppContext } from '../../context/appContext'
+
+import { FormRow, Alert, JobsContainer } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import Select from 'react-select'
 
@@ -56,9 +57,9 @@ const Profile = () => {
     }
     
     if (Array.isArray(stateData) && stateData.length === 0) {
-      updateUser({ name, email, locationPais: country.isoCode, locationEstado: null, locationCidade: null })
+      updateUser({ name, email, locationPais: country.isoCode, nomePais: country.name, locationEstado: null, locationCidade: null })
     } else {
-      updateUser({ name, email, locationPais: country.isoCode, locationEstado: state.isoCode, locationCidade: city.name })
+      updateUser({ name, email, locationPais: country.isoCode, nomePais: country.name, locationEstado: state.isoCode, locationCidade: city.name })
     }    
   } 
 
