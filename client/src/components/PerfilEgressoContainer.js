@@ -11,8 +11,11 @@ import { useAppContext } from '../context/appContext'
 import Loading from './Loading'
 import Wrapper from '../assets/wrappers/JobsContainer' 
 import WrapperJob from '../assets/wrappers/Job'
-import WrapperTitulo from '../assets/wrappers/DashboardFormPage'
 import JobInfo from './JobInfo'
+
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 
 
 const PerfilEgressoContainer = () => {
@@ -51,19 +54,23 @@ const PerfilEgressoContainer = () => {
     }
     
     return (
-        <>
-            <WrapperJob>
-                <header>
-                    <div className='main-icon'>{egressoNome.charAt(0)}</div>
+        <>            
+            <Wrapper>         
+                <div className='jobs'>        
+                    <header>                        
+                        <Card sx={{ maxWidth: 992 }}>
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div"> 
+                                    Perfil Egresso 
+                                </Typography>
 
-                    <div className='info'>
-                        <h5>{egressoNome}</h5>
-                    </div>
-                </header>
-            </WrapperJob>
-
-            <Wrapper>
-                <div className='jobs'>
+                                <Typography variant="body2" color="text.secondary">
+                                    Nome do egresso: {egressoNome}
+                                </Typography>
+                            </CardContent>
+                        </Card>  
+                    </header>
+                    
                     <iframe className='mapaGoogle-iframe' title='mapGoogle' src={`https://maps.google.com/maps?q=${localizacao}&hl=es&z=${zoomMapa}&amp&output=embed`}></iframe>
 
                     {
