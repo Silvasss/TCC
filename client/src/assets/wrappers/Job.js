@@ -133,9 +133,13 @@ const Wrapper = styled.article`
     cursor: pointer;
 
     height: 30px;
+
+    width: 49%;
   }
 
   .edit-btn {
+    text-align: center;
+
     color: var(--green-dark);
 
     background: var(--green-light);

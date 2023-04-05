@@ -4,7 +4,7 @@ import { City, Country, State } from "country-state-city"
 
 import { useAppContext } from '../../context/appContext'
 
-import { FormRow, Alert, JobsContainer } from '../../components'
+import { FormRow, Alert } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import Select from 'react-select'
 
@@ -139,8 +139,6 @@ const Profile = () => {
           </button>
         </div>
       </form>
-
-      <JobsContainer />     
       
     </Wrapper> 
   )

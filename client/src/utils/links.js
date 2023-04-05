@@ -5,11 +5,10 @@ import { ImProfile } from 'react-icons/im'
 
 
 const links = [
-  { id: 1, text: 'Minhas graduações', path: '/', icon: <IoBarChartSharp /> },
+  { id: 5, text: 'perfil', path: 'profile', icon: <ImProfile /> },
+  { id: 1, text: 'Minhas experiências acadêmicas', path: '/', icon: <IoBarChartSharp /> },
+  { id: 4, text: 'Minhas experiências profissionais', path: 'all-jobs', icon: <FaWpforms /> },
   { id: 3, text: 'Todos os egressos', path: 'all-grads', icon: <MdQueryStats /> },
-  { id: 4, text: 'adicionar trabalho', path: 'add-job', icon: <FaWpforms /> },
-  { id: 5, text: 'adicionar graduação', path: 'add-grad', icon: <FaWpforms /> },
-  { id: 6, text: 'perfil', path: 'profile', icon: <ImProfile /> }
 ]
 
 

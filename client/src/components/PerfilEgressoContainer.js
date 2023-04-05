@@ -11,6 +11,7 @@ import { useAppContext } from '../context/appContext'
 import Loading from './Loading'
 import Wrapper from '../assets/wrappers/JobsContainer' 
 import WrapperJob from '../assets/wrappers/Job'
+import WrapperTitulo from '../assets/wrappers/DashboardFormPage'
 import JobInfo from './JobInfo'
 
 
@@ -20,7 +21,6 @@ const PerfilEgressoContainer = () => {
     const [localizacao, setLocalizacao] = useState()
 
     const [zoomMapa, setZoomMapa] = useState()
-
 
     if (isLoading) {
         return <Loading center />
@@ -49,79 +49,88 @@ const PerfilEgressoContainer = () => {
 
         setZoomMapa(`${15}`)
     }
-
-
+    
     return (
-        <Wrapper>
-            <h5>{egressoNome}</h5>         
-                        
-            <div className='jobs'>
-                <iframe className='mapaGoogle-iframe' title='mapGoogle' src={`https://maps.google.com/maps?q=${localizacao}&hl=es&z=${zoomMapa}&amp&output=embed`}></iframe>
+        <>
+            <WrapperJob>
+                <header>
+                    <div className='main-icon'>{egressoNome.charAt(0)}</div>
 
-                {
-                    egressoDadosAllGrads.map((grad) => {
-                        return (
-                            <WrapperJob key={(grad._id)}>
-                                <header>
-                                    <div className='main-icon'>{grad.instituicao.charAt(0)}</div>
+                    <div className='info'>
+                        <h5>{egressoNome}</h5>
+                    </div>
+                </header>
+            </WrapperJob>
 
-                                    <div className='info'>
-                                        <h5>{grad.curso}</h5>
+            <Wrapper>
+                <div className='jobs'>
+                    <iframe className='mapaGoogle-iframe' title='mapGoogle' src={`https://maps.google.com/maps?q=${localizacao}&hl=es&z=${zoomMapa}&amp&output=embed`}></iframe>
 
-                                        <p>{grad.instituicao}</p>
+                    {
+                        egressoDadosAllGrads.map((grad) => {
+                            return (
+                                <WrapperJob key={(grad._id)}>
+                                    <header>
+                                        <div className='main-icon'>{grad.instituicao.charAt(0)}</div>
+
+                                        <div className='info'>
+                                            <h5>{grad.curso}</h5>
+
+                                            <p>{grad.instituicao}</p>
+                                        </div>
+                                    </header>
+                                    
+                                    <div className='content'>
+                                        <div className='content-center'>
+                                            <JobInfo icon={grad.status === 'pendente' ? <GiDistressSignal /> : <ImFlag />} text={grad.status} />
+
+                                            <JobInfo icon={<FaPhoenixFramework />} text={grad.curso} />
+
+                                            <JobInfo icon={<BsCalendarDate />} text={grad.dataInicioGraduacao.length !== 10 ? 'data não informada' : grad.dataInicioGraduacao} />
+
+                                            <JobInfo icon={<BsCalendar2DateFill />} text={grad.dataFimGraduacao.length !== 10 ? 'data não informada' : grad.dataFimGraduacao} />
+                                        </div>
                                     </div>
-                                </header>
-                                
-                                <div className='content'>
-                                    <div className='content-center'>
-                                        <JobInfo icon={grad.status === 'pendente' ? <GiDistressSignal /> : <ImFlag />} text={grad.status} />
 
-                                        <JobInfo icon={<FaPhoenixFramework />} text={grad.curso} />
+                                    <button onClick={() => verMapaInstituicao(grad)}>Ver no mapa</button>
+                                </WrapperJob>                            
+                            )
+                        })
+                    }              
 
-                                        <JobInfo icon={<BsCalendarDate />} text={grad.dataInicioGraduacao.length !== 10 ? 'data não informada' : grad.dataInicioGraduacao} />
+                    {
+                        egressoDadosAllJobs.map((grad) => {
+                            return (
+                                <WrapperJob key={(grad._id)}>
+                                    <header>
+                                        <div className='main-icon'>{grad.company.charAt(0)}</div>
 
-                                        <JobInfo icon={<BsCalendar2DateFill />} text={grad.dataFimGraduacao.length !== 10 ? 'data não informada' : grad.dataFimGraduacao} />
+                                        <div className='info'>
+                                            <h5>{grad.position}</h5>
+
+                                            <p>{grad.company}</p>
+                                        </div>
+                                    </header>
+
+                                    <div className='content'>
+                                        <div className='content-center'>
+                                            <JobInfo icon={<FaLocationArrow />} text={grad.jobLocation} />
+
+                                            <JobInfo icon={<FaBriefcase />} text={grad.jobType} />
+
+                                            <JobInfo icon={<TbCurrentLocation />} text={grad.status} />
+                                        </div>                                    
                                     </div>
-                                </div>
 
-                                <button onClick={() => verMapaInstituicao(grad)}>Ver no mapa</button>
-                            </WrapperJob>                            
-                        )
-                    })
-                }              
-
-                {
-                    egressoDadosAllJobs.map((grad) => {
-                        return (
-                            <WrapperJob key={(grad._id)}>
-                                <header>
-                                    <div className='main-icon'>{grad.company.charAt(0)}</div>
-
-                                    <div className='info'>
-                                        <h5>{grad.position}</h5>
-
-                                        <p>{grad.company}</p>
-                                    </div>
-                                </header>
-
-                                <div className='content'>
-                                    <div className='content-center'>
-                                        <JobInfo icon={<FaLocationArrow />} text={grad.jobLocation} />
-
-                                        <JobInfo icon={<FaBriefcase />} text={grad.jobType} />
-
-                                        <JobInfo icon={<TbCurrentLocation />} text={grad.status} />
-                                    </div>                                    
-                                </div>
-
-                                <button onClick={() => verMapaEmpresa(grad)}>Ver no mapa</button>
-                            </WrapperJob>
-                        )
-                    })
-                }
-            </div>
-            
-        </Wrapper>
+                                    <button onClick={() => verMapaEmpresa(grad)}>Ver no mapa</button>
+                                </WrapperJob>
+                            )
+                        })
+                    }
+                </div>
+                
+            </Wrapper>
+        </>
     )
 }
 

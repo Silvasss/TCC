@@ -5,6 +5,7 @@ import Profile from './Profile'
 import SharedLayout from './SharedLayout'
 import AllMyGrads from './AllMyGrads'
 import ProfileEgresso from './ProfileEgresso'
+import AllMyProfissionais from './AllMyProfissionais'
 
 
-export { Profile, SharedLayout, AddJob, AddGrad, AllGrads, AllMyGrads, ProfileEgresso }
+export { Profile, SharedLayout, AddJob, AddGrad, AllGrads, AllMyGrads, ProfileEgresso, AllMyProfissionais }
