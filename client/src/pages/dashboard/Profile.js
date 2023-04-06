@@ -2,11 +2,19 @@ import { useEffect, useState } from 'react'
 
 import { City, Country, State } from "country-state-city"
 
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+
 import { useAppContext } from '../../context/appContext'
 
-import { FormRow, Alert } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
-import Select from 'react-select'
+
+import { Alert } from '../../components'
+
 
 
 const Profile = () => {
@@ -63,81 +71,89 @@ const Profile = () => {
     }    
   } 
 
-
   return (
     <Wrapper>
       <form className='form' onSubmit={handleSubmit}>
-        <h3>perfil</h3>
+        <Typography component="h1" variant="h4" align="center"> perfil </Typography>
 
         {showAlert && <Alert />}
 
-        <div className='form-center'>
-          <FormRow
-            type='text'
-            name='name'
-            labelText="nome"
-            value={name}
-            handleChange={(e) => setName(e.target.value)}
-          />
+        <Typography variant="h6" gutterBottom>Informações básicas</Typography>
 
-          <FormRow
-            type='email'
-            name='email'
-            value={email}
-            handleChange={(e) => setEmail(e.target.value)}
-          />
-          
-          <div className='form-row'>
-            <label htmlFor={name} className='form-label'>{'localização do País'}</label>
-                
-            <Select 
-              placeholder='Selecione um País'
-              options={countryData}  
-              getOptionLabel={(option) => option.name}
-              getOptionValue={(option) => option.name}
-              onChange={setCountry}
-              defaultValue={country}
-            />     
-          </div>
-          
-          {
-            (Array.isArray(stateData) && stateData.length > 0) &&
-            
-            <div className='form-row'>
-              <label htmlFor={name} className='form-label'>{'localização do Estado'}</label>
-              
-              <Select 
-                placeholder='Selecione o Estado'
-                options={stateData} 
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option.name}
-                onChange={setState}
-                defaultValue={state}
-              />  
-            </div>
-          }
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField required id="name" name="name" label="Nome" fullWidth autoComplete="given-name" variant="outlined" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
+          </Grid>
 
-          {
-            (Array.isArray(cityData) && cityData.length > 0) &&
+          <Grid item xs={12} sm={6}>
+            <TextField required id="emaill" name="email" label="Email" fullWidth autoComplete="given-email" variant="outlined" defaultValue={email} onChange={(e) => setEmail(e.target.value)}/>
+          </Grid>
+        </Grid>
 
-            <div className='form-row'>
-              <label htmlFor={name} className='form-label'>{'localização do Cidade'}</label>
-                  
-              <Select 
-                placeholder='Selecione a Cidade'
-                options={cityData}  
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option.name}
-                onChange={setCity}
-                defaultValue={city}
-              />    
-            </div>
-          }
+        <Typography variant="h6" gutterBottom>Localidade</Typography>
 
-          <button className='btn btn-block' type='submit' disabled={isLoading}>
-            {isLoading ? 'Por favor, aguarde...' : 'salvar alterações'}
-          </button>
-        </div>
+        <Stack spacing={2}>          
+          <Grid container spacing={2}>  
+            <Grid item xs={1} sm={4}>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={countryData}  
+                  getOptionLabel={(option) => option.name}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="País" />}
+                  value={country}
+                  onChange={(event, newValue) => {
+                    setCountry(newValue)
+                  }}
+                />
+            </Grid>
+
+            {
+              (Array.isArray(stateData) && stateData.length > 0) &&                
+                <Grid item xs={2} sm={4}>
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={[state, ...stateData]}  
+                      filterOptions={() => stateData}
+                      getOptionLabel={(option) => option.name}
+                      sx={{ width: 300 }}
+                      renderInput={(params) => <TextField {...params} label="Estado" />}
+                      value={stateData.indexOf(state) === -1 ? stateData[0] : state}
+                      onChange={(event, newValue) => {                         
+                        setState(newValue)
+                      }}
+                    />
+                </Grid>
+            }
+
+            {
+              (Array.isArray(cityData) && cityData.length > 0) && 
+              <Grid item xs={3} sm={4}>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={[city, ...cityData]}  
+                    filterOptions={() => cityData}
+                    getOptionLabel={(option) => option.name}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="Cidade" />}
+                    value={cityData.indexOf(city) === -1 ? cityData[0] : city}
+                    onChange={(event, newValue) => {
+                      setCity(newValue)
+                    }}
+                  />
+              </Grid>          
+            }
+          </Grid>
+
+          <Grid>
+            <Button variant="contained" fullWidth className='btn btn-block' type='submit' disabled={isLoading}>
+              {isLoading ? 'Por favor, aguarde...' : 'salvar alterações'}
+            </Button>
+          </Grid> 
+        </Stack>
       </form>
       
     </Wrapper> 
