@@ -162,24 +162,36 @@ const Wrapper = styled.article`
   }
 
   .verPerfil-btn {
+    text-align: center;
+
     background-color: #57abff;
+
     border-radius: 0.25rem;
+
     border: transparent;
+
     display: inline-block;
+
     cursor: pointer;
+
     padding: 0.375rem 0.75rem;
+
     letter-spacing: 1px;
+
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
     transition: 0.3s ease-in-out all;
   }
 
   .verPerfil-btn:hover {
     background-color:#80b5ea;
+
     color: #fff;
   }
 
   .verPerfil-btn:active {
     position:relative;
+    
     top:1px;
   }
 
