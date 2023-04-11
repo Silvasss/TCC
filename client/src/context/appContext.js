@@ -404,11 +404,13 @@ const AppProvider = ({ children }) => {
     }
     
     dispatch({ type: GET_GRADS_BEGIN })
-
+    
     try {
       const { data } = await authFetch(url)
 
       const { userGrads, totalUserGrads, numOfPagesUserGrads } = data
+      
+      showStats()
       
       dispatch({
         type: GET_GRADS_SUCCESS,

@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import { FaAlignLeft, FaUserCircle, FaCaretDown, FaBug } from 'react-icons/fa'
-import { GiAxeInStump } from "react-icons/gi"
+import React, { useState } from 'react'
+import { FaAlignLeft } from 'react-icons/fa'
 
 import Wrapper from '../assets/wrappers/Navbar'
 import { useAppContext } from '../context/appContext'
 import Logo from './Logo'
-import StatItem from './StatItem'
+
+import Box from '@mui/material/Box'
+import Avatar from '@mui/material/Avatar'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import Logout from '@mui/icons-material/Logout'
+import Badge from '@mui/material/Badge'
+import PendingActionsIcon from '@mui/icons-material/PendingActions'
 
 
 const Navbar = () => {
-  const [showLogout, setShowLogout] = useState(false)
-
   const { toggleSidebar, logoutUser, user, stats } = useAppContext()
 
-  const defaultStats = [
-    {
-      title: 'solicitações pendentes',
-      count: stats.pending || 0,
-      icon: <GiAxeInStump />,
-      color: '#e9b949',
-      bcg: '#fcefc7',
-    },
-    {
-      title: 'solicitações recusadas',
-      count: stats.declined || 0,
-      icon: <FaBug />,
-      color: '#d66a6a',
-      bcg: '#ffeeee',
-    },
-  ]
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  let semSolicitacoes = false
+
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+  
+  if (stats.pending > 0 && stats.declined > 0) {
+    semSolicitacoes = true
+  }
+  
 
   return (
     <Wrapper>
@@ -37,32 +47,69 @@ const Navbar = () => {
 
         <div>
           <Logo />
-
         </div>
 
-        {
-          // Adicionar aqui um icone para mostrar as solicitações pendentes para aprovação das instituições
-          // Código com o posicionamento errado!
-          defaultStats.map((item, index) => {
-            return <StatItem key={index} {...item} />
-          })
-        }
+        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+          <Tooltip title="Account settings">
+            <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }} aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} >
+              <Avatar sx={{ width: 32, height: 32 } }>{user?.name.charAt(0)}</Avatar>
+            </IconButton>
+          </Tooltip>
+        </Box>
 
+        <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              '&:before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+          
+          {
+            (!semSolicitacoes && (stats.pending + stats.declined) > 0) &&
+            <MenuItem onClick={handleClose}>            
+              <Badge color="secondary" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
+                <PendingActionsIcon sx={{ color: '#ff9800' }}/> Pendências
+              </Badge>
+            </MenuItem>
+          }             
 
-        <div className='btn-container'>
-          <button type='button' className='btn' onClick={() => setShowLogout(!showLogout)}>
-            <FaUserCircle />
+          {
+            (!semSolicitacoes) &&
+            <Divider />
+          }
 
-            {user?.name}
-
-            <FaCaretDown />
-          </button>
-
-          <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
-            <button type='button' className='dropdown-btn' onClick={logoutUser}>Sair</button>
-          </div>
-
-        </div>
+          <MenuItem onClick={logoutUser}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Sair
+          </MenuItem>
+        </Menu>    
+        
       </div>
     </Wrapper>
   )

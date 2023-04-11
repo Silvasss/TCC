@@ -21,6 +21,11 @@ const GradSchema = new mongoose.Schema(
       enum: ['Atual', 'Anterior'],
       default: 'Anterior',
     },
+    statusInstituicao: {
+      type: String,
+      enum: ['aprovado', 'pendente', 'recusada'],
+      default: 'pendente',
+    },
     dataInicioGraduacao: {
       type: String
     },

@@ -182,7 +182,7 @@ const deleteGrad = async (req, res) => {
 const showStats = async (req, res) => {    
     let stats = await Grad.aggregate([
         { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-        { $group: { _id: '$status', count: { $sum: 1 } } },
+        { $group: { _id: '$statusInstituicao', count: { $sum: 1 } } },
     ])
 
     stats = stats.reduce((acc, curr) => {
