@@ -7,7 +7,8 @@ import {
   updateGrad,
   showStats,
   getAllEgressosGrads,
-  getDadosEgresso
+  getDadosEgresso,
+  updatedGradPendencia
 } from '../controllers/gradsController.js'
 
 
@@ -18,6 +19,7 @@ router.route('/getegressos').post(createGrad).get(getAllEgressosGrads)
 router.route('/egressoProfile/:id').post(getDadosEgresso)
 router.route('/stats').get(showStats)
 router.route('/:id').delete(deleteGrad).patch(updateGrad)
+router.route('/updatedGrad').post(updatedGradPendencia)
 
 
 export default router

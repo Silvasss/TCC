@@ -40,7 +40,8 @@ import {
   CLEAR_USERFILTERS,
   CHANGE_PAGE,
   GET_EGRESSO_PROFILE_BEGIN,
-  GET_EGRESSO_PROFILE_SUCCESS
+  GET_EGRESSO_PROFILE_SUCCESS,
+  UPDATE_EDIT_GRAD_JUSTIFICATIVA
 } from './actions'
 
 
@@ -297,6 +298,13 @@ const reducer = (state, action) => {
       statusGrad,
       dataInicioGraduacao, 
       dataFimGraduacao
+    }
+  }
+
+  if (action.type === UPDATE_EDIT_GRAD_JUSTIFICATIVA) {
+    return {
+      ...state,
+      fecharModalJustificativa: false,
     }
   }
 

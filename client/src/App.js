@@ -16,8 +16,8 @@ const darkTheme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-       <CssBaseline />
+    //<ThemeProvider theme={darkTheme}>
+       //<CssBaseline />
       <BrowserRouter>
         <Routes>
 
@@ -44,7 +44,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+    //</ThemeProvider>
   )
 }
 

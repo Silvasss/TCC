@@ -222,5 +222,19 @@ const getDadosEgresso = async (req, res) => {
     res.status(StatusCodes.OK).json({ egressoDadosAllGrads, egressoNome, egressoDadosAllJobs, egressoListaLocalizacao })
 }
 
+const updatedGradPendencia = async (req, res) => {
+    const {id, textoMotivo } = req.body
+    
+    const grad = await Grad.findOne({ _id: id })
+    
+    grad.justificativaUsuario = textoMotivo
+    
+    grad.emAnalisePendencia = true
+    
+    await grad.save()
 
-export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads, getDadosEgresso }
+    res.status(StatusCodes.OK)
+}
+
+
+export { createGrad, deleteGrad, getAllGrads, updateGrad, showStats, getAllEgressosGrads, getDadosEgresso, updatedGradPendencia }

@@ -26,6 +26,18 @@ const GradSchema = new mongoose.Schema(
       enum: ['aprovado', 'pendente', 'recusada'],
       default: 'pendente',
     },
+    motivoInstituicao: {
+      type: String,
+      default: ''
+    },
+    justificativaUsuario: {
+      type: String,
+      default: ''
+    },
+    emAnalisePendencia: {
+      type: Boolean,
+      default: false
+    },
     dataInicioGraduacao: {
       type: String
     },

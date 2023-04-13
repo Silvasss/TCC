@@ -47,7 +47,8 @@ import {
   CLEAR_USERFILTERS,
   CHANGE_PAGE,
   GET_EGRESSO_PROFILE_BEGIN,
-  GET_EGRESSO_PROFILE_SUCCESS
+  GET_EGRESSO_PROFILE_SUCCESS,
+  UPDATE_EDIT_GRAD_JUSTIFICATIVA
 } from './actions'
 
 
@@ -114,9 +115,12 @@ const initialState = {
   egressoNome: '',
   egressoListaLocalizacao: '',
   egressoId: '', // "createdBy" do egresso, página todos os egressos
+  fecharModalJustificativa: false
 }
 
+
 const AppContext = React.createContext()
+
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -467,8 +471,6 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_GRAD_BEGIN })
 
     try {
-      // Variáveis "dataInicioGraduacao" e "dataFimGraduacao" é reconhecida no reducer, mas não e apresentada no front
-
       const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = state
 
       await authFetch.patch(`/grads/${state.editGradId}`, { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao })
@@ -542,6 +544,26 @@ const AppProvider = ({ children }) => {
       console.log(error)
     }    
   }
+
+  const updateGradPendencia = async (currentUserGradPendencia) => {    
+    try {
+      await authFetch.post('/grads/updatedGrad', currentUserGradPendencia)
+
+      dispatch({
+        type: UPDATE_EDIT_GRAD_JUSTIFICATIVA
+      })
+
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: EDIT_GRAD_ERROR ,
+          payload: { msg: error.response.data.msg },
+        })
+      }
+    }
+
+    clearAlert()
+  }
   // --------------------------------END-Grad--------------------------------------
 
   const clearFilters = () => {
@@ -584,7 +606,8 @@ const AppProvider = ({ children }) => {
         changePage,
         getGrads,
         getEgressos,
-        showProfileEgresso
+        showProfileEgresso,
+        updateGradPendencia
       }}>
 
       {children}
