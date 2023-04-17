@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 
 import { useAppContext } from '../../context/appContext'
 
@@ -147,12 +148,13 @@ const Profile = () => {
               </Grid>          
             }
           </Grid>
-
-          <Grid>
-            <Button variant="contained" fullWidth className='btn btn-block' type='submit' disabled={isLoading}>
+          
+          <Box sx={{ display:"flex", justifyContent:"flex-end" }}>
+            <Button variant="contained" type='submit' disabled={isLoading}>
               {isLoading ? 'Por favor, aguarde...' : 'salvar alterações'}
             </Button>
-          </Grid> 
+          </Box>            
+           
         </Stack>
       </form>
       
