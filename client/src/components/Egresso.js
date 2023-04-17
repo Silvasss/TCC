@@ -27,7 +27,7 @@ const Egresso = ({createdBy, nomeEgresso, curso, instituicao }) => {
         <div className='content-center'>
           <JobInfo icon={<FaPhoenixFramework />} text={curso} />     
 
-          <Link to='/egresso' className='btn verPerfil-btn' onClick={() => showProfileEgresso(createdBy)}>Visualizar perfil</Link>
+          <Link to='/egresso' className='btn verPerfil-btn' onClick={() => showProfileEgresso(createdBy)}>Visualizar perfil</Link>                           
         </div>        
       </div>
       

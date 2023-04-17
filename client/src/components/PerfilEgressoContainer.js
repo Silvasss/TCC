@@ -60,10 +60,6 @@ const PerfilEgressoContainer = () => {
                     <header>                        
                         <Card sx={{ maxWidth: 992 }}>
                             <CardContent>
-                                <Typography gutterBottom variant="h5" component="div"> 
-                                    Perfil Egresso 
-                                </Typography>
-
                                 <Typography variant="body2" color="text.secondary">
                                     Nome do egresso: {egressoNome}
                                 </Typography>

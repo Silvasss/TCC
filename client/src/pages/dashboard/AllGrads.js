@@ -16,14 +16,14 @@ const AllGrads = () => {
   return (     
     <>
       <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
+          <AppBar position="static" color="transparent">
               <Toolbar>
-                  <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>Todos os egressos</Typography>
+                  <Typography variant="h6" noWrap component="subtitle2" sx={{ fontWeight: 'bold', display: { xs: 'none', sm: 'block' }, textTransform: 'capitalize' }}>Todos os egressos</Typography>
               
                   <Box sx={{ flexGrow: 1 }} />
 
                   <Stack spacing={2} direction="row">
-                    <Button variant="contained" color="secondary" sx={{ color: '#fff' }} onClick={() => setHidden(s => !s)}>Filtros</Button>                            
+                    <Button variant="contained" color="secondary" sx={{ color: '#fff', borderRadius: 2 }} onClick={() => setHidden(s => !s)}>Filtros</Button>                            
                   </Stack>
               </Toolbar>
           </AppBar>

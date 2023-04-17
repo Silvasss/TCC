@@ -74,7 +74,7 @@ const Profile = () => {
   return (
     <Wrapper>
       <form className='form' onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h4" align="center"> perfil </Typography>
+        <Typography component="h1" variant="h4" align="left"> perfil </Typography>
 
         {showAlert && <Alert />}
 
