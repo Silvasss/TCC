@@ -110,8 +110,7 @@ const AddGrad = () => {
   const limpar = () => {
     clearGradValues()
   }
-  
-  
+    
   return (
     <Wrapper>
       {showAlert && <Alert />}
@@ -186,34 +185,6 @@ const AddGrad = () => {
             </Button>
           </Box>  
         </Stack>
-
-        {
-        // <FormRowDate name='dataInicioGraduacao' labelText='Ano' value={dataInicioGraduacao} handleChange={handleGradInput}/>
-        // <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
-
-        // <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
-        
-        // { disableDataConclusao &&
-        //   <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
-        // }
-
-        // <div className='btn-container'>
-        //   <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>{isEditing ? 'atualizar' : 'adicionar'}</button>
-          
-        //   <button className='btn btn-block clear-btn'
-        //     onClick={(e) => {
-        //       e.preventDefault()
-              
-        //       limpar()
-        //     }}>
-        //     limpar
-        //   </button>            
-        // </div>
-        }
-                    
-          
-
-      
       </form>
     </Wrapper>
   )
