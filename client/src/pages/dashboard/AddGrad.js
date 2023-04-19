@@ -116,7 +116,7 @@ const AddGrad = () => {
       {showAlert && <Alert />}
       
       <form className='form'>
-        <Typography component="h1" variant="h4" align="left"> {isEditing ? 'editar curso' : 'adicionar curso'} </Typography>
+        <Typography component="h1" variant="h4" align="left"> {isEditing ? 'editar curso' : 'adicionar experiência acadêmica'} </Typography>
         
         <Stack spacing={1}>     
           <Typography variant="h6" gutterBottom>Informações acadêmicas</Typography>
