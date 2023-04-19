@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
+//import DatePicker from "react-datepicker"
+//import "react-datepicker/dist/react-datepicker.css"
 
 import { useAppContext } from '../context/appContext'
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 
 const FormRowDate = ({ enabled, name, handleChange, labelText, value }) => {
@@ -26,9 +30,18 @@ const FormRowDate = ({ enabled, name, handleChange, labelText, value }) => {
 
   return (
     <div className='form-row'>
-      <label htmlFor={name} className='form-label'>{labelText || name}</label>
+      {     
+      //<label htmlFor={name} className='form-label'>{labelText || name}</label>
+      // <DatePicker name={name} disabled={ativar} selected={dataDefault} dateFormat="dd/MM/yyyy" openToDate={new Date("02/02/2008")} onChange={(date) => handleGradInput(date, name)} className='form-input '/>
+      }    
 
-      <DatePicker name={name} disabled={ativar} selected={dataDefault} dateFormat="dd/MM/yyyy" openToDate={new Date("02/02/2008")} onChange={(date) => handleGradInput(date, name)} className='form-input '/>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          label={labelText}
+          views={["year"]}
+        />
+      </LocalizationProvider>    
+    
     </div>
   )
 }

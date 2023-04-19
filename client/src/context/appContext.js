@@ -19,6 +19,7 @@ import {
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
   CLEAR_VALUES,
+  CLEARGRAD_VALUES,
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
   CREATE_JOB_ERROR,
@@ -88,8 +89,10 @@ const initialState = {
   statusGradOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}], //
   status: 'Anterior',
   statusGrad: 'Anterior', // 
-  dataInicioGraduacao: '', //
-  dataFimGraduacao: '', //
+  dataMesInicioGraduacao: '', //
+  dataAnoInicioGraduacao: '', //
+  dataMesFimGraduacao: '', //
+  dataAnoFimGraduacao: '', //
   jobs: [], // Todas as experiências do usuário
   userGrads: [], // Graduações do usuário
   allGrads: [], // Todas as graduações do banco
@@ -249,6 +252,10 @@ const AppProvider = ({ children }) => {
   const clearValues = () => {
     dispatch({ type: CLEAR_VALUES })
   }
+
+  const clearGradValues = () => {
+    dispatch({ type: CLEARGRAD_VALUES })
+  }
   // ------------------------------END-User----------------------------------
 
   // ----------------------------------Jobs----------------------------------
@@ -373,13 +380,13 @@ const AppProvider = ({ children }) => {
 
   const createGrad = async () => {
     dispatch({ type: CREATE_GRAD_BEGIN })
-
+    console.log('a')
     try {
-      const { curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao, gradLocationLatitude, gradLocationLongitude } = state
-      
+      const { curso, instituicao, statusGrad, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao, gradLocationLatitude, gradLocationLongitude } = state
+                  
       let nomeEgresso = JSON.parse(user).name
       
-      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao, gradLocationLatitude, gradLocationLongitude})
+      await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao, gradLocationLatitude, gradLocationLongitude})
 
       dispatch({ type: CREATE_GRAD_SUCCESS })
 
@@ -607,7 +614,8 @@ const AppProvider = ({ children }) => {
         getGrads,
         getEgressos,
         showProfileEgresso,
-        updateGradPendencia
+        updateGradPendencia,
+        clearGradValues
       }}>
 
       {children}

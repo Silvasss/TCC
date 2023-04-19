@@ -1,9 +1,21 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { useAppContext } from '../../context/appContext'
 
-import { FormRowSelect, Alert, FormRowDate } from '../../components'
+import { Alert, AutoComplete } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
+
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import dayjs from 'dayjs'
 
 
 const AddGrad = () => {
@@ -18,12 +30,16 @@ const AddGrad = () => {
     statusGrad, // 
     statusGradOptions, //
     handleChange,
-    clearValues,
+    clearGradValues,
     createGrad, //
     editGrad, //
-    dataInicioGraduacao, //
-    dataFimGraduacao, //
+    dataMesInicioGraduacao, //
+    dataAnoInicioGraduacao, //
+    dataMesFimGraduacao, //
+    dataAnoFimGraduacao //
   } = useAppContext()
+
+  const navigate = useNavigate()
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -41,6 +57,10 @@ const AddGrad = () => {
     }
 
     createGrad()
+
+    limpar()
+
+    navigate('/')
   }
 
   const [disableDataConclusao, setDisableDataConclusao] = useState(true)
@@ -51,7 +71,9 @@ const AddGrad = () => {
     try {
       if (e[0] === 'statusGrad' && e[1] === 'Atual') {
         setDisableDataConclusao(false)
-      } else {
+      } 
+
+      if (e[0] === 'statusGrad' && e[1] === 'Anterior') {
         setDisableDataConclusao(true)
       }
 
@@ -86,44 +108,112 @@ const AddGrad = () => {
   }
 
   const limpar = () => {
-    clearValues()
+    clearGradValues()
   }
   
-
+  
   return (
     <Wrapper>
+      {showAlert && <Alert />}
+      
       <form className='form'>
-        <h3>{isEditing ? 'editar curso' : 'adicionar curso'}</h3>
+        <Typography component="h1" variant="h4" align="left"> {isEditing ? 'editar curso' : 'adicionar curso'} </Typography>
+        
+        <Stack spacing={1}>     
+          <Typography variant="h6" gutterBottom>Informações acadêmicas</Typography>
 
-        {showAlert && <Alert />}
+          <Grid container spacing={0}>
+            <Grid item xs={6} md={4}>
+              <AutoComplete name='instituicao' labelText="Instituição de ensino" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
+            </Grid>
 
-        <div className='form-center'>     
-          <FormRowSelect name='instituicao' labelText="Selecione uma instituição" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
-          
-          <FormRowSelect name='curso' labelText="Selecione um curso" value={curso} handleChange={handleGradInput} list={cursosInstituicao}/>
+            <Grid item xs={6} md={4}>
+              <AutoComplete name='curso' labelText="Área de estudo" value={curso} handleChange={handleGradInput} list={cursosInstituicao}/>
+            </Grid>
 
-          <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
-
-          <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
-          
-          { disableDataConclusao &&
-            <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
-          }
-                    
-          <div className='btn-container'>
-            <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>{isEditing ? 'atualizar' : 'adicionar'}</button>
+            <Grid item xs={6} md={4}>
+              <AutoComplete name='statusGrad' labelText="Situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
+            </Grid>
+          </Grid>       
             
-            <button className='btn btn-block clear-btn'
-              onClick={(e) => {
+          <Typography variant="h6" gutterBottom>Data de início</Typography>
+        
+          <Grid container spacing={0}>
+            <Grid item xs={6} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker format={'MM'} label={'Mês'} {...dataMesInicioGraduacao ? {value:dayjs(dataMesInicioGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput([`dataMesInicioGraduacao`, date.$d.toISOString()])}/>
+              </LocalizationProvider>  
+            </Grid>
+
+            <Grid item xs={6} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker label={'Ano'} {...dataAnoInicioGraduacao ? {value:dayjs(dataAnoInicioGraduacao)} : ''}  views={["year"]} onChange={(date) => handleGradInput(["dataAnoInicioGraduacao", date.$d.toISOString()])}/>
+              </LocalizationProvider>  
+            </Grid>          
+          </Grid> 
+
+          { disableDataConclusao && 
+            <Typography variant="h6" gutterBottom>Data de término</Typography>
+          }
+
+          { disableDataConclusao &&
+            <Grid container spacing={0}>
+              <Grid item xs={6} md={4}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker format={'MM'} label={'Mês'} {...dataMesFimGraduacao ? {value:dayjs(dataMesFimGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput(["dataMesFimGraduacao", date.$d.toISOString()])}/>
+                </LocalizationProvider>  
+              </Grid>
+
+              <Grid item xs={6} md={4}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker label={'Ano'} {...dataAnoFimGraduacao ? {value:dayjs(dataAnoFimGraduacao)} : ''} views={["year"]} onChange={(date) => handleGradInput(["dataAnoFimGraduacao", date.$d.toISOString()])}/>
+                </LocalizationProvider>  
+              </Grid>          
+            </Grid> 
+          }
+          
+          <Box sx={{ display:"flex", justifyContent:"flex-end" }}>
+            <Button variant="contained" color="error" sx={{ right: 6 }} onClick={(e) => { 
                 e.preventDefault()
                 
                 limpar()
               }}>
-              limpar
-            </button>            
-          </div>
+                limpar
+            </Button>
 
-        </div>
+            <Button variant="contained" disabled={isLoading} onClick={handleSubmit}>
+              {isEditing ? 'atualizar' : 'adicionar'}
+            </Button>
+          </Box>  
+        </Stack>
+
+        {
+        // <FormRowDate name='dataInicioGraduacao' labelText='Ano' value={dataInicioGraduacao} handleChange={handleGradInput}/>
+        // <FormRowSelect name='statusGrad' labelText="situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
+
+        // <FormRowDate name='dataInicioGraduacao' labelText='data de início' value={dataInicioGraduacao} handleChange={handleGradInput}/>
+        
+        // { disableDataConclusao &&
+        //   <FormRowDate name='dataFimGraduacao' labelText='data de conclusão' value={dataFimGraduacao} handleChange={handleGradInput}/>
+        // }
+
+        // <div className='btn-container'>
+        //   <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>{isEditing ? 'atualizar' : 'adicionar'}</button>
+          
+        //   <button className='btn btn-block clear-btn'
+        //     onClick={(e) => {
+        //       e.preventDefault()
+              
+        //       limpar()
+        //     }}>
+        //     limpar
+        //   </button>            
+        // </div>
+        }
+                    
+          
+
+      
       </form>
     </Wrapper>
   )

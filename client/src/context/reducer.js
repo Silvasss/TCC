@@ -41,7 +41,8 @@ import {
   CHANGE_PAGE,
   GET_EGRESSO_PROFILE_BEGIN,
   GET_EGRESSO_PROFILE_SUCCESS,
-  UPDATE_EDIT_GRAD_JUSTIFICATIVA
+  UPDATE_EDIT_GRAD_JUSTIFICATIVA,
+  CLEARGRAD_VALUES
 } from './actions'
 
 
@@ -135,6 +136,7 @@ const reducer = (state, action) => {
   }
 
   if (action.type === HANDLE_CHANGE) {
+    
     return {
       ...state,
       page: 1,
@@ -151,6 +153,21 @@ const reducer = (state, action) => {
       jobLocation: state.userLocation,
       jobType: 'Tempo integral',
       status: 'Pendente'
+    }
+
+    return {...state, ...initialState,}
+  }
+
+  if (action.type === CLEARGRAD_VALUES) {
+    const initialState = {
+      isEditing: false,
+      instituicao: '',
+      curso: '',
+      statusGrad: 'Atual',
+      dataMesInicioGraduacao: '', 
+      dataAnoInicioGraduacao: '', 
+      dataMesFimGraduacao: '', 
+      dataAnoFimGraduacao: '', 
     }
 
     return {...state, ...initialState,}

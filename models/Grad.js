@@ -38,10 +38,16 @@ const GradSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    dataInicioGraduacao: {
+    dataMesInicioGraduacao: {
       type: String
     },
-    dataFimGraduacao: {
+    dataAnoInicioGraduacao: {
+      type: String
+    },
+    dataMesFimGraduacao: {
+      type: String
+    },
+    dataAnoFimGraduacao: {
       type: String
     },
     gradLocationLatitude: {

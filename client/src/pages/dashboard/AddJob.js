@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { City, Country, State } from "country-state-city"
 import Select from 'react-select'
 
-import { FormRow, FormRowSelect, Alert } from '../../components'
+import { FormRow, FormRowSelect, Alert, AutoComplete } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { useAppContext } from '../../context/appContext'
 
@@ -115,13 +115,13 @@ const AddJob = () => {
         {showAlert && <Alert />}
 
         <div className='form-center'>
-          <FormRowSelect name='position' labelText="Selecione um cargo" value={position} handleChange={handleJobInput} list={positionOptions}/>
+          <AutoComplete name='position' labelText="Selecione um cargo" value={position} handleChange={handleJobInput} list={positionOptions}/>
           
           <FormRow type='text' name='company' value={company} labelText="empresa" handleChange={handleJobInput}/>
 
-          <FormRowSelect name='status' labelText="Situação" value={status} handleChange={handleJobInput} list={statusOptions}/>
+          <AutoComplete name='status' labelText="Situação" value={status} handleChange={handleJobInput} list={statusOptions}/>
 
-          <FormRowSelect name='jobType' labelText='Jornada de trabalho' value={jobType} handleChange={handleJobInput} list={jobTypeOptions}/>
+          <AutoComplete name='jobType' labelText='Jornada de trabalho' value={jobType} handleChange={handleJobInput} list={jobTypeOptions}/>
 
           <div className='form-row'>
             <label className='form-label'>{'localização do País'}</label>

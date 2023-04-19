@@ -1,10 +1,15 @@
 import React from 'react'
-import Select from 'react-select'
+
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import Select from '@mui/material/Select'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
 
   
 const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {   
-  const handleGradInput = (selecao, nome) => {  
-    handleChange([nome.name, selecao.value])
+  const handleGradInput = (selecao) => {      
+    handleChange([name, selecao])
   } 
 
   let posicaoLista
@@ -23,13 +28,19 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
   // Função limpar não funciona!
   //
   // ********************
-
   
   return (
     <div className='form-row'>
-      <label htmlFor={name} className='form-label'>{labelText || name}</label>
 
-      <Select name={name} defaultValue={list[posicaoLista]} options={list} onChange={handleGradInput} />      
+      <InputLabel variant="standard" htmlFor="uncontrolled-native">{labelText || name}</InputLabel>
+
+      <Select labelId="demo-simple-select-label" id="demo-simple-select" value={list[posicaoLista].label} label="Age" onChange={handleChange}>
+        {list.map((item) => (
+          <MenuItem key={item.label} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
+      </Select>
     </div>
   )
 }
