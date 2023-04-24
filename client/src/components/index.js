@@ -17,6 +17,7 @@ import AutoComplete from './FormSelectAutoComplete'
 import SearchContainer from './SearchContainer'
 import SearchAllEgressosContainer from './SearchAllEgressosContainer'
 import JobEgressoPerfil from './JobEgressoPerfil'
+import FormAutoCompleteLocalizacao from './FormAutoCompleteLocalizacao'
 
 
-export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPerfil, JobEgressoPerfil }
+export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPerfil, JobEgressoPerfil, FormAutoCompleteLocalizacao }

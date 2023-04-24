@@ -83,7 +83,7 @@ const initialState = {
   jobLocationLatitude: '',
   gradLocationLatitude: '',
   gradLocationLongitude: '',
-  jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Tempo parcial', "label": 'Tempo parcial'}, {"value": 'Remoto', "label": 'Remoto'}, {"value": 'Estágio', "label": 'Estágio'}],
+  jobTypeOptions: [{"value": 'Tempo integral', "label" :'Tempo integral'}, {"value": 'Meio período', "label": 'Meio período'}, {"value": 'Autônomo', "label": 'Autônomo'}, {"value": 'Estágio', "label": 'Estágio'}, {"value": 'Freelance', "label": 'Freelance'}, {"value": 'Temporário', "label": 'Temporário'}, {"value": 'Estágio', "label": 'Estágio'}, {"value": 'Aprendiz', "label": 'Aprendiz'}, {"value": 'Trainee', "label": 'Trainee'}, {"value": 'Terceirizado', "label": 'Terceirizado'}],
   jobType: 'Tempo integral',
   statusOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}],
   statusGradOptions: [{"value": 'Atual', "label": 'Atual'}, {"value": 'Anterior', "label": 'Anterior'}], //

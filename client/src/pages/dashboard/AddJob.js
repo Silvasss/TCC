@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { City, Country, State } from "country-state-city"
-import Select from 'react-select'
 
-import { FormRow, FormRowSelect, Alert, AutoComplete } from '../../components'
+import { FormRow, FormRowSelect, Alert } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { useAppContext } from '../../context/appContext'
+
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 
 
 const AddJob = () => {
@@ -30,7 +38,8 @@ const AddJob = () => {
     jobLocationCidade
   } = useAppContext()
 
-
+  const navigate = useNavigate()
+  
   let countryData = Country.getAllCountries()
   
   const [stateData, setStateData] = useState()
@@ -89,6 +98,10 @@ const AddJob = () => {
     }
 
     createJob()
+
+    limpar()
+
+    navigate('/all-jobs')
   }
   
   const handleJobInput = (e) => {
@@ -107,83 +120,142 @@ const AddJob = () => {
     }    
   }      
 
+  const limpar = () => {
+    clearValues()
+  }
+
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{isEditing ? 'editar trabalho' : 'adicionar trabalho'}</h3>
+        <Typography component="h1" variant="h4" align="left"> {isEditing ? 'editar experiência profissional' : 'adicionar experiência profissional'} </Typography>
 
         {showAlert && <Alert />}
 
-        <div className='form-center'>
-          <AutoComplete name='position' labelText="Selecione um cargo" value={position} handleChange={handleJobInput} list={positionOptions}/>
+        <Typography variant="h6" gutterBottom>Informações básicas</Typography>
+
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={12}>
+            <Autocomplete
+              disablePortal
+              id="position"
+              name='position'
+              options={positionOptions}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Selecione um Setor" />}
+              value={position}
+              onChange={(event, newValue) => {                       
+                handleJobInput(['position', newValue.label])
+              }}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={12}>
+            <TextField required id="company" name="company" label="Nome da empresa" fullWidth autoComplete="given-empresa" variant="outlined" value={company} onChange={(e) => handleJobInput(e)}/>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Autocomplete
+              disablePortal
+              id="status"
+              name='status'
+              options={statusOptions}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Situação" />}
+              value={status}
+              onChange={(event, newValue) => {                       
+                handleJobInput(['status', newValue.label])
+              }}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Autocomplete
+              disablePortal
+              id="jobType"
+              name='jobType'
+              options={jobTypeOptions}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Tipo de emprego" />}
+              value={jobType}
+              onChange={(event, newValue) => {                       
+                handleJobInput(['jobType', newValue.label])
+              }}
+            />
+          </Grid>                               
+        </Grid>
+
+        <Typography variant="h6" gutterBottom>Localidade</Typography>
+
+        <Stack spacing={2}>          
+          <Grid container spacing={2}>  
+            <Grid item xs={12} sm={4}>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={countryData}  
+                getOptionLabel={(option) => option.name}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="País" />}
+                value={country}
+                onChange={(event, newValue) => {
+                  setCountry(newValue)
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              {
+                (Array.isArray(stateData) && stateData.length > 0) &&                
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={[state, ...stateData]}  
+                    filterOptions={() => stateData}
+                    getOptionLabel={(option) => option.name}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="Estado" />}
+                    value={stateData.indexOf(state) === -1 ? stateData[0] : state}
+                    onChange={(event, newValue) => {                         
+                      setState(newValue)
+                    }}
+                  />
+              }
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              {
+                (Array.isArray(cityData) && cityData.length > 0) &&             
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={[city, ...cityData]}  
+                    filterOptions={() => cityData}
+                    getOptionLabel={(option) => option.name}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="Cidade" />}
+                    value={cityData.indexOf(city) === -1 ? cityData[0] : city}
+                    onChange={(event, newValue) => {
+                      setCity(newValue)
+                    }}
+                  />                    
+              }
+            </Grid> 
+          </Grid>
           
-          <FormRow type='text' name='company' value={company} labelText="empresa" handleChange={handleJobInput}/>
-
-          <AutoComplete name='status' labelText="Situação" value={status} handleChange={handleJobInput} list={statusOptions}/>
-
-          <AutoComplete name='jobType' labelText='Jornada de trabalho' value={jobType} handleChange={handleJobInput} list={jobTypeOptions}/>
-
-          <div className='form-row'>
-            <label className='form-label'>{'localização do País'}</label>
-                
-            <Select 
-              placeholder='Selecione um País'
-              options={countryData}  
-              getOptionLabel={(option) => option.name}
-              getOptionValue={(option) => option.name}
-              onChange={handleJobInput}
-              defaultValue={country}
-            />     
-          </div>
-
-          {
-            (Array.isArray(stateData) && stateData.length > 0) &&
-            
-            <div className='form-row'>
-              <label className='form-label'>{'localização do Estado'}</label>
-              
-              <Select 
-                placeholder='Selecione o Estado'
-                options={stateData} 
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option.name}
-                onChange={setState}
-                defaultValue={state}
-              />  
-            </div>
-          }
-
-          {
-            (Array.isArray(cityData) && cityData.length > 0) &&
-
-            <div className='form-row'>
-              <label className='form-label'>{'localização do Cidade'}</label>
-                  
-              <Select 
-                placeholder='Selecione a Cidade'
-                options={cityData}  
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option.name}
-                onChange={setCity}
-                defaultValue={city}
-              />    
-            </div>
-          }
-
-          <div className='btn-container'>
-            <button type='submit' className='btn btn-block submit-btn' onClick={handleSubmit} disabled={isLoading}>adicionar</button>
-            
-            <button className='btn btn-block clear-btn'
-              onClick={(e) => {
+          <Box sx={{ display:"flex", justifyContent:"flex-end" }}>
+            <Button variant="contained" color="error" sx={{ right: 6 }} onClick={(e) => { 
                 e.preventDefault()
-
-                clearValues()
+                
+                limpar()
               }}>
-              limpar
-            </button>            
-          </div>
+                limpar
+            </Button>
 
-        </div> 
+            <Button variant="contained" disabled={isLoading} onClick={handleSubmit}>
+              {isEditing ? 'atualizar' : 'adicionar'}
+            </Button>
+          </Box>  
+        </Stack>
       </form>
     </Wrapper>
   )

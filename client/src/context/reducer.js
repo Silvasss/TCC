@@ -136,7 +136,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === HANDLE_CHANGE) {
-    
     return {
       ...state,
       page: 1,
@@ -148,11 +147,11 @@ const reducer = (state, action) => {
     const initialState = {
       isEditing: false,
       editJobId: '',
-      position: '',
-      company: '',
+      position: null,
+      company: null,
       jobLocation: state.userLocation,
       jobType: 'Tempo integral',
-      status: 'Pendente'
+      status: 'Atual'
     }
 
     return {...state, ...initialState,}
