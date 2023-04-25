@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppContext } from '../../context/appContext'
 
-import { Alert, AutoComplete } from '../../components'
+import { Alert } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 import Typography from '@mui/material/Typography'
@@ -11,6 +11,8 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -117,61 +119,94 @@ const AddGrad = () => {
       
       <form className='form'>
         <Typography component="h1" variant="h4" align="left"> {isEditing ? 'editar experiência acadêmica' : 'adicionar experiência acadêmica'} </Typography>
-        
-        <Stack spacing={1}>     
-          <Typography variant="h6" gutterBottom>Informações acadêmicas</Typography>
+                  
+        <Typography variant="h6" gutterBottom>Informações acadêmicas</Typography>
 
-          <Grid container spacing={0}>
-            <Grid item xs={6} md={4}>
-              <AutoComplete name='instituicao' labelText="Instituição de ensino" value={instituicao} handleChange={handleGradInput} list={instituicaoOptions}/>
-            </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={12}>
+            <Autocomplete
+              disablePortal
+              id="instituicao"
+              name='instituicao'
+              options={instituicaoOptions}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Instituição de ensino" />}
+              value={instituicao}
+              onChange={(event, newValue) => {                       
+                handleGradInput(['instituicao', newValue.label])
+              }}
+            />
+          </Grid>
 
-            <Grid item xs={6} md={4}>
-              <AutoComplete name='curso' labelText="Área de estudo" value={curso} handleChange={handleGradInput} list={cursosInstituicao}/>
-            </Grid>
+          <Grid item xs={12} sm={12}>
+            <Autocomplete
+              disablePortal
+              id="curso"
+              name='curso'
+              options={cursosInstituicao}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Área de estudo" />}
+              value={curso}
+              onChange={(event, newValue) => {                       
+                handleGradInput(['curso', newValue.label])
+              }}
+            />
+          </Grid>
 
-            <Grid item xs={6} md={4}>
-              <AutoComplete name='statusGrad' labelText="Situação" value={statusGrad} handleChange={handleGradInput} list={statusGradOptions}/>
-            </Grid>
-          </Grid>       
-            
-          <Typography variant="h6" gutterBottom>Data de início</Typography>
-        
-          <Grid container spacing={0}>
-            <Grid item xs={6} md={4}>
+          <Grid item xs={12} sm={12}>
+            <Autocomplete
+              disablePortal
+              id="statusGrad"
+              name='statusGrad'
+              options={statusGradOptions}  
+              sx={{ maxWidth: true }}
+              renderInput={(params) => <TextField {...params} label="Área de estudo" />}
+              value={statusGrad}
+              onChange={(event, newValue) => {                       
+                handleGradInput(['statusGrad', newValue.label])
+              }}
+            />
+          </Grid>
+        </Grid>       
+          
+        <Typography variant="h6" gutterBottom>Data de início</Typography>
+      
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker format={'MM'} label={'Mês'} slotProps={{ textField: { fullWidth: true } }} {...dataMesInicioGraduacao ? {value:dayjs(dataMesInicioGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput([`dataMesInicioGraduacao`, date.$d.toISOString()])}/>
+            </LocalizationProvider>  
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker label={'Ano'} slotProps={{ textField: { fullWidth: true } }} {...dataAnoInicioGraduacao ? {value:dayjs(dataAnoInicioGraduacao)} : ''}  views={["year"]} onChange={(date) => handleGradInput(["dataAnoInicioGraduacao", date.$d.toISOString()])}/>
+            </LocalizationProvider>  
+          </Grid>          
+        </Grid> 
+
+        { disableDataConclusao && 
+          <Typography variant="h6" gutterBottom>Data de término</Typography>
+        }
+
+        { disableDataConclusao &&
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker format={'MM'} label={'Mês'} {...dataMesInicioGraduacao ? {value:dayjs(dataMesInicioGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput([`dataMesInicioGraduacao`, date.$d.toISOString()])}/>
+                <DatePicker format={'MM'} label={'Mês'} slotProps={{ textField: { fullWidth: true } }} {...dataMesFimGraduacao ? {value:dayjs(dataMesFimGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput(["dataMesFimGraduacao", date.$d.toISOString()])}/>
               </LocalizationProvider>  
             </Grid>
 
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label={'Ano'} {...dataAnoInicioGraduacao ? {value:dayjs(dataAnoInicioGraduacao)} : ''}  views={["year"]} onChange={(date) => handleGradInput(["dataAnoInicioGraduacao", date.$d.toISOString()])}/>
+                <DatePicker label={'Ano'} slotProps={{ textField: { fullWidth: true } }} {...dataAnoFimGraduacao ? {value:dayjs(dataAnoFimGraduacao)} : ''} views={["year"]} onChange={(date) => handleGradInput(["dataAnoFimGraduacao", date.$d.toISOString()])}/>
               </LocalizationProvider>  
             </Grid>          
           </Grid> 
+        }
 
-          { disableDataConclusao && 
-            <Typography variant="h6" gutterBottom>Data de término</Typography>
-          }
-
-          { disableDataConclusao &&
-            <Grid container spacing={0}>
-              <Grid item xs={6} md={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker format={'MM'} label={'Mês'} {...dataMesFimGraduacao ? {value:dayjs(dataMesFimGraduacao)} : ''} views={["month"]} onChange={(date) => handleGradInput(["dataMesFimGraduacao", date.$d.toISOString()])}/>
-                </LocalizationProvider>  
-              </Grid>
-
-              <Grid item xs={6} md={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker label={'Ano'} {...dataAnoFimGraduacao ? {value:dayjs(dataAnoFimGraduacao)} : ''} views={["year"]} onChange={(date) => handleGradInput(["dataAnoFimGraduacao", date.$d.toISOString()])}/>
-                </LocalizationProvider>  
-              </Grid>          
-            </Grid> 
-          }
-          
-          <Box sx={{ display:"flex", justifyContent:"flex-end" }}>
+        <Stack spacing={2}>   
+          <Box sx={{ display:"flex", justifyContent:"flex-end", mt: 4 }}>
             <Button variant="contained" color="error" sx={{ right: 6 }} onClick={(e) => { 
                 e.preventDefault()
                 

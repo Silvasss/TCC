@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { City, Country, State } from "country-state-city"
 
-import { FormRow, FormRowSelect, Alert } from '../../components'
+import { Alert } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { useAppContext } from '../../context/appContext'
 
@@ -39,7 +39,7 @@ const AddJob = () => {
   } = useAppContext()
 
   const navigate = useNavigate()
-  
+
   let countryData = Country.getAllCountries()
   
   const [stateData, setStateData] = useState()
