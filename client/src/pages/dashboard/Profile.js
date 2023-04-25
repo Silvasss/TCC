@@ -41,7 +41,7 @@ const Profile = () => {
   useEffect(() => {
     setStateData(State.getStatesOfCountry(country?.isoCode))
 
-    if(country.isoCode !== user.location){
+    if(country?.isoCode !== user.location){
       setState(stateData)
     }
 
@@ -49,7 +49,7 @@ const Profile = () => {
   }, [country])
 
   useEffect(() => {
-    setCityData(City.getCitiesOfState(country.isoCode, state.isoCode))
+    setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
