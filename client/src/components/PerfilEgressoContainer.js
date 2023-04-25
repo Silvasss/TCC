@@ -16,6 +16,7 @@ import JobInfo from './JobInfo'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 
 
 const PerfilEgressoContainer = () => {
@@ -44,7 +45,7 @@ const PerfilEgressoContainer = () => {
     function verMapaInstituicao(e) {        
         setLocalizacao(`${e.gradLocationLatitude},${e.gradLocationLongitude}`)
 
-        setZoomMapa(`${15}`)
+        setZoomMapa(`${17}`)
     }
 
     function verMapaEmpresa(e) {
@@ -52,7 +53,7 @@ const PerfilEgressoContainer = () => {
 
         setZoomMapa(`${15}`)
     }
-    
+        
     return (
         <>            
             <Wrapper>         
@@ -60,9 +61,7 @@ const PerfilEgressoContainer = () => {
                     <header>                        
                         <Card sx={{ maxWidth: 992 }}>
                             <CardContent>
-                                <Typography variant="body2" color="text.secondary">
-                                    Nome do egresso: {egressoNome}
-                                </Typography>
+                                <Typography variant="h4"> {egressoNome} </Typography>
                             </CardContent>
                         </Card>  
                     </header>
@@ -89,13 +88,13 @@ const PerfilEgressoContainer = () => {
 
                                             <JobInfo icon={<FaPhoenixFramework />} text={grad.curso} />
 
-                                            <JobInfo icon={<BsCalendarDate />} text={grad.dataInicioGraduacao.length !== 10 ? 'data não informada' : grad.dataInicioGraduacao} />
+                                            <JobInfo icon={<BsCalendarDate />} text={grad.dataMesInicioGraduacao.split("T")[0].length !== 10 ? 'data não informada' : grad.dataMesInicioGraduacao.split("T")[0]} />
 
-                                            <JobInfo icon={<BsCalendar2DateFill />} text={grad.dataFimGraduacao.length !== 10 ? 'data não informada' : grad.dataFimGraduacao} />
+                                            <JobInfo icon={<BsCalendar2DateFill />} text={grad.dataMesFimGraduacao.split("T")[0].length !== 10 ? 'data não informada' : grad.dataMesFimGraduacao.split("T")[0]} />
                                         </div>
                                     </div>
 
-                                    <button onClick={() => verMapaInstituicao(grad)}>Ver no mapa</button>
+                                    <Button variant="contained"onClick={() => verMapaInstituicao(grad)}> Ver no mapa </Button>
                                 </WrapperJob>                            
                             )
                         })
@@ -125,7 +124,8 @@ const PerfilEgressoContainer = () => {
                                         </div>                                    
                                     </div>
 
-                                    <button onClick={() => verMapaEmpresa(grad)}>Ver no mapa</button>
+                                    <Button variant="contained"onClick={() => verMapaEmpresa(grad)}> Ver no mapa </Button>
+
                                 </WrapperJob>
                             )
                         })
