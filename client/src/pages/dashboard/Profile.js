@@ -17,12 +17,7 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { Alert } from '../../components'
 
 
-
 const Profile = () => {
-  // ------------Problemas----------
-  // Quando ocorre alteração no estado/país, não é alterado o valor apresentado na caixa de seleção
-  // Adicionar a opção "value" e modificar o estado dela quando ocorrer o update dos valores
-
   const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext()
 
   let countryData = Country.getAllCountries()
@@ -36,25 +31,28 @@ const Profile = () => {
   // -----------Valores iniciais---------------------------------
   const [country, setCountry] = useState(Country.getCountryByCode(user.location))
      
-  const [state, setState] = useState(State.getStateByCodeAndCountry(user?.locationEstado, user?.location))
+  const [state, setState] = useState(State.getStateByCodeAndCountry(user?.locationEstado, user.location))
   
   const [city, setCity] = useState(
-    City.getCitiesOfState(user?.location, user?.locationEstado)[City.getCitiesOfState(user?.location, user?.locationEstado).map(e => e.name).indexOf(user.locationCidade)]
+    City.getCitiesOfState(user.location, user?.locationEstado)[City.getCitiesOfState(user.location, user?.locationEstado).map(e => e.name).indexOf(user.locationCidade)]
   )
   // ------------------------------------------------------------
 
-  useEffect(() => {setStateData(State.getStatesOfCountry(country?.isoCode))}, [country])
-
-  useEffect(() => {setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))}, [state])
-
-  //useEffect(() => {stateData && setState(stateData)}, [stateData])
-  
-  // Melhorar isso!
   useEffect(() => {
-    if(country.isoCode !== user?.location){
+    setStateData(State.getStatesOfCountry(country?.isoCode))
+
+    if(country.isoCode !== user.location){
       setState(stateData)
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country])
+
+  useEffect(() => {
+    setCityData(City.getCitiesOfState(country.isoCode, state.isoCode))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
 
   const handleSubmit = (e) => {
     e.preventDefault()

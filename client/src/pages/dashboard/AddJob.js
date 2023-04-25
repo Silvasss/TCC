@@ -50,12 +50,18 @@ const AddJob = () => {
      
   const [state, setState] = useState(State.getStateByCodeAndCountry(jobLocationEstado, jobLocation))
   
-  const [city, setCity] = useState(
-    City.getCitiesOfState(jobLocation, jobLocationEstado)[City.getCitiesOfState(jobLocation, jobLocationEstado).map(e => e.name).indexOf(jobLocationCidade)]
-  )
+  const [city, setCity] = useState(City.getCitiesOfState(jobLocation, jobLocationEstado)[City.getCitiesOfState(jobLocation, jobLocationEstado).map(e => e.name).indexOf(jobLocationCidade)])
   // ------------------------------------------------------------
 
-  useEffect(() => {setStateData(State.getStatesOfCountry(country?.isoCode))}, [country])
+  useEffect(() => {
+    setStateData(State.getStatesOfCountry(country.isoCode))
+
+    if(country.isoCode !== jobLocation){
+      setState(stateData)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [country])
 
   useEffect(() => {
     setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode))
@@ -65,6 +71,8 @@ const AddJob = () => {
     handleChange({ name: 'jobLocationLatitude', value: state?.latitude })
 
     handleChange({ name: 'jobLocationLongitude', value: state?.longitude })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
 
   useEffect(() => {
@@ -73,14 +81,9 @@ const AddJob = () => {
     handleChange({ name: 'jobLocationLatitude', value: city?.latitude })
 
     handleChange({ name: 'jobLocationLongitude', value: city?.longitude })
-  }, [city])
 
-  // Melhorar isso!
-  useEffect(() => {
-    if(country.isoCode !== jobLocation){
-      setState(stateData)
-    }
-  }, [country])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city])
 
   const handleSubmit = (e) => {
     e.preventDefault()
