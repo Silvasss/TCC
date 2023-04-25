@@ -5,6 +5,9 @@ import { useAppContext } from '../context/appContext'
 import { FormRowSelect } from '.'
 import Wrapper from '../assets/wrappers/SearchContainer'
 
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+
 
 // Filtros da página de graduações do usuário
 const SearchAllEgressosContainer = () => {
@@ -21,7 +24,7 @@ const SearchAllEgressosContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    setLocalSearch('')
+    setLocalSearch(null)
 
     clearFilters()
   }
@@ -30,12 +33,12 @@ const SearchAllEgressosContainer = () => {
     let timeoutID
     
     return (e) => {  
-      if (e[0] && e[1]) {
-        setLocalSearch(e[1])
+      if (e.target.innerHTML) {
+        setLocalSearch(e.target.innerHTML)
 
         clearTimeout(timeoutID)      
         
-        timeoutID = setTimeout(() => { handleChange({ name: e[0], value: e[1] }) }, 1000)
+        timeoutID = setTimeout(() => { handleChange({ name: "search", value: e.target.innerHTML }) }, 1000)
       } 
     }
   }
@@ -52,12 +55,12 @@ const SearchAllEgressosContainer = () => {
 
         <h4>filtros</h4>
 
-        <div className='form-center'>
-          <FormRowSelect name='search' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes}/>
+        <div className='form-center'>      
+          <Autocomplete disablePortal id="search" name='search' options={listaNomesInstituicoes} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} value={localSearch} onChange={optimizedDebounce}/>
 
-          <FormRowSelect name='searchStatus' labelText='situação' value={searchStatus} handleChange={handleSearch} list={statusOptions} />
+          <Autocomplete disablePortal id="searchStatus" name='searchStatus' options={statusOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Situação" />} value={searchStatus} onChange={(event, newValue) => { handleSearch(['searchStatus', newValue.label]) }}/>
           
-          <FormRowSelect name='sort' labelText="Filtro" value={sort} handleChange={handleSearch} list={sortOptions} />
+          <Autocomplete disablePortal id="sort" name='sort' options={sortOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Filtro" />} value={sort} onChange={(event, newValue) => { handleSearch(['sortUser', newValue.label]) }}/>
           
           <button className='btn btn-block limpar-btn' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>

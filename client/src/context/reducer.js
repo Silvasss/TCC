@@ -408,7 +408,7 @@ const reducer = (state, action) => {
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
-      search: '',
+      search: null,
       searchStatus: 'Todos',
       sort: 'Recentes',
     }
@@ -419,7 +419,7 @@ const reducer = (state, action) => {
   if (action.type === CLEAR_USERFILTERS) {
     return {
       ...state,
-      searchUser: '',
+      searchUser: null,
       searchUserStatus: 'Todos',
       sortUser: 'Recentes',
     }

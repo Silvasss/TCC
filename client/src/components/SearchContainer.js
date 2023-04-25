@@ -2,8 +2,10 @@ import { useState, useMemo } from 'react'
 
 import { useAppContext } from '../context/appContext'
 
-import { FormRowSelect } from '.'
 import Wrapper from '../assets/wrappers/SearchContainer'
+
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 
 
 // Filtros da página de graduações do usuário
@@ -30,12 +32,12 @@ const SearchContainer = () => {
     let timeoutID
     
     return (e) => {
-      if (e[0] && e[1]) {
-        setLocalSearch(e[1])
+      if (e.target.innerHTML) {
+        setLocalSearch(e.target.innerHTML)
 
         clearTimeout(timeoutID)    
 
-        timeoutID = setTimeout(() => { handleChange({ name: e[0], value: e[1] }) }, 1000)
+        timeoutID = setTimeout(() => { handleChange({ name: 'searchUser', value: e.target.innerHTML }) }, 1000)
       }       
     }
   }
@@ -53,11 +55,11 @@ const SearchContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>
-          <FormRowSelect name='searchUser' labelText="Selecione uma instituição" value={localSearch} handleChange={optimizedDebounce} list={listaNomesInstituicoes}/>
-          
-          <FormRowSelect name='searchUserStatus' labelText='situação' value={searchUserStatus} handleChange={handleSearch} list={statusOptions} />
+          <Autocomplete disablePortal id="searchUser" name='searchUser' options={listaNomesInstituicoes} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} value={localSearch} onChange={optimizedDebounce}/>
 
-          <FormRowSelect name='sortUser' labelText="Filtro" value={sortUser} handleChange={handleSearch} list={sortOptions} />
+          <Autocomplete disablePortal id="searchUserStatus" name='searchUserStatus' options={statusOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Situação" />} value={searchUserStatus} onChange={(event, newValue) => { handleSearch(['searchUserStatus', newValue.label]) }}/>
+          
+          <Autocomplete disablePortal id="sortUser" name='sortUser' options={sortOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Filtro" />} value={sortUser} onChange={(event, newValue) => { handleSearch(['sortUser', newValue.label]) }}/>
 
           <button className='btn btn-block limpar-btn' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>
