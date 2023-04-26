@@ -5,11 +5,7 @@ const Wrapper = styled.nav`
   height: var(--nav-height);
 
   display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
+  
   box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
 
   .logo {
@@ -21,13 +17,19 @@ const Wrapper = styled.nav`
   }
 
   .nav-center {
-    display: flex;
-
-    width: 90vw;
+    display: relative;    
 
     align-items: center;
 
-    justify-content: space-between;
+    margin-right: 1%
+  }
+
+  .pendencias {
+    display: flex;
+
+    align-items: center;
+
+    margin-right: 5%
   }
 
   .toggle-btn {
@@ -48,64 +50,6 @@ const Wrapper = styled.nav`
 
   background: var(--white);
 
-  .btn-container {
-    position: relative;
-  }
-
-  .btn {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 0 0.5rem;
-
-    position: relative;
-
-    box-shadow: var(--shadow-2);
-  }
-
-  .dropdown {
-    position: absolute;
-
-    top: 40px;
-
-    left: 0;
-
-    width: 100%;
-
-    background: var(--primary-100);
-
-    box-shadow: var(--shadow-2);
-
-    padding: 0.5rem;
-
-    text-align: center;
-
-    visibility: hidden;
-
-    border-radius: var(--borderRadius);
-  }
-
-  .show-dropdown {
-    visibility: visible;
-  }
-
-  .dropdown-btn {
-    background: transparent;
-
-    border-color: transparent;
-
-    color: var(--primary-500);
-
-    letter-spacing: var(--letterSpacing);
-
-    text-transform: capitalize;
-
-    cursor: pointer;
-  }
-
   .logo-text {
     display: none;
 
@@ -113,11 +57,13 @@ const Wrapper = styled.nav`
   }
 
   @media (min-width: 992px) {
-    position: sticky;
+    position: relative;
 
     top: 0;
 
     .nav-center {
+      position: relative;
+
       width: 90%;
     }
 

@@ -140,13 +140,21 @@ const Navbar = () => {
         <div>
           <Logo />
         </div>
+      </div>
+
+      <div className='pendencias'>        
+        <Box>
+          <MenuItem onClick={() => setMenuItem(true)}>            
+            <Badge color="warning" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
+              <PendingActionsIcon sx={{ color: '#ff9800' }} /> 
+            </Badge>
+          </MenuItem>
+        </Box>                       
 
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Account settings">            
             <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }} aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} >
-              <Badge color='warning' badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
-                <Avatar sx={{ width: 32, height: 32 }}>{user?.name.charAt(0)}</Avatar>
-              </Badge>
+              <Avatar sx={{ width: 32, height: 32 }}>{user?.name.charAt(0)}</Avatar>
             </IconButton>            
           </Tooltip>
         </Box>
@@ -181,20 +189,6 @@ const Navbar = () => {
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-          
-          {
-            (!semSolicitacoes && (stats.pending + stats.declined) > 0) &&
-            <MenuItem onClick={() => setMenuItem(true)}>            
-              <Badge color="warning" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
-                <PendingActionsIcon sx={{ color: '#ff9800' }}/> Pendências
-              </Badge>
-            </MenuItem>
-          }             
-
-          {
-            (!semSolicitacoes) &&
-            <Divider />
-          }
 
           <MenuItem onClick={logoutUser}>
             <ListItemIcon>
