@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react'
 
 import { useAppContext } from '../context/appContext'
 
-import { FormRowSelect } from '.'
 import Wrapper from '../assets/wrappers/SearchContainer'
 
 import Autocomplete from '@mui/material/Autocomplete'
@@ -56,12 +55,12 @@ const SearchAllEgressosContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>      
-          <Autocomplete disablePortal id="search" name='search' options={listaNomesInstituicoes} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} value={localSearch} onChange={optimizedDebounce}/>
-
+          <Autocomplete disablePortal id="search" name='search' options={listaNomesInstituicoes} value={localSearch} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} onChange={optimizedDebounce} />
+         
           <Autocomplete disablePortal id="searchStatus" name='searchStatus' options={statusOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Situação" />} value={searchStatus} onChange={(event, newValue) => { handleSearch(['searchStatus', newValue.label]) }}/>
           
           <Autocomplete disablePortal id="sort" name='sort' options={sortOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Filtro" />} value={sort} onChange={(event, newValue) => { handleSearch(['sortUser', newValue.label]) }}/>
-          
+         
           <button className='btn btn-block limpar-btn' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>
       </form>
