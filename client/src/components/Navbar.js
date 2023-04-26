@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
@@ -142,14 +141,17 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className='pendencias'>        
-        <Box>
-          <MenuItem onClick={() => setMenuItem(true)}>            
-            <Badge color="warning" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
-              <PendingActionsIcon sx={{ color: '#ff9800' }} /> 
-            </Badge>
-          </MenuItem>
-        </Box>                       
+      <div className='pendencias'>    
+        {
+          (!semSolicitacoes) &&
+          <Box>
+            <MenuItem onClick={() => setMenuItem(true)}>            
+              <Badge color="warning" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
+                <PendingActionsIcon sx={{ color: '#ff9800' }} /> 
+              </Badge>
+            </MenuItem>
+          </Box>
+        }                                   
 
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Account settings">            
