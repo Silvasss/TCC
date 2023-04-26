@@ -19,7 +19,6 @@ import PendingActionsIcon from '@mui/icons-material/PendingActions'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { deepOrange } from '@mui/material/colors'
 import Chip from '@mui/material/Chip'
 import FaceIcon from '@mui/icons-material/Face'
 import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory'
@@ -109,7 +108,7 @@ const Navbar = () => {
 
     return pendencias.map((pd) => {
       return (
-        <Card sx={{ maxWidth: 345, marginBottom: 2 }}>        
+        <Card key={pd._id} sx={{ maxWidth: 345, marginBottom: 2 }}>        
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {pd.instituicao}
