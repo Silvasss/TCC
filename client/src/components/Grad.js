@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+
 import { GiDistressSignal } from 'react-icons/gi'
 import { ImFlag } from "react-icons/im"
 
@@ -9,8 +10,10 @@ import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
+import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory'
 
-const Grad = ({ _id, curso, instituicao, status }) => { 
+
+const Grad = ({ _id, curso, instituicao, status, statusInstituicao }) => { 
   const { setEditGrad, deleteGrad } = useAppContext()
   
   const submit = (_id) => {
@@ -44,7 +47,9 @@ const Grad = ({ _id, curso, instituicao, status }) => {
 
       <div className='content'>
         <div className='content-center'>
-          <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />          
+          <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />     
+  
+          {statusInstituicao === 'recusada' ? <JobInfo icon={statusInstituicao === 'recusada' ? <ChangeHistoryIcon/> : <ImFlag/>} text={"Solicitação recusada"} /> : null}  
         </div>        
 
         <Link to='/add-grad' className='btn edit-btn' onClick={() => setEditGrad(_id)}>Editar</Link>
