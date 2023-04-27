@@ -17,7 +17,7 @@ const Wrapper = styled.nav`
   }
 
   .nav-center {
-    display: relative;    
+    display: flex;    
 
     align-items: center;
 
