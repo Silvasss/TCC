@@ -380,10 +380,10 @@ const AppProvider = ({ children }) => {
 
   const createGrad = async () => {
     dispatch({ type: CREATE_GRAD_BEGIN })
-    console.log('a')
+    
     try {
       const { curso, instituicao, statusGrad, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao, gradLocationLatitude, gradLocationLongitude } = state
-                  
+      
       let nomeEgresso = JSON.parse(user).name
       
       await authFetch.post('/grads', {nomeEgresso , curso, instituicao, statusGrad, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao, gradLocationLatitude, gradLocationLongitude})

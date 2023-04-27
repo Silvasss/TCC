@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Register, Landing, Error, ProtectedRoute } from './pages'
-import { Profile, SharedLayout, AddJob, AddGrad, AllGrads, AllMyGrads, ProfileEgresso, AllMyProfissionais } from './pages/dashboard'
+import { Profile, SharedLayout, AddJob, AddGrad, AllGrads, AllMyGrads, ProfileEgresso, AllMyProfissionais, Pendencias } from './pages/dashboard'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -35,6 +35,7 @@ function App() {
             <Route path='add-grad' element={<AddGrad />}/>
             <Route path='profile' element={<Profile />} />
             <Route path='egresso' element={<ProfileEgresso />} />
+            <Route path='pendencias' element={<Pendencias />} />
 
           </Route>
 

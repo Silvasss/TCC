@@ -6,7 +6,7 @@ import Grad from './Grad'
 import Wrapper from '../assets/wrappers/JobsContainer' 
 import PageBtnContainer from './PageBtnContainer'
 
-;
+
 const GradsContainer = () => {
   const {getGrads, userGrads, isLoading, page, totalUserGrads, searchUser, searchUserStatus, sortUser, numOfPagesUserGrads} = useAppContext()
   

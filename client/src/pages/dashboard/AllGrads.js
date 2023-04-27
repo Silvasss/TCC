@@ -18,7 +18,7 @@ const AllGrads = () => {
       <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static" color="transparent">
               <Toolbar>
-                  <Typography component="subtitle2" noWrap variant="h6" sx={{ fontWeight: 'bold', display: { xs: 'none', sm: 'block' }, textTransform: 'capitalize' }}>Todos os egressos</Typography>
+                  <Typography component="h4" variant="h6" noWrap sx={{ fontWeight: 'bold', display: { xs: 'none', sm: 'block' }, textTransform: 'capitalize' }}>Todos os egressos</Typography>
               
                   <Box sx={{ flexGrow: 1 }} />
 

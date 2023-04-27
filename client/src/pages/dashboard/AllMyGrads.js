@@ -25,7 +25,7 @@ const AllMyGrads = () => {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" color="transparent">
                     <Toolbar>
-                        <Typography variant="subtitle2" noWrap component="h6" sx={{fontWeight: 'bold', display: { xs: 'none', sm: 'block' }, textTransform: 'capitalize' }}>Minhas experiências acadêmicas</Typography>
+                        <Typography noWrap component="h4" variant="h6" sx={{fontWeight: 'bold', display: { xs: 'none', sm: 'block' }, textTransform: 'capitalize' }}>Minhas experiências acadêmicas</Typography>
                     
                         <Box sx={{ flexGrow: 1 }} />
                         
