@@ -16,7 +16,7 @@ import {
 
 const createGrad = async (req, res) => {
     const { curso, instituicao } = req.body
-
+    
     if (!curso || !instituicao) {
         throw new BadRequestError('Forneça todos os valores')
     }

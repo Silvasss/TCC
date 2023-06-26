@@ -20,7 +20,6 @@ const JobSchema = new mongoose.Schema(
     },
     jobType: {
       type: String,
-      enum: ['Tempo integral', 'Tempo parcial', 'Remoto', 'Estágio'],
       default: 'Tempo integral',
     },
     jobLocation: {
