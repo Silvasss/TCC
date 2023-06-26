@@ -1,24 +1,17 @@
 import Alert from './Alert'
 import BigSidebar from './BigSidebar'
 import FormRow from './FormRow'
-import FormRowDate from './FormRowDate'
-import FormRowSelect from './FormRowSelect'
 import JobsContainer from './JobsContainer'
 import Loading from './Loading'
 import Logo from './Logo'
 import Navbar from './Navbar'
 import SmallSidebar from './SmallSidebar'
-import StatsContainer from './StatsContainer'
 import GradsContainer from './GradsContainer'
 import EgressosContainer from './EgressosContainer'
 import PerfilEgressoContainer from './PerfilEgressoContainer'
-import EgressoPerfil from './EgressoPerfil'
-import AutoComplete from './FormSelectAutoComplete'
 import SearchContainer from './SearchContainer'
 import SearchAllEgressosContainer from './SearchAllEgressosContainer'
-import JobEgressoPerfil from './JobEgressoPerfil'
-import FormAutoCompleteLocalizacao from './FormAutoCompleteLocalizacao'
 import EgressoPendencias from './EgressoPendencias'
 
 
-export {Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, FormRowSelect, JobsContainer, StatsContainer, Loading, GradsContainer, EgressosContainer, FormRowDate, AutoComplete, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPerfil, JobEgressoPerfil, FormAutoCompleteLocalizacao, EgressoPendencias }
+export { Logo, FormRow, Alert, Navbar, BigSidebar, SmallSidebar, JobsContainer, Loading, GradsContainer, EgressosContainer, SearchContainer, SearchAllEgressosContainer, PerfilEgressoContainer, EgressoPendencias }

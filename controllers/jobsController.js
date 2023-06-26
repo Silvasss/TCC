@@ -90,9 +90,5 @@ const deleteJob = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Sucesso! Trabalho removido' })
 }
 
-const showStats = async (req, res) => {
-  res.send('show stats') 
-}
 
-
-export { createJob, deleteJob, getAllJobs, updateJob, showStats }
+export { createJob, deleteJob, getAllJobs, updateJob }

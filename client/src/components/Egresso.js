@@ -10,7 +10,6 @@ import { useAppContext } from '../context/appContext'
 const Egresso = ({createdBy, nomeEgresso, curso, instituicao }) => {   
   const { showProfileEgresso } = useAppContext()
 
-
   return (
     <Wrapper>
       <header>

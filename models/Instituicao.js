@@ -17,8 +17,7 @@ const InstituicaoSchema = new mongoose.Schema(
     },
     cursos: {
       type: Array
-    }
-    
+    }    
   },
   { timestamps: true }
 )
