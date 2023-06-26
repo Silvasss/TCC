@@ -302,8 +302,8 @@ const reducer = (state, action) => {
   if (action.type === SET_EDIT_GRAD) {
 
     const grad = state.userGrads.find((grad) => grad._id === action.payload.id)
-    
-    const { _id, curso, instituicao, statusGrad, dataInicioGraduacao, dataFimGraduacao } = grad
+
+    const { _id, curso, instituicao, status, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao } = grad
 
     return {
       ...state,
@@ -311,9 +311,11 @@ const reducer = (state, action) => {
       editGradId: _id,
       curso,
       instituicao,
-      statusGrad,
-      dataInicioGraduacao, 
-      dataFimGraduacao
+      statusGrad: status,
+      dataMesInicioGraduacao, //
+      dataAnoInicioGraduacao, //
+      dataMesFimGraduacao, //
+      dataAnoFimGraduacao,
     }
   }
 

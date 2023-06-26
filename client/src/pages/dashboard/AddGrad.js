@@ -112,7 +112,7 @@ const AddGrad = () => {
   const limpar = () => {
     clearGradValues()
   }
-    
+  //console.log(statusGrad)
   return (
     <Wrapper>
       {showAlert && <Alert />}
@@ -160,7 +160,7 @@ const AddGrad = () => {
               name='statusGrad'
               options={statusGradOptions}  
               sx={{ maxWidth: true }}
-              renderInput={(params) => <TextField {...params} label="Área de estudo" />}
+              renderInput={(params) => <TextField {...params} label="Situação" />}
               value={statusGrad}
               onChange={(event, newValue) => {                       
                 handleGradInput(['statusGrad', newValue.label])
