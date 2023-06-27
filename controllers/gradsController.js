@@ -39,7 +39,7 @@ const getAllGrads = async (req, res) => {
     }
 
     if (status && status !== 'Todos') {
-        queryObject.status = status
+        queryObject.statusGrad = statusGrad
     }
 
     if (search) {

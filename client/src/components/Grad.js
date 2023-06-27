@@ -13,7 +13,7 @@ import JobInfo from './JobInfo'
 import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory'
 
 
-const Grad = ({ _id, curso, instituicao, status, statusInstituicao }) => { 
+const Grad = ({ _id, curso, instituicao, statusGrad, statusInstituicao }) => { 
   const { setEditGrad, deleteGrad } = useAppContext()
   
   const submit = (_id) => {
@@ -47,7 +47,7 @@ const Grad = ({ _id, curso, instituicao, status, statusInstituicao }) => {
 
       <div className='content'>
         <div className='content-center'>
-          <JobInfo icon={status === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={status} />     
+          <JobInfo icon={statusGrad === 'pendente' ? <GiDistressSignal/> : <ImFlag/>} text={statusGrad} />     
   
           {statusInstituicao === 'recusada' ? <JobInfo icon={statusInstituicao === 'recusada' ? <ChangeHistoryIcon/> : <ImFlag/>} text={"Solicitação recusada"} /> : null}  
         </div>        
