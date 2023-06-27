@@ -35,7 +35,8 @@ const AddJob = () => {
     createJob,
     editJob,
     jobLocationEstado, 
-    jobLocationCidade
+    jobLocationCidade,
+    getJobs
   } = useAppContext()
 
   const navigate = useNavigate()
@@ -103,6 +104,8 @@ const AddJob = () => {
     createJob()
 
     limpar()
+
+    getJobs()
 
     navigate('/all-jobs')
   }

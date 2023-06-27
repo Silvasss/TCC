@@ -271,7 +271,7 @@ const AppProvider = ({ children }) => {
 
       dispatch({ type: CLEAR_VALUES })
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         return
       }
 
