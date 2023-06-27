@@ -142,6 +142,7 @@ const AddJob = () => {
             <Autocomplete            
               disablePortal
               disableClearable
+              autoComplete
               id="position"
               name='position'
               options={positionOptions}  
@@ -216,6 +217,7 @@ const AddJob = () => {
                   <Autocomplete
                     disablePortal
                     disableClearable
+                    autoComplete
                     id="combo-box-demo"
                     options={[state, ...stateData]}  
                     filterOptions={() => stateData}
@@ -236,6 +238,7 @@ const AddJob = () => {
                   <Autocomplete
                     disablePortal
                     disableClearable
+                    autoComplete
                     id="combo-box-demo"
                     options={[city, ...cityData]}  
                     filterOptions={() => cityData}
