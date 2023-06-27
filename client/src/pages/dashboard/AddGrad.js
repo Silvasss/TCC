@@ -131,6 +131,7 @@ const AddGrad = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
             <Autocomplete
+              disableClearable
               disablePortal
               id="instituicao"
               name='instituicao'
@@ -147,6 +148,7 @@ const AddGrad = () => {
           <Grid item xs={12} sm={12}>
             <Autocomplete
               disablePortal
+              disableClearable
               id="curso"
               name='curso'
               options={cursosInstituicao}  
@@ -162,6 +164,7 @@ const AddGrad = () => {
           <Grid item xs={12} sm={12}>
             <Autocomplete
               disablePortal
+              disableClearable
               id="statusGrad"
               name='statusGrad'
               options={statusGradOptions}  

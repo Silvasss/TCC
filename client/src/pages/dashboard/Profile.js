@@ -95,7 +95,8 @@ const Profile = () => {
           <Grid container spacing={2}>  
             <Grid item xs={1} sm={4}>
                 <Autocomplete
-                  disablePortal
+                  disablePortal 
+                  disableClearable
                   id="combo-box-demo"
                   options={countryData}  
                   getOptionLabel={(option) => option.name}
@@ -113,6 +114,7 @@ const Profile = () => {
                 <Grid item xs={2} sm={4}>
                     <Autocomplete
                       disablePortal
+                      disableClearable
                       id="combo-box-demo"
                       options={[state, ...stateData]}  
                       filterOptions={() => stateData}
@@ -132,6 +134,7 @@ const Profile = () => {
               <Grid item xs={3} sm={4}>
                   <Autocomplete
                     disablePortal
+                    disableClearable
                     id="combo-box-demo"
                     options={[city, ...cityData]}  
                     filterOptions={() => cityData}

@@ -55,11 +55,11 @@ const SearchContainer = () => {
         <h4>filtros</h4>
 
         <div className='form-center'>
-          <Autocomplete disablePortal id="searchUser" name='searchUser' options={listaNomesInstituicoes} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} value={localSearch} onChange={optimizedDebounce}/>
+          <Autocomplete disableClearable disablePortal id="searchUser" name='searchUser' options={listaNomesInstituicoes} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Selecione uma instituição" />} value={localSearch} onChange={optimizedDebounce}/>
 
-          <Autocomplete disablePortal id="searchUserStatus" name='searchUserStatus' options={statusOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Situação" />} value={searchUserStatus} onChange={(event, newValue) => { handleSearch(['searchUserStatus', newValue.label]) }}/>
+          <Autocomplete disableClearable disablePortal id="searchUserStatus" name='searchUserStatus' options={statusOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Situação" />} value={searchUserStatus} onChange={(event, newValue) => { handleSearch(['searchUserStatus', newValue.label]) }}/>
           
-          <Autocomplete disablePortal id="sortUser" name='sortUser' options={sortOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Filtro" />} value={sortUser} onChange={(event, newValue) => { handleSearch(['sortUser', newValue.label]) }}/>
+          <Autocomplete disableClearable disablePortal id="sortUser" name='sortUser' options={sortOptions} sx={{ maxWidth: true }} renderInput={(params) => <TextField {...params} label="Filtro" />} value={sortUser} onChange={(event, newValue) => { handleSearch(['sortUser', newValue.label]) }}/>
 
           <button className='btn btn-block limpar-btn' disabled={isLoading} onClick={handleSubmit}> limpar filtros </button>
         </div>

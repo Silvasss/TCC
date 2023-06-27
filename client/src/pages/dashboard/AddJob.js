@@ -127,6 +127,7 @@ const AddJob = () => {
     clearValues()
   }
 
+
   return (
     <Wrapper>
       <form className='form'>
@@ -138,8 +139,9 @@ const AddJob = () => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
-            <Autocomplete
+            <Autocomplete            
               disablePortal
+              disableClearable
               id="position"
               name='position'
               options={positionOptions}  
@@ -158,8 +160,8 @@ const AddJob = () => {
 
           <Grid item xs={12} sm={6}>
             <Autocomplete
-              disablePortal
-              id="status"
+              disableClearable
+              id="disable-clearable"
               name='status'
               options={statusOptions}  
               sx={{ maxWidth: true }}
@@ -174,6 +176,7 @@ const AddJob = () => {
           <Grid item xs={12} sm={6}>
             <Autocomplete
               disablePortal
+              disableClearable
               id="jobType"
               name='jobType'
               options={jobTypeOptions}  
@@ -194,6 +197,7 @@ const AddJob = () => {
             <Grid item xs={12} sm={4}>
               <Autocomplete
                 disablePortal
+                disableClearable
                 id="combo-box-demo"
                 options={countryData}  
                 getOptionLabel={(option) => option.name}
@@ -211,6 +215,7 @@ const AddJob = () => {
                 (Array.isArray(stateData) && stateData.length > 0) &&                
                   <Autocomplete
                     disablePortal
+                    disableClearable
                     id="combo-box-demo"
                     options={[state, ...stateData]}  
                     filterOptions={() => stateData}
@@ -230,6 +235,7 @@ const AddJob = () => {
                 (Array.isArray(cityData) && cityData.length > 0) &&             
                   <Autocomplete
                     disablePortal
+                    disableClearable
                     id="combo-box-demo"
                     options={[city, ...cityData]}  
                     filterOptions={() => cityData}
