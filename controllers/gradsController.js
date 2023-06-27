@@ -17,6 +17,8 @@ import {
 const createGrad = async (req, res) => {
     const { curso, instituicao } = req.body
     
+    console.log(req.body)
+
     if (!curso || !instituicao) {
         throw new BadRequestError('Forneça todos os valores')
     }
@@ -130,6 +132,8 @@ const getAllEgressosGrads = async (req, res) => {
     // Coleção com todos os valores do objeto "grads"
     let allGrads = await result            
     
+    allGrads = [...new Map(allGrads.map(v => [v.nomeEgresso, v])).values()]
+
     const totalAllGrads = await Grad.countDocuments(queryObject) 
     
     const numOfPages = Math.ceil(totalAllGrads / limit)

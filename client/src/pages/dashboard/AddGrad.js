@@ -69,7 +69,7 @@ const AddGrad = () => {
 
   const [cursosInstituicao, setCursosInstituicao] = useState(instituicaoOptions[0].cursos)
   
-  const handleGradInput = (e) => {    
+  const handleGradInput = (e) => {     
     try {
       if (e[0] === 'statusGrad' && e[1] === 'Atual') {
         setDisableDataConclusao(false)
@@ -79,9 +79,9 @@ const AddGrad = () => {
         setDisableDataConclusao(true)
       }
 
-      const name = e.target.name
+      const name = e[0]
     
-      const value = e.target.value
+      const value = e[1]    
       
       handleChange({ name, value })
     } catch (error) {
@@ -112,7 +112,7 @@ const AddGrad = () => {
   const limpar = () => {
     clearGradValues()
   }
-  //console.log(statusGrad)
+  
   return (
     <Wrapper>
       {showAlert && <Alert />}

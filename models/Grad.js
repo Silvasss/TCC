@@ -16,7 +16,7 @@ const GradSchema = new mongoose.Schema(
       required: [true, 'Por favor, forneça curso'],
       maxlength: 50,
     },
-    status: {
+    statusGrad: {
       type: String,
       enum: ['Atual', 'Anterior'],
       default: 'Anterior',
