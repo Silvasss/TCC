@@ -303,7 +303,7 @@ const reducer = (state, action) => {
 
     const grad = state.userGrads.find((grad) => grad._id === action.payload.id)
 
-    const { _id, curso, instituicao, status, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao } = grad
+    const { _id, curso, instituicao, statusGrad, dataMesInicioGraduacao, dataAnoInicioGraduacao, dataMesFimGraduacao, dataAnoFimGraduacao } = grad
 
     return {
       ...state,
@@ -311,7 +311,7 @@ const reducer = (state, action) => {
       editGradId: _id,
       curso,
       instituicao,
-      statusGrad: status,
+      statusGrad: statusGrad,
       dataMesInicioGraduacao, //
       dataAnoInicioGraduacao, //
       dataMesFimGraduacao, //

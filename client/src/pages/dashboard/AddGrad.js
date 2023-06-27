@@ -113,6 +113,12 @@ const AddGrad = () => {
     clearGradValues()
   }
   
+  if (disableDataConclusao && isEditing && statusGrad === "Atual") {
+    setDisableDataConclusao(false)
+    console.log(statusGrad === "Atual", disableDataConclusao, isEditing)
+
+  }
+
   return (
     <Wrapper>
       {showAlert && <Alert />}
