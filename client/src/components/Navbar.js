@@ -43,6 +43,8 @@ const Navbar = () => {
       navigate('/pendencias')
   }
 
+  const Total = stats.pending + stats.declined
+
   return (
     <Wrapper>
       <div className='nav-center'>
@@ -58,7 +60,7 @@ const Navbar = () => {
           (!semSolicitacoes) &&
           <Box>
             <MenuItem onClick={() => redirecionar()}>            
-              <Badge color="warning" badgeContent={stats.pending + stats.declined} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
+              <Badge color="warning" badgeContent={Total > 0 ? Total : semSolicitacoes = true} anchorOrigin={{ vertical: 'top', horizontal: 'left'}}>
                 <PendingActionsIcon sx={{ color: '#ff9800' }} /> 
               </Badge>
             </MenuItem>
