@@ -38,6 +38,13 @@ const Wrapper = styled.main`
     color: var(--grey-600);
   }
 
+  .logo {
+    padding-top: 15%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .main-img {
     display: none;
   }
