@@ -79,12 +79,6 @@ const AddGrad = () => {
         setDisableDataConclusao(true)
       }
 
-      const name = e[0]
-    
-      const value = e[1]    
-      
-      handleChange({ name, value })
-    } catch (error) {
       if (e[0] === 'instituicao') {
         setCursosInstituicao(instituicaoOptions[instituicaoOptions.map(e => e.label).indexOf(e[1])].cursos)
 
@@ -103,9 +97,11 @@ const AddGrad = () => {
 
       const name = e[0]
     
-      const value = e[1]
+      const value = e[1]    
       
-      handleChange({ name, value })
+      handleChange({ name, value })   
+    } catch (error) {     
+      const name = e[0]
     }    
   }
 
