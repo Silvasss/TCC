@@ -84,7 +84,7 @@ const PerfilEgressoContainer = () => {
                                     
                                     <div className='content'>
                                         <div className='content-center'>
-                                            <JobInfo icon={grad.status === 'pendente' ? <GiDistressSignal /> : <ImFlag />} text={grad.status} />
+                                            <JobInfo icon={grad.statusGrad === 'pendente' ? <GiDistressSignal /> : <ImFlag />} text={grad.statusGrad} />
 
                                             <JobInfo icon={<FaPhoenixFramework />} text={grad.curso} />
 
