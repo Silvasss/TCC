@@ -134,7 +134,7 @@ const getAllEgressosGrads = async (req, res) => {
     
     allGrads = [...new Map(allGrads.map(v => [v.nomeEgresso, v])).values()]
 
-    const totalAllGrads = await Grad.countDocuments(queryObject) 
+    const totalAllGrads = allGrads.length
     
     const numOfPages = Math.ceil(totalAllGrads / limit)
     
